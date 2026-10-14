@@ -1,0 +1,2542 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Delinéia · Defesa de tese · Rafael Antunes dos Santos</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Biblioteca reveal.js (cópia local em /lib, funciona sem internet) -->
+  <link rel="stylesheet" href="lib/reveal/reset.css">
+  <link rel="stylesheet" href="lib/reveal/reveal.css">
+
+  <!-- Nosso tema: cores, fontes, leiaute -->
+  <link rel="stylesheet" href="css/tema.css">
+  <link rel="stylesheet" href="css/estado-da-arte.css">
+</head>
+<body>
+
+<!-- =====================================================================
+     ÍCONES REUTILIZÁVEIS
+     Desenhados uma única vez. Para usar em qualquer slide:
+     <svg><use href="#icone-coocorrencia"></use></svg>
+     ===================================================================== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="icone-coocorrencia" viewBox="0 0 48 48">
+    <line x1="10" y1="36" x2="24" y2="12" stroke="#1C2B45" stroke-width="2.4"/>
+    <line x1="24" y1="12" x2="39" y2="32" stroke="#1C2B45" stroke-width="2.4"/>
+    <line x1="10" y1="36" x2="39" y2="32" stroke="#1C2B45" stroke-width="2.4"/>
+    <line x1="39" y1="32" x2="42" y2="10" stroke="#1C2B45" stroke-width="2.4"/>
+    <circle cx="10" cy="36" r="5" fill="#F7F7F4" stroke="#1C2B45" stroke-width="2.4"/>
+    <circle cx="42" cy="10" r="4" fill="#F7F7F4" stroke="#1C2B45" stroke-width="2.4"/>
+    <circle cx="39" cy="32" r="5" fill="#F7F7F4" stroke="#1C2B45" stroke-width="2.4"/>
+    <circle cx="24" cy="12" r="6" fill="#B3893A"/>
+  </symbol>
+  <symbol id="icone-llm" viewBox="0 0 48 48">
+    <rect x="5" y="7" width="38" height="34" fill="none" stroke="#1C2B45" stroke-width="2.4"/>
+    <line x1="12" y1="17" x2="36" y2="17" stroke="#1C2B45" stroke-width="2.4"/>
+    <line x1="12" y1="24" x2="31" y2="24" stroke="#1C2B45" stroke-width="2.4"/>
+    <line x1="12" y1="31" x2="22" y2="31" stroke="#1C2B45" stroke-width="2.4"/>
+    <rect x="25" y="28" width="6" height="6" fill="#B3893A"/>
+  </symbol>
+</svg>
+
+<div class="reveal">
+<div class="slides">
+
+<!-- =====================================================================
+     SLIDE 1 · ABERTURA
+     ===================================================================== -->
+<section class="abertura" data-background-color="#E9EDF2" data-rodape="nao">
+  <div class="quadro">
+
+    <!-- Logotipos acima das instituições: arquivos em midia/logos/ -->
+    <div class="logos">
+      <img src="midia/logos/ufrgs.png" alt="UFRGS" style="height: 88px" onerror="this.style.display='none'">
+      <img src="midia/logos/cinted.png" alt="CINTED" style="height: 70px" onerror="this.style.display='none'">
+      <img src="midia/logos/ppgie.png" alt="PPGIE" style="height: 74px" onerror="this.style.display='none'">
+    </div>
+
+    <div class="instituicao">
+      Universidade Federal do Rio Grande do Sul<br>
+      Centro Interdisciplinar de Novas Tecnologias na Educação<br>
+      Programa de Pós-Graduação em Informática na Educação
+    </div>
+
+    <h1 class="nome-sistema">Delinéia</h1>
+    <p class="subtitulo">Grandes modelos de linguagem e análise de coocorrência de palavras para o delineamento do escopo de projetos de pesquisa no ensino superior</p>
+
+    <div class="autoria">
+      <strong>Rafael Antunes dos Santos</strong><br>
+      Orientador Prof. Dr. Eliseo Berni Reategui<br>
+      Defesa de tese, Porto Alegre, 8 de outubro de 2026
+    </div>
+
+    <!-- Mapa de coocorrência com os termos da própria tese -->
+    <svg class="mapa-abertura" viewBox="0 0 860 900" aria-hidden="true">
+      <g>
+        <line class="aresta" x1="430" y1="430" x2="230" y2="270"/>
+        <line class="aresta" x1="430" y1="430" x2="650" y2="230"/>
+        <line class="aresta" x1="430" y1="430" x2="720" y2="500"/>
+        <line class="aresta" x1="430" y1="430" x2="270" y2="640"/>
+        <line class="aresta" x1="430" y1="430" x2="100" y2="450"/>
+        <line class="aresta" x1="230" y1="270" x2="650" y2="230"/>
+        <line class="aresta" x1="230" y1="270" x2="100" y2="450"/>
+        <line class="aresta" x1="720" y1="500" x2="560" y2="720"/>
+        <line class="aresta" x1="560" y1="720" x2="270" y2="640"/>
+        <line class="aresta" x1="270" y1="640" x2="180" y2="830"/>
+        <line class="aresta" x1="650" y1="230" x2="470" y2="110"/>
+        <line class="aresta" x1="560" y1="720" x2="760" y2="790"/>
+        <line class="aresta" x1="650" y1="230" x2="720" y2="500"/>
+        <line class="aresta" x1="230" y1="270" x2="470" y2="110"/>
+        <line class="aresta" x1="430" y1="430" x2="560" y2="580"/>
+        <line class="aresta" x1="560" y1="580" x2="720" y2="500"/>
+      </g>
+      <circle class="no" cx="230" cy="270" r="11"/>
+      <circle class="no" cx="650" cy="230" r="11"/>
+      <circle class="no" cx="720" cy="500" r="11"/>
+      <circle class="no" cx="270" cy="640" r="12"/>
+      <circle class="no" cx="100" cy="450" r="8"/>
+      <circle class="no" cx="560" cy="720" r="9"/>
+      <circle class="no" cx="180" cy="830" r="7"/>
+      <circle class="no" cx="470" cy="110" r="7"/>
+      <circle class="no" cx="760" cy="790" r="7"/>
+      <circle class="no" cx="560" cy="580" r="10"/>
+      <circle class="no central" cx="430" cy="430" r="18"/>
+
+      <text x="214" y="246" text-anchor="end">palavras-chave</text>
+      <text x="668" y="222">coocorrência</text>
+      <text x="740" y="508">LLM</text>
+      <text x="252" y="686" text-anchor="middle">autoeficácia</text>
+      <text x="100" y="494" text-anchor="middle">busca</text>
+      <text x="578" y="766" text-anchor="middle">feedback</text>
+      <text x="200" y="838">formação em pesquisa</text>
+      <text x="488" y="100">relevância</text>
+      <text x="760" y="836" text-anchor="middle">metacognição</text>
+      <text x="544" y="616" text-anchor="end">escopo</text>
+      <text class="central" x="430" y="386" text-anchor="middle">delineamento</text>
+    </svg>
+
+  </div>
+
+  <aside class="notes">
+    [0:30] Cumprimentar a banca pelo nome, agradecer a presença e apresentar o título.
+    Enquanto o mapa se desenha, dizer que a imagem é um grafo de coocorrência
+    montado com os termos da própria tese, e que esse tipo de mapa vai
+    acompanhar toda a apresentação.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 2 · TEMA
+     Modelo assertion-evidence: a afirmação no título e a evidência abaixo.
+     Sequência de cliques: busca sensível, busca específica, escopo delineado.
+     ===================================================================== -->
+<section class="tema" data-secao="Introdução">
+  <div class="quadro">
+
+    <h2 class="afirmacao">Delinear o escopo de um projeto exige equilibrar sensibilidade e especificidade na busca bibliográfica</h2>
+
+    <div class="evidencia">
+      <div class="chave-leitura">
+        <span>
+          <svg viewBox="0 0 34 34"><circle cx="17" cy="17" r="13" fill="none" stroke="#B3893A" stroke-width="3" stroke-dasharray="7 5"/></svg>
+          o que interessa ao projeto
+        </span>
+        <span>
+          <svg viewBox="0 0 34 34"><circle cx="17" cy="17" r="13" fill="rgba(28,43,69,.09)" stroke="#1C2B45" stroke-width="2.4"/></svg>
+          o que a busca recupera
+        </span>
+      </div>
+
+      <div class="tres-buscas">
+        <div class="busca fragment" data-fragment-index="1">
+          <svg viewBox="0 0 460 460">
+            <circle class="recuperado" cx="230" cy="230" r="215"/>
+            <circle class="relevante" cx="230" cy="230" r="120"/>
+          </svg>
+          <h3>Busca sensível</h3>
+          <p>recupera muito além do projeto</p>
+        </div>
+
+        <div class="busca fragment" data-fragment-index="2">
+          <svg viewBox="0 0 460 460">
+            <circle class="relevante" cx="230" cy="230" r="120"/>
+            <circle class="recuperado" cx="255" cy="215" r="64"/>
+          </svg>
+          <h3>Busca específica</h3>
+          <p>deixa de fora parte do que importa</p>
+        </div>
+
+        <div class="busca alvo fragment" data-fragment-index="3">
+          <svg viewBox="0 0 460 460">
+            <circle class="recuperado" cx="236" cy="226" r="126"/>
+            <circle class="relevante" cx="230" cy="230" r="120"/>
+          </svg>
+          <h3>Escopo delineado</h3>
+          <p>aproxima a busca do projeto</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Referências: aparecem com a fala e somem no clique seguinte -->
+    <div class="referencias">
+      <span class="ref fragment fade-out" data-fragment-index="1">Cooksey; McDonald, 2019</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="1">Alves; Vasconcellos; Nogueira, 2022</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="3">Vakkari, 2001; Efendioğlu; Sendurur, 2023</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [1:15] Ao entrar, ler a afirmação com calma. Cooksey e McDonald descrevem o
+    projeto como uma sequência de concessões entre o ideal e o viável.
+    Clique 1. A busca sensível traz tudo e afoga o estudante.
+    Clique 2. A busca específica é limpa, mas perde referências que importam.
+    Clique 3. O delineamento aproxima as duas figuras. Vakkari mostra que esse
+    ajuste depende de conhecimento de domínio que o estudante ainda não tem.
+  </aside>
+</section>
+
+
+<!-- =====================================================================
+     SLIDE 3 · CONTEXTO
+     Cadeia de causa: volume da literatura, busca manual, respostas técnicas.
+     Primeira aparição dos marcadores de coocorrência e de LLM.
+     ===================================================================== -->
+<section class="contexto" data-secao="Introdução">
+  <div class="quadro">
+
+    <h2 class="afirmacao">O volume da literatura científica torna a busca manual exaustiva e sujeita a vieses</h2>
+
+    <div class="evidencia cadeia">
+
+      <!-- Elo 1: volume (visível ao entrar) -->
+      <div class="elo">
+        <svg class="pictograma" viewBox="0 0 390 252" aria-hidden="true">
+          <defs>
+            <pattern id="docs-volume" width="30" height="36" patternUnits="userSpaceOnUse">
+              <rect x="5" y="4" width="20" height="28" fill="none" stroke="#1C2B45" stroke-width="2"/>
+            </pattern>
+          </defs>
+          <rect x="0" y="0" width="390" height="252" fill="url(#docs-volume)"/>
+        </svg>
+        <h3>Volume crescente</h3>
+        <p>a literatura cresce em ritmo acelerado</p>
+      </div>
+
+      <svg class="seta fragment" data-fragment-index="1" viewBox="0 0 80 40" aria-hidden="true">
+        <line x1="4" y1="20" x2="70" y2="20"/><polyline points="58,8 72,20 58,32"/>
+      </svg>
+
+      <!-- Elo 2: busca manual (clique 1) -->
+      <div class="elo fragment" data-fragment-index="1">
+        <svg class="pictograma" viewBox="0 0 390 252" aria-hidden="true">
+          <defs>
+            <pattern id="docs-busca" width="30" height="36" patternUnits="userSpaceOnUse">
+              <rect x="5" y="4" width="20" height="28" fill="none" stroke="#1C2B45" stroke-width="2"/>
+            </pattern>
+            <clipPath id="lente-busca"><circle cx="150" cy="110" r="70"/></clipPath>
+          </defs>
+          <rect x="0" y="0" width="390" height="252" fill="url(#docs-busca)" opacity="0.22"/>
+          <rect x="0" y="0" width="390" height="252" fill="url(#docs-busca)" clip-path="url(#lente-busca)"/>
+          <circle cx="150" cy="110" r="70" fill="none" stroke="#B3893A" stroke-width="5"/>
+          <line x1="200" y1="160" x2="262" y2="222" stroke="#B3893A" stroke-width="9" stroke-linecap="round"/>
+        </svg>
+        <h3>Busca manual</h3>
+        <p>exaustiva e sujeita a vieses de seleção</p>
+      </div>
+
+      <svg class="seta fragment" data-fragment-index="2" viewBox="0 0 80 40" aria-hidden="true">
+        <line x1="4" y1="20" x2="70" y2="20"/><polyline points="58,8 72,20 58,32"/>
+      </svg>
+
+      <!-- Elo 3: respostas técnicas (cliques 2 e 3) -->
+      <div class="elo respostas">
+        <p class="apoio com-icone fragment" data-fragment-index="2">
+          <svg><use href="#icone-coocorrencia"></use></svg>
+          <span>A análise de coocorrência revela a estrutura semântica de um campo</span>
+        </p>
+        <p class="apoio com-icone fragment" data-fragment-index="3">
+          <svg><use href="#icone-llm"></use></svg>
+          <span>Os LLMs processam e organizam grandes volumes de texto</span>
+        </p>
+      </div>
+
+    </div>
+
+    <div class="marcadores">
+      <span class="marcador fragment" data-fragment-index="2"><svg><use href="#icone-coocorrencia"></use></svg>coocorrência</span>
+      <span class="marcador fragment" data-fragment-index="3"><svg><use href="#icone-llm"></use></svg>LLM</span>
+    </div>
+
+    <div class="referencias">
+      <span class="ref fragment fade-out" data-fragment-index="1">Meadows, 1999; Hanson et al., 2024</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="1">Grames et al., 2019; Haddaway et al., 2020</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="2">Callon et al., 1983; Klarin, 2024</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="3">Xu et al., 2024; Peres et al., 2023</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [1:30] A explosão da informação é um problema antigo, descrito por Meadows,
+    e hoje pressiona a capacidade de leitura e revisão da academia (Hanson et al.).
+    Clique 1. A consequência para quem pesquisa é uma busca manual exaustiva,
+    que enxerga pouco de cada vez e fica sujeita a vieses.
+    Clique 2. Primeira resposta técnica, a análise de coocorrência. Apontar o ícone
+    no canto e avisar que ele volta sempre que o conceito voltar.
+    Clique 3. Segunda resposta, os LLMs, com o seu próprio ícone.
+  </aside>
+</section>
+
+
+<!-- =====================================================================
+     SLIDE 4 · JUSTIFICATIVA
+     ===================================================================== -->
+<section class="justificativa" data-secao="Introdução">
+  <div class="quadro">
+
+    <h2 class="afirmacao">Diante da mesma questão, pessoas diferentes escolhem termos diferentes e recuperam documentos diferentes</h2>
+
+    <div class="evidencia duas-colunas" style="grid-template-columns: 820px 1fr; column-gap: 110px; align-items:start; padding-top:64px">
+      <div class="sobreposicao">
+          <svg viewBox="0 0 818 428">
+            <rect class="faixa" x="384" y="26" width="36" height="314"/>
+            <text x="0" y="69">busca A</text>
+            <circle class="doc" cx="150" cy="60" r="12"/>
+            <circle class="doc vazio" cx="186" cy="60" r="12"/>
+            <circle class="doc" cx="222" cy="60" r="12"/>
+            <circle class="doc" cx="258" cy="60" r="12"/>
+            <circle class="doc vazio" cx="294" cy="60" r="12"/>
+            <circle class="doc vazio" cx="330" cy="60" r="12"/>
+            <circle class="doc vazio" cx="366" cy="60" r="12"/>
+            <circle class="doc ouro" cx="402" cy="60" r="12"/>
+            <circle class="doc vazio" cx="438" cy="60" r="12"/>
+            <circle class="doc" cx="474" cy="60" r="12"/>
+            <circle class="doc vazio" cx="510" cy="60" r="12"/>
+            <circle class="doc vazio" cx="546" cy="60" r="12"/>
+            <circle class="doc" cx="582" cy="60" r="12"/>
+            <circle class="doc vazio" cx="618" cy="60" r="12"/>
+            <circle class="doc vazio" cx="654" cy="60" r="12"/>
+            <circle class="doc" cx="690" cy="60" r="12"/>
+            <circle class="doc vazio" cx="726" cy="60" r="12"/>
+            <circle class="doc vazio" cx="762" cy="60" r="12"/>
+            <text x="0" y="151">busca B</text>
+            <circle class="doc vazio" cx="150" cy="142" r="12"/>
+            <circle class="doc" cx="186" cy="142" r="12"/>
+            <circle class="doc vazio" cx="222" cy="142" r="12"/>
+            <circle class="doc" cx="258" cy="142" r="12"/>
+            <circle class="doc vazio" cx="294" cy="142" r="12"/>
+            <circle class="doc vazio" cx="330" cy="142" r="12"/>
+            <circle class="doc vazio" cx="366" cy="142" r="12"/>
+            <circle class="doc ouro" cx="402" cy="142" r="12"/>
+            <circle class="doc" cx="438" cy="142" r="12"/>
+            <circle class="doc vazio" cx="474" cy="142" r="12"/>
+            <circle class="doc vazio" cx="510" cy="142" r="12"/>
+            <circle class="doc vazio" cx="546" cy="142" r="12"/>
+            <circle class="doc vazio" cx="582" cy="142" r="12"/>
+            <circle class="doc" cx="618" cy="142" r="12"/>
+            <circle class="doc vazio" cx="654" cy="142" r="12"/>
+            <circle class="doc vazio" cx="690" cy="142" r="12"/>
+            <circle class="doc" cx="726" cy="142" r="12"/>
+            <circle class="doc vazio" cx="762" cy="142" r="12"/>
+            <text x="0" y="233">busca C</text>
+            <circle class="doc vazio" cx="150" cy="224" r="12"/>
+            <circle class="doc vazio" cx="186" cy="224" r="12"/>
+            <circle class="doc vazio" cx="222" cy="224" r="12"/>
+            <circle class="doc vazio" cx="258" cy="224" r="12"/>
+            <circle class="doc" cx="294" cy="224" r="12"/>
+            <circle class="doc" cx="330" cy="224" r="12"/>
+            <circle class="doc vazio" cx="366" cy="224" r="12"/>
+            <circle class="doc ouro" cx="402" cy="224" r="12"/>
+            <circle class="doc vazio" cx="438" cy="224" r="12"/>
+            <circle class="doc vazio" cx="474" cy="224" r="12"/>
+            <circle class="doc" cx="510" cy="224" r="12"/>
+            <circle class="doc" cx="546" cy="224" r="12"/>
+            <circle class="doc vazio" cx="582" cy="224" r="12"/>
+            <circle class="doc vazio" cx="618" cy="224" r="12"/>
+            <circle class="doc" cx="654" cy="224" r="12"/>
+            <circle class="doc vazio" cx="690" cy="224" r="12"/>
+            <circle class="doc vazio" cx="726" cy="224" r="12"/>
+            <circle class="doc vazio" cx="762" cy="224" r="12"/>
+            <text x="0" y="315">busca D</text>
+            <circle class="doc vazio" cx="150" cy="306" r="12"/>
+            <circle class="doc vazio" cx="186" cy="306" r="12"/>
+            <circle class="doc vazio" cx="222" cy="306" r="12"/>
+            <circle class="doc vazio" cx="258" cy="306" r="12"/>
+            <circle class="doc vazio" cx="294" cy="306" r="12"/>
+            <circle class="doc vazio" cx="330" cy="306" r="12"/>
+            <circle class="doc" cx="366" cy="306" r="12"/>
+            <circle class="doc ouro" cx="402" cy="306" r="12"/>
+            <circle class="doc vazio" cx="438" cy="306" r="12"/>
+            <circle class="doc" cx="474" cy="306" r="12"/>
+            <circle class="doc vazio" cx="510" cy="306" r="12"/>
+            <circle class="doc vazio" cx="546" cy="306" r="12"/>
+            <circle class="doc vazio" cx="582" cy="306" r="12"/>
+            <circle class="doc vazio" cx="618" cy="306" r="12"/>
+            <circle class="doc vazio" cx="654" cy="306" r="12"/>
+            <circle class="doc" cx="690" cy="306" r="12"/>
+            <circle class="doc vazio" cx="726" cy="306" r="12"/>
+            <circle class="doc" cx="762" cy="306" r="12"/>
+          </svg>
+        <div class="legenda">Esquema dos documentos recuperados por quatro buscas para a mesma questão. A coluna dourada é o único documento comum a todas.</div>
+      </div>
+
+      <div>
+        <p class="apoio fragment" data-fragment-index="1" style="font-size:33px">Escolher e combinar termos exige um conhecimento de domínio que o estudante ainda está construindo</p>
+        <p class="apoio fragment" data-fragment-index="2" style="font-size:33px">Os protocolos para construir estratégias de busca foram desenhados para revisores experientes</p>
+        <p class="apoio fragment" data-fragment-index="3" style="font-size:33px">O ART/REV, pensado para iniciantes, trabalha com citações e deixa de fora o conteúdo semântico</p>
+      </div>
+    </div>
+
+    <div class="marcadores">
+      <span class="marcador fragment" data-fragment-index="3"><svg><use href="#icone-coocorrencia"></use></svg>coocorrência</span>
+    </div>
+
+    <div class="referencias">
+      <span class="ref fragment fade-out" data-fragment-index="1">Saracevic; Kantor, 1988b</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="1">Fidel, 1991a; Vakkari, 2001</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="2">Bramer et al., 2018a; Grames et al., 2019</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="3">Walsh et al., 2022</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [1:30] O esquema representa a baixa sobreposição descrita por Saracevic e Kantor.
+    Cada linha é uma busca, cada círculo cheio um documento recuperado. A coluna
+    dourada é o pouco que as quatro buscas têm em comum.
+    Clique 1. Para o estudante isso é mais grave, falta vocabulário de domínio.
+    Clique 2. As soluções existentes pressupõem quem já domina os protocolos.
+    Clique 3. O ART/REV chega aos iniciantes, mas fica nas citações. Aqui volta o
+    ícone da coocorrência, porque é esse o espaço que o Delinéia ocupa.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 5 · O PROBLEMA
+     Fecha a introdução e prepara a questão de pesquisa.
+     A imagem fica em midia/imagens/estudante-pedra.png. Enquanto o
+     arquivo não existir, aparece o espaço reservado.
+     ===================================================================== -->
+<section class="problema" data-secao="Introdução">
+  <div class="quadro">
+
+    <h2 class="afirmacao">Delinear o escopo é um desafio cognitivo e afetivo</h2>
+
+    <div class="evidencia">
+
+      <div>
+        <div class="figura">
+          <span class="espera">imagem da estudante</span>
+          <img src="midia/imagens/estudante-pedra.png" alt="Estudante carregando uma pedra sobre a cabeça"
+               onload="this.parentElement.classList.add('com-imagem'); this.previousElementSibling.style.display='none'"
+               onerror="this.style.display='none'">
+        </div>
+        <p class="legenda-figura">O estudante enfrenta sobrecarga informacional e precisa converter intuições difusas em recortes metodológicos coerentes.</p>
+      </div>
+
+      <div>
+        <div class="bloco fragment" data-fragment-index="1">
+          <h3>Busca em linguagem natural</h3>
+          <div class="consulta">o léxico na literatura, como o léxico reflete uma época</div>
+          <p>Consultas sem operadores lógicos nem truncagem, registradas no estudo final.</p>
+        </div>
+
+        <div class="bloco paradoxo fragment" data-fragment-index="2">
+          <h3>Equação madura, segurança baixa</h3>
+          <div class="consulta">("stingless bees" OR Meliponini) AND ("urbanization" OR "urban ecology")</div>
+          <p>Quem escreveu esta equação se avaliou como inseguro.</p>
+        </div>
+
+        <p class="fecho fragment" data-fragment-index="3">O acesso a motores de busca convive com a insegurança na hora de orquestrar a busca sob ambiguidade.</p>
+      </div>
+
+    </div>
+
+    <div class="referencias">
+      <span class="ref fragment fade-in-then-out" data-fragment-index="1">Saha; Ahmed, 2025</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="2">Dados da pesquisa</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="3">Kuhlthau, 2004; Vakkari, 2001</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [1:00] Este é o diagnóstico empírico da tese, e ele tem duas faces.
+    Clique 1. Dezenas de universitários digitaram frases contínuas, sem
+    operadores lógicos, o que Saha e Ahmed confirmam em testes recentes.
+    Clique 2. Na direção oposta, quem montou equações maduras se declarou
+    inseguro. A autopercepção destoa da competência analítica.
+    Clique 3. Fechar dizendo que ter a ferramenta em mãos deixa de lado o
+    principal, que é orquestrar a busca sob ambiguidade. Emendar na questão.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 5 · QUESTÃO DE PESQUISA (único slide de leitura)
+     ===================================================================== -->
+<section class="leitura" data-secao="Introdução">
+  <div class="quadro">
+    <div class="rotulo">Questão de pesquisa</div>
+    <blockquote>De que maneira a avaliação automatizada das definições preliminares de um projeto afeta a autoeficácia dos estudantes no delineamento de suas propostas de investigação?</blockquote>
+  </div>
+
+  <aside class="notes">
+    [0:40] Ler a questão em voz alta, sem pressa, e deixar um segundo de silêncio
+    antes de avançar para os objetivos.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 7 · OBJETIVOS
+     Segundo momento de leitura direta, logo após a questão de pesquisa.
+     A coluna da direita indica onde cada objetivo foi alcançado,
+     conforme o capítulo de conclusões da tese.
+     ===================================================================== -->
+<section class="objetivos" data-secao="Introdução">
+  <div class="quadro">
+
+    <div class="rotulo">Objetivos</div>
+
+    <div class="geral">
+      <span class="etiqueta">Geral</span>
+      <p>Analisar de que maneira a avaliação automatizada das definições preliminares de um projeto afeta a autoeficácia dos estudantes no delineamento de suas propostas de investigação.</p>
+    </div>
+
+    <ol class="especificos">
+      <li class="fragment" data-fragment-index="1">
+        <span class="letra">a</span>
+        <span class="texto-objetivo"><strong>Propor</strong> um modelo computacional que integre análise de coocorrência de palavras-chave e IA generativa para a geração de feedback personalizado no delineamento do escopo de projetos de pesquisa no ensino superior;</span>
+        <span class="onde">artefato</span>
+      </li>
+      <li class="fragment" data-fragment-index="2">
+        <span class="letra">b</span>
+        <span class="texto-objetivo"><strong>implementar</strong> o sistema de avaliação automatizada das definições de um projeto de pesquisa, com base no modelo proposto, como artefato tecnológico educacional;</span>
+        <span class="onde">artefato</span>
+      </li>
+      <li class="fragment" data-fragment-index="3">
+        <span class="letra">c</span>
+        <span class="texto-objetivo"><strong>avaliar</strong> os efeitos do feedback gerado pelo sistema implementado sobre a autoeficácia dos estudantes, operacionalizada pela variação no nível de segurança declarado antes e após a leitura do relatório e sobre a precisão das palavras-chave adotadas no delineamento do escopo da pesquisa;</span>
+        <span class="onde">estudo final</span>
+      </li>
+      <li class="fragment" data-fragment-index="4">
+        <span class="letra">d</span>
+        <span class="texto-objetivo"><strong>comparar</strong> o desempenho do sistema a partir de metadados de natureza distinta (palavras-chave de autor no estudo preliminar com conceitos hierárquicos) para identificar diferenças na qualidade das sugestões geradas e nas percepções dos estudantes sobre sua relevância para o escopo declarado;</span>
+        <span class="onde">comparação entre estudos</span>
+      </li>
+      <li class="fragment" data-fragment-index="5">
+        <span class="letra">e</span>
+        <span class="texto-objetivo"><strong>analisar</strong> o desenvolvimento das habilidades dos estudantes na etapa de formulação de foco, verificando a capacidade de monitoramento e a reformulação iterativa de palavras-chave estimuladas pelos suportes visuais e feedbacks formativos do sistema proposto.</span>
+        <span class="onde">análise qualitativa</span>
+      </li>
+    </ol>
+
+  </div>
+
+  <aside class="notes">
+    [1:20] Segundo e último momento de leitura na tela. Ler o objetivo geral
+    ligando-o à questão que acabou de ser lida, e depois percorrer os cinco
+    específicos sem pressa. A coluna da direita antecipa o percurso da
+    apresentação, do artefato ao estudo final.
+  </aside>
+</section>
+<!-- =====================================================================
+     SLIDE 8 · DEFINIÇÃO OPERACIONAL DE TERMOS
+     Os nove termos da seção 1.3, nos três grupos da tese, ligados pelas
+     relações descritas na síntese 1.3.4. Um grupo por clique.
+     ===================================================================== -->
+<section class="termos" data-secao="Introdução">
+  <div class="quadro">
+
+    <div class="rotulo">Definição operacional de termos</div>
+    <p class="subtitulo-termos">Nove termos, da macroestrutura à unidade de análise, contextualizados na ontologia do OpenAlex</p>
+
+    <svg class="nuvem" viewBox="0 0 1680 700" aria-label="Nove termos em três grupos">
+
+      <!-- Grupo 1 · níveis macroscópicos -->
+      <g class="fragment" data-fragment-index="1">
+        <line x1="250" y1="148" x2="150" y2="314"/>
+        <line x1="150" y1="314" x2="330" y2="431"/>
+        <text x="250" y="170" font-size="66">domínio</text>
+        <text x="150" y="330" font-size="48">campo</text>
+        <text x="330" y="445" font-size="42">subcampo</text>
+        <text class="grupo" x="250" y="640">níveis macroscópicos</text>
+      </g>
+
+      <!-- Grupo 2 · unidades de significado e representação -->
+      <g class="fragment" data-fragment-index="2">
+        <line x1="780" y1="135" x2="700" y2="315"/>
+        <line x1="700" y1="315" x2="1040" y2="195"/>
+        <line x1="700" y1="315" x2="840" y2="480"/>
+        <text x="780" y="152" font-size="52">conceito</text>
+        <text x="700" y="330" font-size="46">termo</text>
+        <text x="1040" y="210" font-size="44">descritor</text>
+        <text class="destaque" x="840" y="505" font-size="74">palavra-chave</text>
+        <text class="grupo" x="840" y="640">unidades de significado e representação</text>
+      </g>
+
+      <!-- Grupo 3 · estruturação e classificação, com as pontes entre grupos -->
+      <g class="fragment" data-fragment-index="3">
+        <line class="ponte" x1="330" y1="431" x2="1400" y2="325"/>
+        <line class="ponte" x1="1040" y1="195" x2="1400" y2="325"/>
+        <line class="ponte" x1="840" y1="480" x2="1400" y2="325"/>
+        <line x1="1400" y1="325" x2="1450" y2="503"/>
+        <text x="1400" y="345" font-size="60">tópico</text>
+        <text x="1450" y="520" font-size="50">categoria</text>
+        <text class="grupo" x="1430" y="640">estruturação e classificação</text>
+      </g>
+
+    </svg>
+
+    <div class="referencias">
+      <span class="ref">ISO 25964, 2011; 2013; ISO 5127, 2017</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [0:40] Nove termos organizados do nível macroestrutural à unidade de análise.
+    Clique 1. Domínio, campo e subcampo delimitam o cenário disciplinar.
+    Clique 2. A busca parte de um conceito, expresso por um termo. Curado, ele
+    vira descritor. Atribuído livremente pelo autor, vira palavra-chave, a
+    unidade material da análise de coocorrência.
+    Clique 3. Tópicos organizam e a categoria é o destino da classificação.
+    No OpenAlex, o tópico funciona como descritor. Essa distinção volta no
+    objetivo d, que compara palavras-chave de autor com conceitos hierárquicos.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 9 · PLANO DE TRABALHO
+     Quatro fases, uma por clique. A linha dourada avança junto.
+     ===================================================================== -->
+<section class="plano" data-secao="Introdução">
+  <div class="quadro">
+
+    <div class="rotulo">Plano de trabalho</div>
+    <p class="subtitulo-plano">A pesquisa foi dividida em quatro fases</p>
+
+    <div class="diagrama">
+      <span class="trilho"></span>
+      <svg class="ponta" viewBox="0 0 26 26" aria-hidden="true"><path d="M2 4l11 9-11 9" fill="none" stroke="#D5DAE1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+
+      <div class="parada acima fragment" data-fragment-index="1" style="left: 40px">
+        <span class="trecho" style="width: 210px"></span>
+        <span class="ponto"></span>
+        <span class="numero">01</span>
+        <h3>Levantamento teórico e mapeamento funcional</h3>
+        <p>Revisão de modelos teóricos e planejamento de funcionalidades da ferramenta</p>
+        <svg class="icone" viewBox="0 0 64 64" aria-hidden="true"><rect x="14" y="6" width="36" height="52" rx="2" fill="none" stroke="#1C2B45" stroke-width="2.6"/><line x1="22" y1="20" x2="42" y2="20" stroke="#1C2B45" stroke-width="2.4"/><line x1="22" y1="30" x2="42" y2="30" stroke="#1C2B45" stroke-width="2.4"/><line x1="22" y1="40" x2="34" y2="40" stroke="#B3893A" stroke-width="2.8"/></svg>
+      </div>
+
+      <div class="parada abaixo fragment" data-fragment-index="2" style="left: 460px">
+        <span class="trecho" style="width: 420px"></span>
+        <span class="ponto"></span>
+        <svg class="icone" viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="12" width="48" height="40" rx="2" fill="none" stroke="#1C2B45" stroke-width="2.6"/><line x1="8" y1="23" x2="56" y2="23" stroke="#1C2B45" stroke-width="2.4"/><circle cx="32" cy="38" r="8" fill="none" stroke="#1C2B45" stroke-width="2.4"/><circle cx="32" cy="38" r="3" fill="#B3893A"/><path d="M32 26v-3M32 53v-3M20 38h-3M47 38h-3" stroke="#1C2B45" stroke-width="2.4" stroke-linecap="round"/></svg>
+        <span class="numero">02</span>
+        <h3>Desenvolvimento da ferramenta</h3>
+        <p>Construção de uma ferramenta que integra visualização e feedback de IA</p>
+      </div>
+
+      <div class="parada acima fragment" data-fragment-index="3" style="left: 880px">
+        <span class="trecho" style="width: 420px"></span>
+        <span class="ponto"></span>
+        <span class="numero">03</span>
+        <h3>Aplicação educacional</h3>
+        <p>Teste da ferramenta com estudantes em ambientes educacionais</p>
+        <svg class="icone" viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="10" width="34" height="26" rx="2" fill="none" stroke="#1C2B45" stroke-width="2.6"/><path d="M16 29l6-11 6 11M19 24h6" fill="none" stroke="#B3893A" stroke-width="2.4"/><circle cx="42" cy="40" r="7" fill="none" stroke="#1C2B45" stroke-width="2.6"/><path d="M30 58c0-8 5.5-12 12-12s12 4 12 12" fill="none" stroke="#1C2B45" stroke-width="2.6"/></svg>
+      </div>
+
+      <div class="parada abaixo fragment" data-fragment-index="4" style="left: 1300px">
+        <span class="trecho" style="width: 420px"></span>
+        <span class="ponto"></span>
+        <svg class="icone" viewBox="0 0 64 64" aria-hidden="true"><path d="M10 54h44" stroke="#1C2B45" stroke-width="2.6" stroke-linecap="round"/><rect x="16" y="34" width="9" height="20" fill="none" stroke="#1C2B45" stroke-width="2.4"/><rect x="30" y="26" width="9" height="28" fill="none" stroke="#1C2B45" stroke-width="2.4"/><rect x="44" y="18" width="9" height="36" fill="none" stroke="#1C2B45" stroke-width="2.4"/><path d="M14 26l12-8 10 6 14-12" fill="none" stroke="#B3893A" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="numero">04</span>
+        <h3>Análise de dados</h3>
+        <p>Avaliação do impacto da ferramenta usando dados coletados</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [0:50] Quatro fases, apresentadas em quatro cliques.
+    Clique 1. Levantamento teórico e mapeamento funcional da literatura.
+    Clique 2. Desenvolvimento e implementação do modelo da ferramenta.
+    Clique 3. Aplicação com estudantes do ensino superior, usando a própria
+    ferramenta como instrumento de coleta.
+    Clique 4. Análise dos dados obtidos. Emendar na definição de termos.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 10 · REVISÃO DE LITERATURA · ABERTURA (R1)
+     A frase da seção 2.7 e um mapa do capítulo: os modelos teóricos em
+     volta da formação em pesquisa (clique 1) e as bases tecnológicas na
+     órbita externa (clique 2).
+     ===================================================================== -->
+<section class="abertura-capitulo" data-secao="Revisão de literatura">
+  <div class="quadro">
+
+    <div class="rotulo">Revisão de literatura</div>
+
+    <blockquote>A formulação de um escopo rigoroso requer andaimes instrucionais capazes de estruturar a tolerância à ambiguidade, a tomada de decisão e a autonomia investigativa do pesquisador iniciante.</blockquote>
+    <p class="fonte-citacao">Considerações sobre o capítulo, seção 2.7</p>
+
+    <svg class="orbita" viewBox="0 0 760 760" aria-label="Mapa do capítulo">
+
+      <!-- Órbita externa: bases tecnológicas (clique 2) -->
+      <g class="fragment" data-fragment-index="2">
+        <circle class="anel" cx="380" cy="380" r="300"/>
+        <circle class="no externo" cx="168" cy="168" r="9"/>
+        <circle class="no externo" cx="592" cy="168" r="9"/>
+        <circle class="no externo" cx="592" cy="592" r="9"/>
+        <circle class="no externo" cx="168" cy="592" r="9"/>
+        <text class="externo" x="168" y="128">LLMs para extração</text>
+        <text class="externo" x="592" y="128">interação humano-IA</text>
+        <text class="externo" x="592" y="638">coocorrência de palavras</text>
+        <text class="externo" x="168" y="638">aceitação e uso</text>
+      </g>
+
+      <!-- Modelos teóricos em volta do núcleo (clique 1) -->
+      <g class="fragment" data-fragment-index="1">
+        <line class="raio" x1="380" y1="380" x2="380" y2="210"/>
+        <line class="raio" x1="380" y1="380" x2="550" y2="380"/>
+        <line class="raio" x1="380" y1="380" x2="380" y2="550"/>
+        <line class="raio" x1="380" y1="380" x2="210" y2="380"/>
+        <circle class="no" cx="380" cy="210" r="11"/>
+        <circle class="no" cx="550" cy="380" r="11"/>
+        <circle class="no" cx="380" cy="550" r="11"/>
+        <circle class="no" cx="210" cy="380" r="11"/>
+        <text x="380" y="180">escrita</text>
+        <text x="550" y="322">comportamento</text>
+        <text x="550" y="350">informacional</text>
+        <text x="380" y="592">busca exploratória</text>
+        <text x="210" y="350">autoeficácia</text>
+      </g>
+
+      <!-- Núcleo, visível ao entrar -->
+      <circle class="centro" cx="380" cy="380" r="22"/>
+      <text class="nucleo" x="380" y="440">formação em pesquisa</text>
+
+    </svg>
+
+    <div class="marcadores">
+      <span class="marcador fragment" data-fragment-index="2"><svg><use href="#icone-coocorrencia"></use></svg>coocorrência</span>
+      <span class="marcador fragment" data-fragment-index="2"><svg><use href="#icone-llm"></use></svg>LLM</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [0:45] Abrir o capítulo lendo a frase. Ela resume por que os modelos
+    conversam entre si na formação do pesquisador iniciante.
+    Clique 1. No centro, a formação em pesquisa. Em volta, os quatro modelos
+    que sustentam o delineamento: escrita, comportamento informacional,
+    busca exploratória e autoeficácia.
+    Clique 2. Na órbita externa, as bases tecnológicas que tornam a mediação
+    possível. Os ícones de coocorrência e LLM voltam ao canto.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 11 · REVISÃO DE LITERATURA · MODELOS TEÓRICOS (R2)
+     Um modelo por clique. As miniaturas ampliam ao clicar (Esc fecha).
+     Os destaques em dourado mostram o ponto de contato com o Delinéia.
+     ===================================================================== -->
+<section class="modelos" data-secao="Revisão de literatura">
+  <div class="quadro">
+
+    <h2 class="afirmacao">Quatro modelos explicam as exigências cognitivas e afetivas do delineamento</h2>
+
+    <div class="evidencia colunas">
+
+      <div class="modelo fragment" data-fragment-index="1">
+        <div class="miniaturas">
+          <img class="ampliavel" src="midia/revisao/escrita-flower-hayes.png" alt="Modelo de escrita"
+               data-nome="Modelo de escrita" data-ref="Flower; Hayes, 1981, p. 370">
+        </div>
+        <h3>Escrita</h3>
+        <p class="ref-modelo">Flower; Hayes, 1981</p>
+        <p class="contato">Delinear o escopo corresponde ao planejamento, que reúne gerar ideias, organizá-las e definir metas.</p>
+      </div>
+
+      <div class="modelo fragment" data-fragment-index="2">
+        <div class="miniaturas duas">
+          <img class="ampliavel" src="midia/revisao/wilson-1999.png" alt="Modelo de comportamento de uso da informação I"
+               data-nome="Modelo de comportamento de uso da informação I" data-ref="Wilson, 1999b, p. 251">
+          <img class="ampliavel" src="midia/revisao/wilson-2000.png" alt="Modelo de comportamento de uso da informação II"
+               data-nome="Modelo de comportamento de uso da informação II" data-ref="Wilson, 2000, p. 53">
+        </div>
+        <h3>Comportamento informacional</h3>
+        <p class="ref-modelo">Wilson, 1999b; 2000</p>
+        <p class="contato">No modelo de 2000, crenças de autoeficácia modulam a ativação do comportamento de busca.</p>
+      </div>
+
+      <div class="modelo fragment" data-fragment-index="3">
+        <div class="miniaturas">
+          <img class="ampliavel" src="midia/revisao/busca-exploratoria-hoeber-shukla.png" alt="Modelo de busca exploratória"
+               data-nome="Modelo de busca exploratória" data-ref="Hoeber; Shukla, 2022, p. 1173">
+        </div>
+        <h3>Busca exploratória</h3>
+        <p class="ref-modelo">Hoeber; Shukla, 2022</p>
+        <p class="contato">A formulação de foco acontece sob uma incerteza que oscila antes de se estabilizar.</p>
+      </div>
+
+      <div class="modelo fragment" data-fragment-index="4">
+        <div class="cartao">Crença na própria capacidade de organizar e executar as ações necessárias para atingir um resultado</div>
+        <h3>Autoeficácia em pesquisa</h3>
+        <p class="ref-modelo">Bandura, 1997</p>
+        <p class="contato">Explica por que alguns estudantes persistem e toleram a incerteza, enquanto outros recuam.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [3:00] Um modelo por clique. Clicar na miniatura amplia a figura.
+    Clique 1. Flower e Hayes. O destaque em dourado é o planejamento, que é
+    onde o delineamento do escopo acontece.
+    Clique 2. Wilson. No modelo de 2000 a autoeficácia aparece dentro do
+    próprio comportamento informacional, como mecanismo ativador. É a ponte
+    com Bandura.
+    Clique 3. Hoeber e Shukla. A formulação de foco, sob incerteza oscilante,
+    é o objeto do objetivo específico e.
+    Clique 4. Bandura. O construto central da tese.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 12 · REVISÃO DE LITERATURA · BASES TECNOLÓGICAS (R3)
+     Seções 2.3 a 2.6, um quadrante por clique, em ordem de leitura,
+     na mesma posição que ocupam na órbita externa do slide de abertura.
+     ===================================================================== -->
+<section class="bases" data-secao="Revisão de literatura">
+  <div class="quadro">
+
+    <h2 class="afirmacao">A integração tecnológica viabiliza a mediação pedagógica do delineamento</h2>
+
+    <div class="evidencia quadrantes">
+
+      <div class="base-item fragment" data-fragment-index="1" style="grid-area: llm">
+        <svg><use href="#icone-llm"></use></svg>
+        <div>
+          <p class="secao-num">2.3</p>
+          <h3>LLMs para extração de informações</h3>
+          <p class="frase">Extraem informações e selecionam palavras-chave em domínios diversos, com risco de alucinação.</p>
+          <p class="ref-base">Han et al., 2024; Xu et al., 2024; Lei et al., 2024</p>
+        </div>
+      </div>
+
+      <div class="base-item fragment" data-fragment-index="2" style="grid-area: interacao">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <circle cx="13" cy="17" r="6" fill="none" stroke="#1C2B45" stroke-width="2.4"/>
+          <path d="M3 40c0-7 4.5-11 10-11s10 4 10 11" fill="none" stroke="#1C2B45" stroke-width="2.4"/>
+          <rect x="27" y="8" width="18" height="14" fill="none" stroke="#1C2B45" stroke-width="2.4"/>
+          <line x1="31" y1="13" x2="41" y2="13" stroke="#1C2B45" stroke-width="2"/>
+          <rect x="31" y="16" width="4" height="3" fill="#B3893A"/>
+          <path d="M22 26l6-3M28 27l-6 3" stroke="#B3893A" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+        <div>
+          <p class="secao-num">2.4</p>
+          <h3>Interação humano-IA na educação</h3>
+          <p class="frase">Os efeitos educacionais dependem do planejamento pedagógico e de o estudante manter o controle interpretativo.</p>
+          <p class="ref-base">Wang; Jing; Shen, 2025; Atchley et al., 2024; Wu et al., 2025</p>
+        </div>
+      </div>
+
+      <div class="base-item fragment" data-fragment-index="3" style="grid-area: coocorrencia">
+        <svg><use href="#icone-coocorrencia"></use></svg>
+        <div>
+          <p class="secao-num">2.5</p>
+          <h3>Análise de coocorrência de palavras</h3>
+          <p class="frase">Mapeia a estrutura temática de um campo e torna visíveis as lacunas da literatura.</p>
+          <p class="ref-base">Callon et al., 1983; He, 1999; Oliveira et al., 2019</p>
+        </div>
+      </div>
+
+      <div class="base-item fragment" data-fragment-index="4" style="grid-area: aceitacao">
+        <svg viewBox="0 0 48 48" aria-hidden="true">
+          <line x1="24" y1="8" x2="24" y2="40" stroke="#1C2B45" stroke-width="2.4"/>
+          <line x1="14" y1="40" x2="34" y2="40" stroke="#1C2B45" stroke-width="2.4"/>
+          <line x1="7" y1="14" x2="41" y2="14" stroke="#1C2B45" stroke-width="2.4"/>
+          <path d="M7 14l-5 12h10z" fill="none" stroke="#1C2B45" stroke-width="2.2" stroke-linejoin="round"/>
+          <path d="M41 14l-5 12h10z" fill="#B3893A" stroke="#B3893A" stroke-width="2.2" stroke-linejoin="round"/>
+        </svg>
+        <div>
+          <p class="secao-num">2.6</p>
+          <h3>Aceitação e usabilidade</h3>
+          <p class="frase">TAM3 e UTAUT pesam o ganho esperado contra o esforço de uso. No TAM3, a <em>autoeficácia</em> antecede a facilidade de uso percebida.</p>
+          <p class="ref-base">Venkatesh et al., 2003; Venkatesh; Bala, 2008</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="marcadores">
+      <span class="marcador fragment" data-fragment-index="1"><svg><use href="#icone-llm"></use></svg>LLM</span>
+      <span class="marcador fragment" data-fragment-index="3"><svg><use href="#icone-coocorrencia"></use></svg>coocorrência</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [2:30] As quatro bases tecnológicas, em ordem de leitura, na mesma posição
+    que ocupavam na órbita do slide de abertura.
+    Clique 1. LLMs extraem informação, mas alucinam. Por isso o Delinéia
+    restringe o espaço de busca aos tópicos do OpenAlex.
+    Clique 2. O que decide o efeito educacional é o desenho pedagógico e o
+    controle interpretativo que continua com o estudante.
+    Clique 3. A coocorrência dá ao estudante o mapa do campo.
+    Clique 4. TAM3 e UTAUT fundamentam o instrumento do estudo final. Destacar
+    que a autoeficácia volta aqui, como antecedente da facilidade de uso.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE 13 · REVISÃO SISTEMÁTICA DE LITERATURA
+     Clique 1: as três camadas em escala real.
+     Clique 2: o fluxo PRISMA resumido, com a Figura 6 ampliável.
+     Clique 3: os 13 estudos e a caracterização como revisão vazia.
+     ===================================================================== -->
+<section class="rsl" data-secao="Revisão sistemática de literatura">
+  <div class="quadro">
+
+    <h2 class="afirmacao">Para cada 280 estudos que usam a análise de coocorrência, apenas um trata do seu ensino</h2>
+
+    <div class="evidencia">
+
+      <div>
+        <div class="camadas fragment" data-fragment-index="1">
+          <p class="camadas-titulo">Registros recuperados na Web of Science e na Scopus, em escala real</p>
+          <div class="camada">
+            <div class="camada-rotulo">Camada 1 <span>· a técnica como método</span></div>
+            <div class="camada-linha"><div class="barra-rsl" style="width: 880px"></div><span class="camada-valor">132.378</span></div>
+          </div>
+          <div class="camada">
+            <div class="camada-rotulo">Camada 2 <span>· educação como objeto</span></div>
+            <div class="camada-linha"><div class="barra-rsl" style="width: 283px"></div><span class="camada-valor">42.621</span></div>
+          </div>
+          <div class="camada">
+            <div class="camada-rotulo">Camada 3 <span>· educação como prática</span></div>
+            <div class="camada-linha"><div class="barra-rsl" style="width: 3px"></div><span class="camada-valor">466 <span class="proporcao">≈ 280 : 1</span></span></div>
+          </div>
+        </div>
+
+        <div class="pontos fragment" data-fragment-index="3">
+          <p class="pontos-titulo">Os 13 estudos incluídos</p>
+          <div class="fila">
+            <span class="central"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <p><span class="ouro">Um único estudo</span> põe a coocorrência no centro da formação. Nos outros doze, ela está ausente ou é apenas mencionada. <strong>Uma revisão vazia</strong> (<em>empty review</em>).</p>
+        </div>
+      </div>
+
+      <div class="fragment" data-fragment-index="2">
+        <p class="fluxo-titulo">Seleção segundo o PRISMA 2020</p>
+        <div class="fluxo">
+          <div>
+            <div class="etapa"><div class="n">466</div><div class="d">registros identificados</div></div>
+            <p class="corte">− 142 duplicatas</p>
+            <div class="etapa"><div class="n">324</div><div class="d">triados por título e resumo</div></div>
+            <p class="corte">− 310 fora dos critérios</p>
+            <div class="etapa"><div class="n">14</div><div class="d">lidos na íntegra</div></div>
+            <p class="corte">− 1 editorial</p>
+            <div class="etapa final"><div class="n">13</div><div class="d">incluídos, de 1981 a 2025</div></div>
+          </div>
+          <div class="miniatura-rsl">
+            <img class="ampliavel" src="midia/rsl/fluxo-rsl.png" alt="Fluxo de seleção da RSL"
+                 data-nome="Fluxo de seleção da RSL" data-ref="Figura 6 · Dados da pesquisa">
+            <p>Figura 6, clique para ampliar</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="marcadores">
+      <span class="marcador fragment" data-fragment-index="1"><svg><use href="#icone-coocorrencia"></use></svg>coocorrência</span>
+    </div>
+
+    <div class="referencias">
+      <span class="ref fragment fade-in-then-out" data-fragment-index="1">Busca em camadas inspirada em Wilson, 2024</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="2">Page et al., 2021</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="3">Nejma; Cherkaoui, 2020</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [1:30] Ler a afirmação e já fazer a ressalva: 280 para 1 é uma estimativa
+    indicativa, calculada sobre totais brutos, sem remover duplicatas entre bases.
+    Clique 1. As camadas em escala real. A barra da camada 3 é quase invisível,
+    e é exatamente essa a lacuna.
+    Clique 2. O funil PRISMA. Busca 5, ensino de bibliometria, e busca 6,
+    inversão semântica. Todos os 14 lidos na íntegra vieram da busca 5.
+    Clique 3. Um único estudo, Nejma e Cherkaoui, põe a técnica no centro,
+    ainda com limitações metodológicas. Por isso, uma revisão vazia.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · ESTADO DA ARTE
+     O conteúdo (listas de sistemas) fica em js/estado-da-arte.js.
+     As imagens ficam em midia/estado-da-arte/.
+     ===================================================================== -->
+<section class="estado-da-arte" data-secao="Estado da arte">
+  <div class="quadro">
+
+    <header class="cabecalho-eda">
+      <div>
+        <h2 class="afirmacao">Os sistemas existentes avançam da exploração da literatura até o desenho da pesquisa</h2>
+        <p class="subtitulo-eda">Tecnologias de orientação bibliométrica e inteligência artificial generativa</p>
+      </div>
+      <div class="contagem" id="eda-contagem"></div>
+    </header>
+
+    <div class="eixo" aria-hidden="true">
+      <div class="feixe"></div>
+      <div class="rotulos-eixo">
+        <span>exploração da literatura</span>
+        <span>síntese</span>
+        <span>desenho de pesquisa</span>
+      </div>
+    </div>
+
+    <div class="frentes" id="eda-frentes"></div>
+
+    <div class="base" id="eda-base"></div>
+
+    <p class="creditos-eda">Fonte: elaborado pelo autor com base no capítulo 4 da tese. Logotipos das respectivas organizações. Figuras dos protótipos reproduzidas dos artigos originais para fins acadêmicos.</p>
+
+  </div>
+
+  <aside class="notes">
+    [1:00] Panorama dos sistemas que apoiam o trabalho com a literatura,
+    organizados da exploração até o desenho da pesquisa, sobre a base de
+    ferramentas, modelos e infraestruturas que os sustenta.
+    O Delinéia ocupa a ponta direita do eixo, junto ao desenho de pesquisa.
+    Clicar numa miniatura amplia a figura, caso a banca peça detalhe.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · METODOLOGIA · DESENHO DO ESTUDO (M1)
+     Os três momentos do Design Science Research. A cada clique, um
+     momento acende e revela seus detalhes. No quarto clique, o eixo da
+     autonomia e a síntese. As capas ampliam ao clicar.
+     ===================================================================== -->
+<section class="dsr" data-secao="Metodologia">
+  <div class="quadro">
+
+    <h2 class="afirmacao">A pesquisa avançou em três ciclos, da mediação do pesquisador à autonomia do estudante</h2>
+
+    <div class="evidencia">
+
+      <div class="momentos">
+        <div class="momento fragment" data-fragment-index="1">
+          <p class="etapa-dsr">Ciclo 1 · 2024</p>
+          <h3>Primeiro estudo preliminar</h3>
+          <div class="n-dsr">5<small>estudantes</small></div>
+          <p class="mediacao">mediação manual e síncrona</p>
+        </div>
+        <div class="momento fragment" data-fragment-index="2">
+          <p class="etapa-dsr">Ciclo 2 · 2024</p>
+          <h3>Segundo estudo preliminar</h3>
+          <div class="n-dsr">23<small>estudantes</small></div>
+          <p class="mediacao">mediação semiestruturada, com IA generativa</p>
+        </div>
+        <div class="momento fragment" data-fragment-index="3">
+          <p class="etapa-dsr">Ciclo 3</p>
+          <h3>Estudo final</h3>
+          <div class="n-dsr">86<small>estudantes</small></div>
+          <p class="mediacao">uso autônomo do Delinéia</p>
+        </div>
+      </div>
+
+      <div class="eixo-autonomia fragment" data-fragment-index="4">
+        <div class="linha"></div>
+        <div class="pontas"><span>mediação do pesquisador</span><span>autonomia do estudante</span></div>
+      </div>
+
+      <div class="painel-dsr">
+
+        <div class="detalhe-dsr fragment fade-in-then-out" data-fragment-index="1">
+          <div class="capa-estudo">
+            <img class="ampliavel" src="midia/metodologia/estudo1-encuentro-2024.jpg" alt="Primer Encuentro Iberoamericano"
+                 data-nome="Primer Encuentro Iberoamericano de Ciencia Abierta y Educación Abierta" data-ref="Montevidéu, 2024 · Santos; Reategui, 2024">
+          </div>
+          <dl>
+            <dt>Como foi</dt>
+            <dd>Sessões individuais por videoconferência, como numa entrevista de referência, com grafos de coocorrência de palavras-chave da Scopus</dd>
+            <dt>O que mostrou</dt>
+            <dd>A visualização semântica atua como andaime cognitivo</dd>
+            <dt>O limite</dt>
+            <dd class="limite">A condução síncrona e braçal pelo pesquisador apontou a necessidade de automação</dd>
+          </dl>
+        </div>
+
+        <div class="detalhe-dsr fragment fade-in-then-out" data-fragment-index="2">
+          <div class="capa-estudo">
+            <img class="ampliavel" src="midia/metodologia/estudo2-relatec-2025.png" alt="Artigo na RELATEC"
+                 data-nome="Revista Latinoamericana de Tecnología Educativa, v. 24, n. 2" data-ref="Santos; Reategui, 2025">
+          </div>
+          <dl>
+            <dt>Como foi</dt>
+            <dd>Fluxo remoto e assíncrono, com formulários e um relatório de feedback gerado por IA generativa</dd>
+            <dt>O que mostrou</dt>
+            <dd>A combinação ampliou o repertório conceitual e a segurança na escolha das palavras-chave</dd>
+            <dt>O limite</dt>
+            <dd class="limite">A eficácia dependia da qualidade das informações iniciais e da maturidade do projeto</dd>
+          </dl>
+        </div>
+
+        <div class="detalhe-dsr fragment fade-in-then-out" data-fragment-index="3">
+          <div class="logo-delineia"><img src="midia/metodologia/delineia-logo.png" alt="Delinéia"></div>
+          <dl>
+            <dt>Como foi</dt>
+            <dd>Uso autônomo e integral da plataforma, por estudantes de disciplinas de metodologia da pesquisa</dd>
+            <dt>O que avaliou</dt>
+            <dd>A autoeficácia, a aceitação e a experiência de uso, com instrumentos de Bandura, do TAM3 e da UTAUT</dd>
+            <dt>A seguir</dt>
+            <dd>A arquitetura do sistema e o desenho do estudo final</dd>
+          </dl>
+        </div>
+
+        <div class="sintese-dsr fragment" data-fragment-index="4">
+          <p>Cada ciclo revelou o limite que motivou o seguinte, até o sistema autônomo avaliado no estudo final.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="referencias">
+      <span class="ref fragment fade-out" data-fragment-index="1">Dresch; Lacerda; Antunes Júnior, 2015</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="1">Santos; Reategui, 2024</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="2">Santos; Reategui, 2025</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="3">Bandura, 1997; Venkatesh; Bala, 2008; Venkatesh et al., 2003</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [2:30] Pesquisa qualitativa e exploratória, no Design Science Research.
+    Clique 1. Montevidéu, 2024. Cinco estudantes, sessões individuais como uma
+    entrevista de referência. Funcionou, mas era braçal. Clicar na capa se
+    quiser mostrar o evento.
+    Clique 2. RELATEC, 2025. Vinte e três estudantes, fluxo assíncrono com
+    feedback de IA. Funcionou, mas dependia do que o estudante trazia.
+    Clique 3. O estudo final, com o Delinéia autônomo. Detalhe a seguir.
+    Clique 4. Ler a síntese. Cada ciclo revelou o limite do anterior.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · METODOLOGIA · ARQUITETURA DO DELINÉIA (M2)
+     Em cima, a trilha de aprendizagem que o estudante percorre.
+     Embaixo, em azul-noite, o motor que a sustenta.
+     Clique 1: a trilha. Clique 2: OpenAlex e coocorrência.
+     Clique 3: Gemini. Clique 4: armazenamento e infraestrutura.
+     Os diagramas da tese ficam à esquerda do motor, para ampliar.
+     ===================================================================== -->
+<section class="arquitetura" data-secao="Metodologia">
+  <div class="quadro">
+
+    <div class="mapa-dsr">
+      <span class="passado">estudos preliminares</span><i></i>
+      <span class="atual">arquitetura</span><i></i>
+      <span>estudo final</span>
+    </div>
+
+    <h2 class="afirmacao">O Delinéia articula uma trilha de aprendizagem a um motor bibliométrico e generativo</h2>
+
+    <div class="evidencia camadas-arq">
+
+      <p class="rotulo-camada">Trilha de aprendizagem · o que o estudante percorre</p>
+      <div class="linha-arq fragment" data-fragment-index="1">
+        <div class="etapa-arq">
+          <span class="n-arq">1</span>
+          <h3>Formulário inicial</h3>
+          <div class="distintivo">tema, questão, palavras-chave e segurança · <b>Explorador(a)</b></div>
+        </div>
+        <div class="etapa-arq">
+          <span class="n-arq">2</span>
+          <h3>Grafo de tópicos</h3>
+          <div class="distintivo">rede e glossário contextualizado · <b>Pesquisador(a)</b></div>
+        </div>
+        <div class="etapa-arq">
+          <span class="n-arq">3</span>
+          <h3>Seleção de tópicos</h3>
+          <div class="distintivo">os tópicos centrais do projeto · <b>Seletor(a)</b></div>
+        </div>
+        <div class="etapa-arq">
+          <span class="n-arq">4</span>
+          <h3>Relatório de delineamento</h3>
+          <div class="distintivo">feedback e chaves de busca, em PDF · <b>Delineador(a)</b></div>
+        </div>
+        <div class="etapa-arq">
+          <span class="n-arq">5</span>
+          <h3>Avaliação</h3>
+          <div class="distintivo">TAM3, UTAUT e segurança final · <b>Avaliador(a)</b></div>
+        </div>
+      </div>
+
+      <div class="linha-arq conectores">
+        <div></div>
+        <div class="fragment" data-fragment-index="2"><div class="conector"></div></div>
+        <div class="fragment" data-fragment-index="2"><div class="conector"></div></div>
+        <div class="fragment" data-fragment-index="3"><div class="conector"></div></div>
+        <div class="fragment" data-fragment-index="4"><div class="conector"></div></div>
+      </div>
+
+      <div class="linha-arq">
+        <div class="diagramas">
+          <p>Diagramas da tese</p>
+          <div class="miniaturas-arq">
+            <img class="ampliavel" src="midia/metodologia/figura14-visao-geral.png" alt="Figura 14"
+                 data-nome="Arquitetura de sistemas e fluxo de dados do Delinéia: visão geral" data-ref="Figura 14 · Dados da pesquisa e Mermaid">
+            <img class="ampliavel" src="midia/metodologia/figura15-modulos.png" alt="Figura 15"
+                 data-nome="Arquitetura de sistemas e fluxo de dados do Delinéia: módulos" data-ref="Figura 15 · Dados da pesquisa e Mermaid">
+            <img class="ampliavel" src="midia/metodologia/apendice-c-diagrama-geral.png" alt="Apêndice C"
+                 data-nome="Diagrama geral" data-ref="Apêndice C · Dados da pesquisa e Mermaid">
+          </div>
+        </div>
+        <div class="motor-arq encadeado fragment" data-fragment-index="2">
+          <h3>OpenAlex</h3>
+          <ul>
+            <li>até <b>500 artigos</b> por busca</li>
+            <li>Domain › Field › Subfield › Topic</li>
+            <li>tópicos com <b>score ≥ 0,35</b></li>
+          </ul>
+        </div>
+        <div class="motor-arq encadeado fragment" data-fragment-index="2">
+          <h3>Coocorrência</h3>
+          <ul>
+            <li>grafo em NetworkX</li>
+            <li><b>9 nós</b> por centralidade de grau (Miller, 7±2)</li>
+            <li>mapa temático por clusters</li>
+          </ul>
+        </div>
+        <div class="motor-arq fragment" data-fragment-index="3">
+          <h3>Gemini 2.5 Pro</h3>
+          <ul>
+            <li>avaliação, glossário e <b>chaves de busca</b></li>
+            <li>temperatura 1,2 · 8.192 tokens</li>
+            <li>três tentativas em caso de falha</li>
+          </ul>
+        </div>
+        <div class="motor-arq fragment" data-fragment-index="4">
+          <h3>Google Sheets</h3>
+          <ul>
+            <li>respostas dos formulários <b>F1 e F2</b></li>
+            <li>dados da pesquisa e histórico</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="infra fragment" data-fragment-index="4">Interface em Streamlit 1.52, hospedada no HuggingFace Spaces, com código aberto no GitHub</p>
+
+    </div>
+
+    <div class="marcadores">
+      <span class="marcador fragment" data-fragment-index="2"><svg><use href="#icone-coocorrencia"></use></svg>coocorrência</span>
+      <span class="marcador fragment" data-fragment-index="3"><svg><use href="#icone-llm"></use></svg>LLM</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [2:30] O mapa no alto mostra que estamos na arquitetura.
+    Clique 1. A trilha em cinco etapas, cada uma com um distintivo.
+    Clique 2. O motor bibliométrico. OpenAlex, até 500 artigos, tópicos com
+    score de pelo menos 0,35. A coocorrência reduz a rede aos 9 nós mais
+    centrais, pelo limite de Miller.
+    Clique 3. O Gemini gera avaliação, glossário e chaves de busca, sempre
+    restrito aos tópicos do OpenAlex, o que reduz alucinações.
+    Clique 4. Armazenamento e infraestrutura. Os diagramas completos estão
+    à esquerda, se a banca quiser o detalhe.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · METODOLOGIA · PERCURSO DO PARTICIPANTE (M3)
+     Quatro passos, um por clique. No quinto, o arco dourado liga a
+     segurança declarada antes (F1.6) e depois (F2.26) do relatório.
+     A Figura 13 fica em miniatura no passo do F1, para ampliar.
+     ===================================================================== -->
+<section class="percurso" data-secao="Metodologia">
+  <div class="quadro">
+
+    <div class="mapa-dsr">
+      <span class="passado">estudos preliminares</span><i></i>
+      <span class="passado">arquitetura</span><i></i>
+      <span class="atual">estudo final</span>
+    </div>
+
+    <h2 class="afirmacao">O estudo final aconteceu inteiro dentro do Delinéia, da anuência à avaliação</h2>
+
+    <div class="evidencia">
+
+      <div class="jornada">
+        <div class="passo fragment" data-fragment-index="1">
+          <span class="n-passo">1</span>
+          <h3>Convite e anuência</h3>
+          <ul>
+            <li>86 estudantes de graduação e pós-graduação, por conveniência</li>
+            <li>convite pelas disciplinas de metodologia da pesquisa</li>
+            <li>TCLE na própria plataforma</li>
+          </ul>
+        </div>
+
+        <div class="passo com-miniatura fragment" data-fragment-index="2">
+          <span class="n-passo">2</span>
+          <div class="miniatura-f1">
+            <img class="ampliavel" src="midia/metodologia/figura13-pagina-inicial.png" alt="Figura 13"
+                 data-nome="Página inicial do sistema Delinéia" data-ref="Figura 13 · Dados da pesquisa">
+          </div>
+          <h3>Formulário inicial</h3>
+          <ul>
+            <li><span class="cod">F1.1–1.3</span>tema, questão e palavras-chave</li>
+            <li><span class="cod">F1.4–1.5</span>fontes de busca e uma busca espontânea</li>
+            <li class="medida"><span class="cod">F1.6</span>segurança inicial</li>
+          </ul>
+        </div>
+
+        <div class="passo fragment" data-fragment-index="3">
+          <span class="n-passo">3</span>
+          <h3>Trilha no Delinéia</h3>
+          <ul>
+            <li>grafo de coocorrência e seleção de tópicos</li>
+            <li>relatório de delineamento em PDF</li>
+            <li>orquestração feita pela aplicação, sem o pesquisador</li>
+          </ul>
+        </div>
+
+        <div class="passo fragment" data-fragment-index="4">
+          <span class="n-passo">4</span>
+          <h3>Formulário de avaliação</h3>
+          <ul>
+            <li><span class="cod">F2.1–2.20</span>afirmativas do TAM3 e da UTAUT</li>
+            <li><span class="cod">F2.21–2.25</span>NPS e quatro questões abertas</li>
+            <li class="medida"><span class="cod">F2.26</span>segurança final</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="arco fragment" data-fragment-index="5">
+        <svg viewBox="0 0 1680 150" preserveAspectRatio="none" aria-hidden="true">
+          <path d="M 640 6 C 640 70, 700 70, 900 70 L 1260 70 C 1460 70, 1498 70, 1498 6"/>
+          <circle cx="640" cy="6" r="7"/>
+          <circle cx="1498" cy="6" r="7"/>
+        </svg>
+        <div class="rotulo-arco">A mesma escala, <b>antes e depois</b> do relatório, mede a variação da autoeficácia</div>
+      </div>
+
+    </div>
+
+    <div class="referencias">
+      <span class="ref fragment fade-in-then-out" data-fragment-index="2">Gelbach; Artino Jr., 2018</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="4">Venkatesh; Bala, 2008; Venkatesh et al., 2003; Reichheld, 2003</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="5">Bandura, 1997</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [2:00] O mapa agora acende o estudo final.
+    Clique 1. Oitenta e seis estudantes, convidados pelas disciplinas de
+    metodologia. Nenhuma interação começava sem o TCLE.
+    Clique 2. O formulário inicial, que também alimenta o pipeline. A
+    miniatura amplia a Figura 13.
+    Clique 3. A trilha, conduzida pela aplicação, sem o pesquisador.
+    Clique 4. O formulário de avaliação, com TAM3, UTAUT, NPS e abertas.
+    Clique 5. O arco liga F1.6 e F2.26. É essa comparação pareada que
+    responde ao objetivo específico c.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · METODOLOGIA · INSTRUMENTOS E ANÁLISE (M4)
+     Uma linha por clique: de onde vêm os dados, como foram tratados e a
+     que objetivo respondem.
+     ===================================================================== -->
+<section class="analise" data-secao="Metodologia">
+  <div class="quadro">
+
+    <div class="mapa-dsr">
+      <span class="passado">estudos preliminares</span><i></i>
+      <span class="passado">arquitetura</span><i></i>
+      <span class="atual">estudo final</span>
+    </div>
+
+    <h2 class="afirmacao">Cada conjunto de dados recebeu um tratamento próprio, alinhado aos objetivos</h2>
+
+    <div class="evidencia matriz">
+
+      <div class="linha-matriz cabecalho-matriz">
+        <span>Dados</span><span>Tratamento</span><span>Responde a</span>
+      </div>
+
+      <div class="linha-matriz fragment" data-fragment-index="1">
+        <div class="dados">
+          <h3>Segurança declarada</h3>
+          <p>F1.6 e F2.26 · escala Likert de cinco pontos</p>
+        </div>
+        <div class="tratamento">
+          <p>Comparação pareada antes e depois, com matriz de transição entre os níveis, sobre os 86 estudantes que concluíram a trilha</p>
+        </div>
+        <div class="objetivo">objetivo c<small>autoeficácia</small></div>
+      </div>
+
+      <div class="linha-matriz fragment" data-fragment-index="2">
+        <div class="dados">
+          <h3>Aceitação e recomendação</h3>
+          <p>F2.1 a F2.20 · concordância · F2.21 · NPS</p>
+        </div>
+        <div class="tratamento">
+          <p>Distribuição das respostas em seis construtos, seguida do índice de recomendação</p>
+          <div class="chips">
+            <span>utilidade percebida<b>F2.1–4</b></span>
+            <span>facilidade de uso<b>F2.5–7</b></span>
+            <span>qualidade da informação<b>F2.8–13</b></span>
+            <span>intenção de uso<b>F2.14–16</b></span>
+            <span>confiança<b>F2.17–18</b></span>
+            <span>experiência<b>F2.19–20</b></span>
+          </div>
+          <p class="ref-trat">Venkatesh et al., 2003; Venkatesh; Bala, 2008; Reichheld, 2003</p>
+        </div>
+        <div class="objetivo">avaliação do artefato<small>TAM3 e UTAUT</small></div>
+      </div>
+
+      <div class="linha-matriz fragment" data-fragment-index="3">
+        <div class="dados">
+          <h3>Comentários abertos</h3>
+          <p>F2.22 a F2.25 · 50 dos 86 participantes comentaram</p>
+        </div>
+        <div class="tratamento">
+          <p>Análise de conteúdo: codificação dos núcleos de sentido, categorias a posteriori e interpretação qualitativa</p>
+          <p class="ref-trat">Saldaña, 2015; Bardin, 2011; Bauer; Gaskell, 2010</p>
+        </div>
+        <div class="objetivo">objetivo e<small>formulação de foco</small></div>
+      </div>
+
+      <div class="linha-matriz fragment" data-fragment-index="4">
+        <div class="dados">
+          <h3>Metadados das buscas</h3>
+          <p>palavras-chave de autor na Scopus · tópicos hierárquicos no OpenAlex</p>
+        </div>
+        <div class="tratamento">
+          <p>Comparação entre os ciclos: granularidade e padronização dos termos, e seus efeitos nas sugestões da IA</p>
+        </div>
+        <div class="objetivo">objetivo d<small>metadados de natureza distinta</small></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [2:00] Uma linha por clique: dado, tratamento, objetivo.
+    Clique 1. A segurança, comparada de forma pareada nos 86 que concluíram
+    a trilha. Duplicidades resolvidas mantendo o registro final.
+    Clique 2. As vinte afirmativas em seis construtos, e o NPS.
+    Clique 3. Cinquenta comentaram. Codificação, categorias a posteriori
+    e interpretação.
+    Clique 4. O contraste entre a Scopus dos estudos preliminares e o
+    OpenAlex do estudo final. Emendar na demonstração do Delinéia.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · DELINÉIA · VÍDEO 1 · ENTRADA E FORMULÁRIO INICIAL
+     Clique 1: toca. Clique 2: expande. Clique 3: recolhe e pausa.
+     O roteiro à direita acende sozinho conforme o vídeo avança.
+     Ajuste os data-t (segundos) depois de gravar.
+     Arquivo do vídeo: midia/videos/01-entrada-formulario.mp4
+     ===================================================================== -->
+<section class="demo" data-secao="Delinéia">
+  <div class="quadro">
+
+    <h2 class="afirmacao">A trilha começa quando o estudante descreve o seu projeto no formulário inicial</h2>
+
+    <div class="veu"></div>
+    <div class="janela-video">
+      <video src="midia/videos/01-entrada-formulario.mp4" poster="midia/imagens/poster-delineia.jpg"
+             preload="auto" muted playsinline></video>
+      <div class="legenda-video"></div>
+    </div>
+
+    <div class="capitulos">
+      <p>Neste vídeo</p>
+      <ol>
+        <li data-t="1"><strong>Apresentação</strong><span>a barra lateral, com o sistema, a trilha e as tecnologias</span></li>
+        <li data-t="20"><strong>Abas</strong><span>Delineascópio, Interação, Histórico e Painel</span></li>
+        <li data-t="33"><strong>Formulário inicial</strong><span>tema, questão, palavras-chave, fontes de busca e segurança</span></li>
+        <li data-t="72"><strong>Processamento</strong><span>o pedido do relatório e o aviso de espera</span></li>
+      </ol>
+    </div>
+
+    <!-- Gatilhos invisíveis, na ordem em que acontecem -->
+    <span class="gatilho fragment" data-video-acao="tocar"></span>
+    <span class="gatilho fragment" data-video-acao="expandir"></span>
+    <span class="gatilho fragment" data-video-acao="recolher"></span>
+  </div>
+
+  <aside class="notes">
+    [2:00] Narração ao vivo, com o projeto de demonstração.
+    Clique 1 toca. Clique 2 expande. Clique 3 recolhe.
+    Ao terminar, a janela recolhe sozinha. V pausa, X expande.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · DELINÉIA · VÍDEO 2 · GRAFO, GLOSSÁRIO E SELEÇÃO
+     Clique 1: toca. Clique 2: expande. Clique 3: recolhe e pausa.
+     O roteiro à direita acende sozinho conforme o vídeo avança.
+     Arquivo do vídeo: midia/videos/02-grafo-selecao.mp4
+     ===================================================================== -->
+<section class="demo" data-secao="Delinéia">
+  <div class="quadro">
+
+    <h2 class="afirmacao">O grafo mostra o campo, e a seleção devolve a decisão ao estudante</h2>
+
+    <div class="veu"></div>
+    <div class="janela-video">
+      <video src="midia/videos/02-grafo-selecao.mp4" poster="midia/imagens/poster-delineia.jpg"
+             preload="auto" muted playsinline></video>
+      <div class="legenda-video"></div>
+    </div>
+
+    <div class="capitulos">
+      <p>Neste vídeo</p>
+      <ol>
+        <li data-t="1"><strong>Grafo de tópicos</strong><span>a rede do OpenAlex, reduzida aos 9 tópicos mais centrais</span></li>
+        <li data-t="21"><strong>Glossário</strong><span>cada tópico explicado no contexto do projeto</span></li>
+        <li data-t="44"><strong>Seleção de tópicos</strong><span>o estudante escolhe os tópicos que delimitam o escopo</span></li>
+      </ol>
+    </div>
+
+    <!-- Gatilhos invisíveis, na ordem em que acontecem -->
+    <span class="gatilho fragment" data-video-acao="tocar"></span>
+    <span class="gatilho fragment" data-video-acao="expandir"></span>
+    <span class="gatilho fragment" data-video-acao="recolher"></span>
+  </div>
+
+  <aside class="notes">
+    [2:00] Mesmo projeto fictício do vídeo anterior.
+    Grafo: os 9 tópicos centrais, pelo limite de Miller.
+    Glossário: cada tópico traduzido e explicado no contexto do projeto.
+    Seleção: três marcados, seis deixados de fora. Chamar atenção, sem
+    nomear ainda, para os tópicos adjacentes descartados: COVID-19,
+    zoonoses, saúde materno-infantil. Isso volta na discussão.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · DELINÉIA · ESTRUTURA DO RELATÓRIO
+     As sete partes da Figura 16, em três grupos, um por clique.
+     A figura amplia ao clicar.
+     ===================================================================== -->
+<section class="relatorio" data-secao="Delinéia">
+  <div class="quadro">
+
+    <h2 class="afirmacao">O relatório organiza o feedback em sete partes, que acompanham a trilha do estudante</h2>
+
+    <div class="evidencia">
+
+      <div class="figura-relatorio">
+        <img class="ampliavel" src="midia/imagens/figura16-relatorio.png" alt="Figura 16"
+             data-nome="Estrutura do relatório final de delineamento do escopo" data-ref="Figura 16 · Dados da pesquisa">
+        <p>Figura 16</p>
+      </div>
+
+      <div>
+        <div class="grupo-rel fragment" data-fragment-index="1">
+          <p>O que o estudante trouxe e o que o campo mostra</p>
+          <div class="parte"><span class="letra-rel">A</span><div><strong>Dados do projeto</strong><span>tema, questão, palavras-chave, segurança inicial e distintivos</span></div></div>
+          <div class="parte"><span class="letra-rel">B</span><div><strong>Avaliação do projeto</strong><span>viabilidade da questão, busca espontânea e consulta ao orientador</span></div></div>
+          <div class="parte"><span class="letra-rel">C</span><div><strong>Métricas e grafo</strong><span>artigos, tópicos, coocorrências e os tópicos selecionados</span></div></div>
+          <div class="parte"><span class="letra-rel">D</span><div><strong>Glossário</strong><span>os termos em inglês, adaptados ao tema</span></div></div>
+        </div>
+
+        <div class="grupo-rel fragment" data-fragment-index="2">
+          <p>A leitura do campo</p>
+          <div class="parte"><span class="letra-rel">E</span><div><strong>Interpretação do grafo</strong><span>clusters, conexões e lacunas promissoras</span></div></div>
+        </div>
+
+        <div class="grupo-rel autonomia fragment" data-fragment-index="3">
+          <p>Ferramentas para seguir sozinho</p>
+          <div class="parte"><span class="letra-rel">F</span><div><strong>Sugestões de palavras-chave</strong><span>cada uma com a sua justificativa</span></div></div>
+          <div class="parte"><span class="letra-rel">G</span><div><strong>Chaves de busca</strong><span>ampla, focada e a chave original, por transparência</span></div></div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [1:00] Antes de ver o relatório real, a estrutura.
+    Clique 1. A a D: o que o estudante trouxe e o que o campo mostra.
+    Clique 2. E: a camada interpretativa, em que a IA lê o grafo.
+    Clique 3. F e G: as ferramentas para seguir sozinho. O Apêndice D da
+    tese traz um relatório completo, se a banca quiser o exemplo.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · DELINÉIA · VÍDEO 3 · O RELATÓRIO DE DELINEAMENTO
+     Clique 1: toca. Clique 2: expande. Clique 3: recolhe e pausa.
+     O roteiro segue a ordem em que as partes aparecem na tela, com as
+     letras da Figura 16. O glossário (D) já apareceu no vídeo 2.
+     Arquivo do vídeo: midia/videos/03-relatorio.mp4
+     ===================================================================== -->
+<section class="demo" data-secao="Delinéia">
+  <div class="quadro">
+
+    <h2 class="afirmacao">O relatório devolve ao estudante a leitura do campo e as ferramentas para buscar sozinho</h2>
+
+    <div class="veu"></div>
+    <div class="janela-video">
+      <video src="midia/videos/03-relatorio.mp4" poster="midia/imagens/poster-delineia.jpg"
+             preload="auto" muted playsinline></video>
+      <div class="legenda-video"></div>
+    </div>
+
+    <div class="capitulos">
+      <p>Neste vídeo</p>
+      <ol>
+        <li data-t="1"><strong>A e B · Dados e avaliação</strong><span>o projeto declarado e o parecer sobre ele</span></li>
+        <li data-t="18"><strong>E · Interpretação do grafo</strong><span>clusters, conexões e lacunas</span></li>
+        <li data-t="25"><strong>C · Grafo de coocorrência</strong><span>os 9 tópicos centrais</span></li>
+        <li data-t="30"><strong>F · Palavras-chave</strong><span>sugestões com justificativa</span></li>
+        <li data-t="44"><strong>G · Chaves de busca</strong><span>ampla, focada e a original, e o PDF</span></li>
+      </ol>
+    </div>
+
+    <!-- Gatilhos invisíveis, na ordem em que acontecem -->
+    <span class="gatilho fragment" data-video-acao="tocar"></span>
+    <span class="gatilho fragment" data-video-acao="expandir"></span>
+    <span class="gatilho fragment" data-video-acao="recolher"></span>
+  </div>
+
+  <aside class="notes">
+    [2:00] O mesmo projeto, agora com o relatório.
+    Na tela, a interpretação (E) vem antes do grafo (C), e o glossário (D)
+    já foi visto no vídeo anterior.
+    Destacar as chaves de busca prontas para copiar, e a chave original,
+    por transparência. O vídeo termina no clique do PDF.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · DELINÉIA · VÍDEO 4 · AVALIAÇÃO E RECOMEÇO
+     Clique 1: toca. Clique 2: expande. Clique 3: recolhe e pausa.
+     O roteiro à direita acende sozinho conforme o vídeo avança.
+     Arquivo do vídeo: midia/videos/04-avaliacao.mp4
+     ===================================================================== -->
+<section class="demo" data-secao="Delinéia">
+  <div class="quadro">
+
+    <h2 class="afirmacao">A avaliação fecha a trilha com a segurança final e o distintivo de Avaliador(a)</h2>
+
+    <div class="veu"></div>
+    <div class="janela-video">
+      <video src="midia/videos/04-avaliacao.mp4" poster="midia/imagens/poster-delineia.jpg"
+             preload="auto" muted playsinline></video>
+      <div class="legenda-video"></div>
+    </div>
+
+    <div class="capitulos">
+      <p>Neste vídeo</p>
+      <ol>
+        <li data-t="1"><strong>Consentimento</strong><span>TCLE para os dados e para convites futuros</span></li>
+        <li data-t="16"><strong>Aceitação e recomendação</strong><span>TAM3, UTAUT, NPS e comentários</span></li>
+        <li data-t="37"><strong>Segurança final</strong><span>ao lado da resposta inicial</span></li>
+        <li data-t="47"><strong>Perfil e envio</strong><span>dados opcionais do respondente</span></li>
+        <li data-t="73"><strong>Conquistas</strong><span>os cinco distintivos e a música de recompensa</span></li>
+        <li data-t="108"><strong>Novo delineamento</strong><span>a trilha recomeça</span></li>
+      </ol>
+    </div>
+
+    <!-- Gatilhos invisíveis, na ordem em que acontecem -->
+    <span class="gatilho fragment" data-video-acao="tocar"></span>
+    <span class="gatilho fragment" data-video-acao="expandir"></span>
+    <span class="gatilho fragment" data-video-acao="recolher"></span>
+  </div>
+
+  <aside class="notes">
+    [2:30] A etapa 5, do consentimento ao recomeço.
+    Em 55 segundos: a segurança final ao lado da inicial, a comparação
+    pareada acontecendo na tela. Retomar o arco do slide M3.
+    Por volta de 1min50: os cinco distintivos e a canção de Jaime Vaz
+    Brasil, com Hique Gomes. A metáfora da palavra no escuro.
+    O vídeo termina com a trilha recomeçando.
+  </aside>
+</section>
+
+
+<!-- =====================================================================
+     SLIDE · RESULTADOS · PERFIL E COMPORTAMENTO INFORMACIONAL (6.1)
+     Clique 1: quem participou. Clique 2: onde buscavam.
+     Clique 3: a ilusão da ferramenta.
+     ===================================================================== -->
+<section class="perfil" data-secao="Resultados">
+  <div class="quadro">
+
+    <h2 class="afirmacao">Mais ferramentas de busca não trouxeram mais segurança aos estudantes</h2>
+    
+    <div class="evidencia paineis">
+
+      <!-- Coluna 1 · quem participou, com a Figura 17 -->
+      <div class="fragment" data-fragment-index="1">
+        <div class="painel-res">
+          <p class="rotulo-res">Quem participou</p>
+          <div class="numero-grande">82 <small>de 86</small></div>
+          <p class="legenda-num">sem nenhuma experiência prévia com bibliometria</p>
+          <div class="pontos86">
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+            <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="exp"></span><span class="exp"></span><span class="exp"></span><span class="exp"></span>
+          </div>
+          <p class="nota-res nota-pontos">em dourado, os 4 com experiência básica ou intermediária, todos da Ciência da Informação</p>
+          <ul class="barras-res">
+            <li><div><span class="nome-barra">Ciências Humanas</span><div class="trilho-barra"><i style="width: 100%"></i></div></div><span class="valor">32</span></li>
+            <li><div><span class="nome-barra">Linguística, Letras e Artes</span><div class="trilho-barra"><i style="width: 71.9%"></i></div></div><span class="valor">23</span></li>
+            <li><div><span class="nome-barra">Ciências Biológicas</span><div class="trilho-barra"><i style="width: 50%"></i></div></div><span class="valor">16</span></li>
+            <li><div><span class="nome-barra">Ciências Sociais Aplicadas</span><div class="trilho-barra"><i style="width: 15.6%"></i></div></div><span class="valor">5</span></li>
+          </ul>
+        </div>
+        <div class="micro-fig">
+          <img class="ampliavel" src="midia/resultados/figura17-perfil-academico.png" alt="Figura 17"
+               data-nome="Perfil acadêmico da amostra" data-ref="Figura 17 · Dados da pesquisa">
+        </div>
+      </div>
+
+      <!-- Coluna 2 · onde buscavam, com a Figura 19 -->
+      <div class="fragment" data-fragment-index="2">
+        <div class="painel-res">
+          <p class="rotulo-res">Onde buscavam</p>
+          <ul class="barras-res">
+            <li><div><span class="nome-barra">Google Acadêmico</span><div class="trilho-barra"><i style="width: 100%"></i></div></div><span class="valor">74</span></li>
+            <li><div><span class="nome-barra">SciELO</span><div class="trilho-barra"><i style="width: 90.5%"></i></div></div><span class="valor">67</span></li>
+            <li><div><span class="nome-barra">Portal de Periódicos da CAPES</span><div class="trilho-barra"><i style="width: 67.6%"></i></div></div><span class="valor">50</span></li>
+            <li><div><span class="nome-barra">Repositório institucional</span><div class="trilho-barra"><i style="width: 45.9%"></i></div></div><span class="valor">34</span></li>
+          </ul>
+          <p class="nota-res">menções entre 314, em 96 formulários iniciais, com média de 3,6 fontes por formulário</p>
+        </div>
+        <div class="micro-fig">
+          <img class="ampliavel" src="midia/resultados/figura19-fontes-de-busca.png" alt="Figura 19"
+               data-nome="Fontes de busca mais usadas" data-ref="Figura 19 · Dados da pesquisa">
+        </div>
+      </div>
+
+      <!-- Coluna 3 · a ilusão da ferramenta, com a Figura 20 -->
+      <div class="fragment" data-fragment-index="3">
+        <div class="painel-res achado">
+          <p class="rotulo-res">A ilusão da ferramenta</p>
+          <div class="numero-grande">0,08</div>
+          <p class="legenda-num">de correlação entre o número de fontes usadas e a segurança declarada</p>
+          <p class="destaque">Os <b>3 respondentes totalmente inseguros</b> usavam, em média, <b>5,3 fontes</b>, mais do que qualquer outro grupo.</p>
+        </div>
+        <div class="micro-fig">
+          <img class="ampliavel" src="midia/resultados/figura20-correlacao-ferramentas.png" alt="Figura 20"
+               data-nome="Métrica de correlação: ferramentas usadas vs. nível de confiança" data-ref="Figura 20 · Dados da pesquisa">
+        </div>
+      </div>
+
+    </div>
+
+    <div class="referencias">
+      <span class="ref fragment fade-in-then-out" data-fragment-index="1">Walsh et al., 2022; Lancho-Barrantes, 2025</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="2">Jacobsen, 2018; Mazurkiewicz; Sturm, 2014</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="3">Bandura, 1997; Hoeber; Shukla, 2022</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [1:15] Abre os resultados. A amostra é de neófitos em bibliometria.
+    Clique 1. 82 de 86 sem experiência. Os 4 em dourado são da Ciência
+    da Informação.
+    Clique 2. Buscadores consagrados, média de 3,6 fontes por estudante.
+    Clique 3. A ilusão da ferramenta. Lembrar o slide do problema: o acesso
+    a motores de busca convive com a insegurança. Aqui isso vira dado.
+  </aside>
+</section>
+
+
+<!-- =====================================================================
+     SLIDE · RESULTADOS · AUTOEFICÁCIA (6.2)
+     Clique 1: antes e depois. Clique 2: os três números.
+     Clique 3: os 9 recuos e a calibração. Figuras 21 e 22 ampliáveis.
+     ===================================================================== -->
+<section class="autoeficacia" data-secao="Resultados">
+  <div class="quadro">
+
+    <h2 class="afirmacao">A segurança subiu para a maioria, e os poucos recuos revelam calibração do julgamento</h2>
+
+    <div class="evidencia">
+
+      <div>
+        <!-- Clique 1 · antes e depois -->
+        <div class="fragment" data-fragment-index="1">
+          <p class="rotulo-res">Segurança na escolha das palavras-chave, antes e depois do relatório (n = 86)</p>
+          <div class="linha-barra"><span>antes</span><div class="pilha"><i class="n1" style="width: 2.3%"></i><i class="n2" style="width: 18.6%">16</i><i class="n3" style="width: 36.0%">31</i><i class="n4" style="width: 34.9%">30</i><i class="n5" style="width: 8.1%">7</i></div></div>
+          <div class="linha-barra"><span>depois</span><div class="pilha"><i class="n2" style="width: 1.2%"></i><i class="n3" style="width: 20.9%">18</i><i class="n4" style="width: 52.3%">45</i><i class="n5" style="width: 25.6%">22</i></div></div>
+          <div class="chave-niveis">
+            <span><b class="n1"></b>totalmente inseguro</span><span><b class="n2"></b>inseguro</span><span><b class="n3"></b>neutro</span><span><b class="n4"></b>seguro</span><span><b class="n5"></b>totalmente seguro</span>
+          </div>
+        </div>
+
+        <!-- Clique 2 · os três números, com a Figura 21 -->
+        <div class="fragment" data-fragment-index="2">
+          <div class="tres">
+            <div><strong>55,8%</strong><span>subiram de nível (48)</span></div>
+            <div><strong>33,7%</strong><span>mantiveram o nível (29)</span></div>
+            <div class="recuo"><strong>10,5%</strong><span>recuaram (9)</span></div>
+          </div>
+          <div class="figuras-res">
+            <img class="ampliavel" src="midia/resultados/figura21-seguranca-f1-f2.png" alt="Figura 21"
+                 data-nome="Nível de segurança na definição de palavras-chave (F1/F2, n = 86)" data-ref="Figura 21 · Dados da pesquisa">
+          </div>
+        </div>
+      </div>
+
+      <!-- Clique 3 · os 9 recuos, com a Figura 22 -->
+      <div class="fragment" data-fragment-index="3">
+        <div class="calibracao">
+          <p class="rotulo-res">Os 9 recuos</p>
+          <ul>
+            <li><b>6</b>de seguro para neutro</li>
+            <li><b>2</b>de totalmente seguro para neutro</li>
+            <li><b>1</b>de totalmente seguro para seguro</li>
+          </ul>
+          <p>Todos partiram de quem se dizia seguro, e ninguém caiu para a insegurança. O relatório tornou visíveis <em>limites antes ignorados</em>.</p>
+        </div>
+        <div class="figuras-res micro">
+          <img class="ampliavel" src="midia/resultados/figura22-matriz-de-transicao.png" alt="Figura 22"
+               data-nome="Matriz de transição da autopercepção de confiança (n = 86)" data-ref="Figura 22 · Dados da pesquisa">
+        </div>
+      </div>
+
+    </div>
+    
+    <div class="referencias">
+      <span class="ref fragment fade-in-then-out" data-fragment-index="1">Bandura, 1997; Prabowo et al., 2024</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="3">Hill; Zwahr-Castro; Gonzalez III, 2022; Saha; Ahmed, 2025</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [1:30] O slide central da tese.
+    Clique 1. A barra de baixo fica mais escura. Inseguros: de 18 para 1.
+    Totalmente seguros: de 7 para 22.
+    Clique 2. Mais da metade subiu. Destacar o 10,5%.
+    Clique 3. Os recuos vieram todos de quem se dizia seguro, e ninguém
+    caiu para a insegurança. Calibração do julgamento, e não inflação da
+    confiança. Retomar o arco do M3 e a tela do vídeo 4.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · RESULTADOS · AVALIAÇÃO QUANTITATIVA (6.3)
+     Clique 1: as faixas de pontos, uma por construto.
+     Clique 2: os dois pontos de menor adesão e o contraste da confiança.
+     Clique 3: o NPS. Figuras 23 a 27 e 29 em microminiaturas.
+     ===================================================================== -->
+<section class="quanti" data-secao="Resultados">
+  <div class="quadro">
+
+    <h2 class="afirmacao">Os estudantes aprovaram o Delinéia, mas preferiram não delegar a ele as próprias decisões</h2>
+
+    <div class="evidencia">
+
+      <div>
+        <div class="fragment" data-fragment-index="1">
+          <p class="rotulo-res">Concordância positiva em cada afirmativa (concordo e concordo totalmente, n = 86)</p>
+
+          <div class="faixa">
+            <div class="nome-faixa">Utilidade percebida<small>F2.1–2.4</small></div>
+            <div class="trilho-faixa">
+              <span class="ponto" style="left: 90.6%"></span><span class="ponto" style="left: 83.8%"></span>
+              <span class="ponto" style="left: 88.4%"></span><span class="ponto" style="left: 74.4%"></span>
+            </div>
+            <div class="micro-fig"><img class="ampliavel" src="midia/resultados/figura23-utilidade-percebida.png" alt="Figura 23" data-nome="Utilidade percebida (F2.1–F2.4)" data-ref="Figura 23 · Dados da pesquisa"></div>
+          </div>
+
+          <div class="faixa">
+            <div class="nome-faixa">Facilidade de uso<small>F2.5–2.7</small></div>
+            <div class="trilho-faixa">
+              <span class="ponto" style="left: 90.6%"></span><span class="ponto" style="left: 86.0%"></span>
+              <span class="ponto" style="left: 62.8%"></span>
+            </div>
+            <div class="micro-fig"><img class="ampliavel" src="midia/resultados/figura24-facilidade-de-uso.png" alt="Figura 24" data-nome="Facilidade de uso percebida (F2.5–F2.7)" data-ref="Figura 24 · Dados da pesquisa"></div>
+          </div>
+
+          <div class="faixa">
+            <div class="nome-faixa">Qualidade da informação<small>F2.8–2.13</small></div>
+            <div class="trilho-faixa">
+              <span class="ponto" style="left: 79.0%"></span><span class="ponto" style="left: 76.8%"></span>
+              <span class="ponto" style="left: 32.6%"></span><span class="ponto" style="left: 74.4%"></span>
+              <span class="ponto" style="left: 76.8%"></span><span class="ponto" style="left: 81.4%"></span>
+              <span class="ponto baixo fragment" data-fragment-index="2" style="left: 32.6%"></span>
+              <span class="rotulo-ponto fragment" data-fragment-index="2" style="left: 32.6%">F2.10 · chaves precisas · 66,3%</span>
+            </div>
+            <div class="micro-fig"><img class="ampliavel" src="midia/resultados/figura25-qualidade-da-informacao.png" alt="Figura 25" data-nome="Qualidade da informação (F2.8–F2.13)" data-ref="Figura 25 · Dados da pesquisa"></div>
+          </div>
+
+          <div class="faixa">
+            <div class="nome-faixa">Intenção de uso<small>F2.14–2.16</small></div>
+            <div class="trilho-faixa">
+              <span class="ponto" style="left: 88.4%"></span><span class="ponto" style="left: 60.4%"></span>
+              <span class="ponto" style="left: 48.8%"></span>
+            </div>
+            <div class="micro-fig"><img class="ampliavel" src="midia/resultados/figura26-intencao-e-confianca.png" alt="Figura 26" data-nome="Intenção de uso e confiança (F2.14–F2.18)" data-ref="Figura 26 · Dados da pesquisa"></div>
+          </div>
+
+          <div class="faixa">
+            <div class="nome-faixa">Confiança<small>F2.17–2.18</small></div>
+            <div class="trilho-faixa">
+              <span class="ponto" style="left: 65.2%"></span><span class="ponto" style="left: 21.0%"></span>
+              <span class="ponto baixo fragment" data-fragment-index="2" style="left: 21.0%"></span>
+              <span class="rotulo-ponto fragment" data-fragment-index="2" style="left: 21.0%">F2.18 · basear decisões · 60,5%</span>
+            </div>
+            <div></div>
+          </div>
+
+          <div class="faixa">
+            <div class="nome-faixa">Experiência<small>F2.19–2.20</small></div>
+            <div class="trilho-faixa">
+              <span class="ponto" style="left: 100.0%"></span><span class="ponto" style="left: 96.0%"></span>
+            </div>
+            <div class="micro-fig"><img class="ampliavel" src="midia/resultados/figura27-experiencia-do-usuario.png" alt="Figura 27" data-nome="Experiência do usuário (F2.19–F2.20)" data-ref="Figura 27 · Dados da pesquisa"></div>
+          </div>
+
+          <div class="eixo-faixa">
+            <div></div>
+            <div class="marcas"><span style="left: 0%">50%</span><span style="left: 20%">60%</span><span style="left: 40%">70%</span><span style="left: 60%">80%</span><span style="left: 80%">90%</span><span style="left: 100%">100%</span></div>
+            <div></div>
+          </div>
+        </div>
+        <p class="nota-quanti fragment" data-fragment-index="2">Confiam nas análises <b>82,6%</b>, mas apenas <b>60,5%</b> se sentem confortáveis em basear decisões nelas.</p>
+      </div>
+
+      <div class="fragment" data-fragment-index="3">
+        <div class="nps">
+          <p class="rotulo-res">Recomendação · Net Promoter Score</p>
+          <div class="valor-nps">63</div>
+          <p class="escala">numa escala de −100 a 100</p>
+          <div class="barra-nps"><i style="width: 66.3%"></i><i style="width: 30.2%"></i><i style="width: 3.5%"></i></div>
+          <ul>
+            <li><b>57</b>promotores (66,3%)</li>
+            <li><b>26</b>neutros (30,2%)</li>
+            <li><b>3</b>detratores (3,5%)</li>
+          </ul>
+          <div class="micro-fig"><img class="ampliavel" src="midia/resultados/figura29-nps.png" alt="Figura 29" data-nome="Net Promoter Score do Delinéia (F2.21, n = 86)" data-ref="Figura 29 · Dados da pesquisa"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="referencias">
+      <span class="ref fragment fade-in-then-out" data-fragment-index="1">Venkatesh et al., 2003; Venkatesh; Bala, 2008</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="3">Reichheld, 2003</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [1:30] Vinte afirmativas, uma por ponto. Quase tudo acima de 80%.
+    Clique 1. Destacar a experiência, com 100% e 98%.
+    Clique 2. Os dois pontos que destoam: a precisão das chaves de busca e
+    a disposição de basear decisões no sistema. Confiam, mas não delegam.
+    É a mesma calibração do slide anterior.
+    Clique 3. NPS de 63, com apenas 3 detratores.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · RESULTADOS · AVALIAÇÃO QUALITATIVA (6.4)
+     Um eixo por clique: valor, tensão e transversal, cada um com uma
+     fala de estudante. Figuras 30 e 31 em microminiaturas.
+     Percentuais sobre os 50 respondentes que comentaram.
+     ===================================================================== -->
+<section class="quali" data-secao="Resultados">
+  <div class="quadro">
+
+    <h2 class="afirmacao">Nos comentários, o relatório reorienta o escopo e se torna ponte para a conversa com o orientador</h2>
+
+    <div class="evidencia">
+
+      <div>
+        <div class="fragment" data-fragment-index="1">
+          <div class="cabeca-quali">
+            <span>50 dos 86 estudantes comentaram (58,1%) · saturação no 12º respondente</span>
+            <div class="micro-figs">
+              <img class="ampliavel" src="midia/resultados/figura30-curva-de-saturacao.png" alt="Figura 30" data-nome="Curva de saturação teórica" data-ref="Figura 30 · Dados da pesquisa">
+              <img class="ampliavel" src="midia/resultados/figura31-frequencia-de-categorias.png" alt="Figura 31" data-nome="Frequência das categorias" data-ref="Figura 31 · Dados da pesquisa">
+            </div>
+          </div>
+          <div class="grupo-quali">
+            <p>Valor</p>
+            <div class="cat valor"><div class="nome-cat"><b>C1</b>Reorientação e clareza do escopo</div><div class="trilho-cat"><i style="width: 91.4%"></i></div><span class="pct">32,0%</span></div>
+            <div class="cat valor"><div class="nome-cat"><b>C2</b>Mediação técnica do letramento informacional</div><div class="trilho-cat"><i style="width: 62.9%"></i></div><span class="pct">22,0%</span></div>
+            <div class="cat valor"><div class="nome-cat"><b>C3</b>Dimensão afetiva e motivacional</div><div class="trilho-cat"><i style="width: 34.3%"></i></div><span class="pct">12,0%</span></div>
+          </div>
+        </div>
+        <div class="grupo-quali fragment" data-fragment-index="2">
+          <p>Tensão</p>
+          <div class="cat tensao"><div class="nome-cat"><b>C4</b>Arquitetura da informação</div><div class="trilho-cat"><i style="width: 34.3%"></i></div><span class="pct">12,0%</span></div>
+          <div class="cat tensao"><div class="nome-cat"><b>C5</b>Precisão semântica e abstração dos termos</div><div class="trilho-cat"><i style="width: 62.9%"></i></div><span class="pct">22,0%</span></div>
+          <div class="cat tensao"><div class="nome-cat"><b>C6</b>Fluxo de interação e fricções operacionais</div><div class="trilho-cat"><i style="width: 40.0%"></i></div><span class="pct">14,0%</span></div>
+        </div>
+        <div class="grupo-quali fragment" data-fragment-index="3">
+          <p>Transversal</p>
+          <div class="cat transversal"><div class="nome-cat"><b>T</b>Mediação com o orientador e postura crítica</div><div class="trilho-cat"><i style="width: 57.1%"></i></div><span class="pct">20,0%</span></div>
+        </div>
+      </div>
+
+      <div>
+        <div class="fala fragment" data-fragment-index="1">
+          <p>“Percebi que minha pergunta estava ampla para um estudo só.”</p>
+          <span>user_adb8e0cf · C1</span>
+        </div>
+        <div class="fala tensao fragment" data-fragment-index="2">
+          <p>“Parece que meu TCC é da Psicologia.”</p>
+          <span>user_649167a2 · C5</span>
+        </div>
+        <div class="fala transversal fragment" data-fragment-index="3">
+          <p>“Criou uma casca para minha negociação com ele.”</p>
+          <span>user_d3b4e6c4 · T, sobre o orientador</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="referencias">
+      <span class="ref fragment fade-in-then-out" data-fragment-index="1">Bardin, 2011; Saldaña, 2015</span>
+      <span class="ref fragment fade-in-then-out" data-fragment-index="3">Bauer; Gaskell, 2010</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [1:30] Cinquenta comentaram. Saturação no 12º respondente.
+    Clique 1. Valor: a reorientação do escopo lidera, com 32%.
+    Clique 2. Tensão: a precisão dos termos, com 22%. É o mesmo ponto
+    dourado do F2.10 no slide anterior.
+    Clique 3. Transversal: o relatório como objeto de fronteira com o
+    orientador. "Criou uma casca."
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · RESULTADOS · SCOPUS E OPENALEX (6.5)
+     Clique 1: indicadores da Tabela 28. Clique 2: exemplo pareado da
+     Tabela 29. Clique 3: o que a mudança provocou. Figura 32 em
+     microminiatura. A fricção produtiva só é nomeada na discussão.
+     ===================================================================== -->
+<section class="comparacao" data-secao="Resultados">
+  <div class="quadro">
+
+    <h2 class="afirmacao">Com o OpenAlex, o estudante deixou de receber sinônimos e passou a receber um mapa do campo</h2>
+
+    <div class="evidencia">
+
+      <div>
+        <!-- Clique 1 · os indicadores -->
+        <div class="fragment" data-fragment-index="1">
+          <div class="rotulo-res">
+            <span>Indicadores estruturais dos termos devolvidos aos estudantes</span>
+            <div class="micro-fig"><img class="ampliavel" src="midia/resultados/figura32-scopus-openalex.png" alt="Figura 32" data-nome="Comparação estrutural dos metadados: Scopus vs. OpenAlex" data-ref="Figura 32 · Dados da pesquisa"></div>
+          </div>
+          <div class="ind cab">
+            <span></span>
+            <span><b>Scopus</b>palavras-chave de autor<br>23 alunos · 311 termos</span>
+            <span><b>OpenAlex</b>tópicos hierárquicos<br>86 registros · 776 termos</span>
+          </div>
+          <div class="ind"><span class="nome-ind">Diversidade léxica (TTR)</span><span class="v">0,624</span><span class="v oa">0,272</span></div>
+          <div class="ind"><span class="nome-ind">Concentração nos 10 termos mais frequentes</span><span class="v">18,6%</span><span class="v oa">47,2%</span></div>
+          <div class="ind"><span class="nome-ind">Termos únicos por aluno</span><span class="v">13,5</span><span class="v oa">9,0</span></div>
+          <div class="ind"><span class="nome-ind">Termo mais frequente</span><span class="v termo">higher education<small>9×</small></span><span class="v oa termo">psychology<small>72×</small></span></div>
+        </div>
+
+        <!-- Clique 2 · um exemplo pareado -->
+        <div class="exemplo fragment" data-fragment-index="2">
+          <p class="tema-ex">O mesmo tema nos dois estudos<b>gamificação e ensino</b></p>
+          <div class="pares">
+            <div class="cartao-ex">
+              <span class="base-ex"><b>Scopus</b> · palavras-chave de autor</span>
+              <div class="etiquetas"><i>Game-Based Learning</i><i>Gamification</i><i>Serious Games</i><i>Game Design</i><i>Computational Thinking</i></div>
+              <p class="sintese-ex">o jargão exato do tema</p>
+            </div>
+            <div class="seta-ex">→</div>
+            <div class="cartao-ex oa">
+              <span class="base-ex"><b>OpenAlex</b> · tópicos hierárquicos</span>
+              <div class="etiquetas oa"><i>Psychology</i><i>Cognition</i><i>Open education</i><i>Pedagogy</i><i>Professional development</i><i>Higher education</i></div>
+              <p class="sintese-ex">as grandes ciências a que ele pertence</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Clique 3 · o que a mudança provocou -->
+      <div class="fragment" data-fragment-index="3">
+        <div class="efeito">
+          <p class="rotulo-res"><span>O que a mudança provocou</span></p>
+          <p class="forte">Diante de tópicos amplos, o estudante passou a <b>filtrar</b>, a <b>decidir</b> o que era genérico demais e a <b>justificar</b> os próprios recortes.</p>
+          <ul>
+            <li>Explica a nota mais baixa, <b>F2.10</b>, sobre a precisão das chaves</li>
+            <li>Explica a categoria <b>C5</b>, sobre a abstração dos termos</li>
+            <li>A Scopus parecia precisa, mas entregava sinônimos do que o aluno já sabia</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="referencias">
+      <span class="ref fragment fade-in-then-out" data-fragment-index="1">Priem; Piwowar; Orr, 2022; Miller, 1956</span>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [1:30] Objetivo específico d: metadados de natureza distinta.
+    Clique 1. TTR é a proporção entre termos distintos e o total de termos.
+    A Scopus devolvia vocabulário variado; o OpenAlex, grandes áreas.
+    Termos únicos por aluno caem pelo limite de 9 nós (Miller).
+    Clique 2. O mesmo tema: jargão de um lado, grandes ciências do outro.
+    Clique 3. O comportamento que isso provocou. Ainda sem nomear a fricção
+    produtiva: o nome vem na discussão.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · DISCUSSÃO · OS CONSTRUTOS DA TESE (cap. 7)
+     Cliques 1 a 5: uma ponta da estrela por vez, com a citação da tese
+     no centro (some no clique seguinte). Clique 6: síntese no centro e
+     a coluna das convergências e tensões com o estado da arte.
+     No clique 1, a miniatura do quadro do vídeo 2 aparece no centro.
+     ===================================================================== -->
+<section class="discussao" data-secao="Discussão">
+  <div class="quadro">
+
+    <h2 class="afirmacao">Coocorrência e IA generativa reconfiguraram o comportamento informacional dos estudantes</h2>
+
+    <div class="evidencia">
+
+      <div class="estrela">
+        <svg class="linhas" viewBox="0 0 1040 640" aria-hidden="true">
+          <circle class="anel fragment" data-fragment-index="1" cx="520" cy="330" r="270"/>
+          <polyline class="aresta fragment" data-fragment-index="1" points="454,239 520,60 586,239"/>
+          <polyline class="aresta fragment" data-fragment-index="2" points="586,239 777,247 627,365"/>
+          <polyline class="aresta fragment" data-fragment-index="3" points="627,365 679,548 520,442"/>
+          <polyline class="aresta fragment" data-fragment-index="4" points="520,442 361,548 413,365"/>
+          <polyline class="aresta fragment" data-fragment-index="5" points="413,365 263,247 454,239"/>
+        </svg>
+
+        <div class="centro">
+          <div class="citacao fragment fade-in-then-out" data-fragment-index="1">
+            <p>“A adoção de uma taxonomia hierárquica […] inseriu uma fricção produtiva no fluxo de interação, demandando do aluno a autorregulação contínua e a tomada de decisão consciente.”</p>
+            <span>seção 7.1</span>
+            <img class="ampliavel" src="midia/imagens/quadro-selecao-topicos.png" alt="Seleção de tópicos" data-nome="A seleção de tópicos no vídeo 2" data-ref="Delinéia · projeto de demonstração">
+          </div>
+          <div class="citacao fragment fade-in-then-out" data-fragment-index="2">
+            <p>“A ferramenta operou como um andaime metacognitivo, fornecendo as estruturas de apoio para que os estudantes transitassem da ansiedade […] para uma delimitação metódica e segura.”</p>
+            <span>seção 7.2</span>
+          </div>
+          <div class="citacao fragment fade-in-then-out" data-fragment-index="3">
+            <p>“A usabilidade traduziu-se na ocorrência do engajamento absorto e do estado de fluxo, atenuando a ansiedade e justificando o tempo de processamento.”</p>
+            <span>seção 7.3</span>
+          </div>
+          <div class="citacao fragment fade-in-then-out" data-fragment-index="4">
+            <p>“Esse atrito cognitivo favoreceu a autonomia investigativa e consolidou a agência epistêmica simbiótica.”</p>
+            <span>seção 7.4</span>
+          </div>
+          <div class="citacao fragment fade-in-then-out" data-fragment-index="5">
+            <p>“Esse documento instrumentou o discente para a negociação metodológica com o seu orientador, preservando a autoridade da supervisão humana.”</p>
+            <span>seção 7.5</span>
+          </div>
+          <div class="citacao final fragment" data-fragment-index="6">
+            <p>Um <b>parceiro de pensamento provisório</b></p>
+            <span>Vendrell; Johnston, 2026 · seção 7.7</span>
+          </div>
+        </div>
+
+        <!-- Ponta 1 · fricção produtiva -->
+        <div class="ponta fragment" data-fragment-index="1" style="left: 520px; top: 60px">
+          <div class="icone-ponta"><svg viewBox="0 0 58 64" aria-hidden="true"><rect x="8" y="9" width="11" height="11" fill="none" stroke="#1C2B45" stroke-width="2.4"/><path d="M10 15l3 3 5-7" fill="none" stroke="#B3893A" stroke-width="2.6"/><line x1="25" y1="14.5" x2="46" y2="14.5" stroke="#1C2B45" stroke-width="2.4"/><rect x="8" y="27" width="11" height="11" fill="none" stroke="#1C2B45" stroke-width="2.4"/><line x1="25" y1="32.5" x2="40" y2="32.5" stroke="#9AA3B0" stroke-width="2.4"/><rect x="8" y="45" width="11" height="11" fill="none" stroke="#1C2B45" stroke-width="2.4"/><line x1="25" y1="50.5" x2="43" y2="50.5" stroke="#9AA3B0" stroke-width="2.4"/></svg></div>
+          <div class="legenda-ponta direita"><strong>Fricção produtiva</strong><span>decidir diante da amplitude</span></div>
+        </div>
+
+        <!-- Ponta 2 · andaime metacognitivo -->
+        <div class="ponta fragment" data-fragment-index="2" style="left: 777px; top: 247px">
+          <div class="icone-ponta"><svg viewBox="0 0 58 64" aria-hidden="true"><line x1="14" y1="6" x2="14" y2="58" stroke="#1C2B45" stroke-width="2.6"/><line x1="44" y1="6" x2="44" y2="58" stroke="#1C2B45" stroke-width="2.6"/><line x1="10" y1="12" x2="48" y2="12" stroke="#B3893A" stroke-width="3.4"/><line x1="10" y1="30" x2="48" y2="30" stroke="#1C2B45" stroke-width="2.6"/><line x1="10" y1="48" x2="48" y2="48" stroke="#1C2B45" stroke-width="2.6"/><line x1="14" y1="30" x2="44" y2="48" stroke="#9AA3B0" stroke-width="2"/><line x1="14" y1="12" x2="44" y2="30" stroke="#9AA3B0" stroke-width="2"/></svg></div>
+          <div class="legenda-ponta direita"><strong>Andaime metacognitivo</strong><span>da ansiedade à delimitação</span></div>
+        </div>
+
+        <!-- Ponta 3 · engajamento absorto -->
+        <div class="ponta fragment" data-fragment-index="3" style="left: 679px; top: 548px">
+          <div class="icone-ponta"><svg viewBox="0 0 58 64" aria-hidden="true"><path d="M16 6h26M16 58h26" stroke="#1C2B45" stroke-width="2.6" stroke-linecap="round"/><path d="M18 6c0 14 10 18 11 26c1-8 11-12 11-26M18 58c0-14 10-18 11-26c1 8 11 12 11 26" fill="none" stroke="#1C2B45" stroke-width="2.4"/><path d="M22 54c2-6 5-9 7-12c2 3 5 6 7 12z" fill="#B3893A"/></svg></div>
+          <div class="legenda-ponta direita"><strong>Engajamento absorto</strong><span>o tempo que se contrai</span></div>
+        </div>
+
+        <!-- Ponta 4 · agência epistêmica -->
+        <div class="ponta fragment" data-fragment-index="4" style="left: 361px; top: 548px">
+          <div class="icone-ponta"><svg viewBox="0 0 58 64" aria-hidden="true"><circle cx="29" cy="32" r="23" fill="none" stroke="#1C2B45" stroke-width="2.6"/><path d="M29 14l6 18-6 4-6-4z" fill="#B3893A"/><path d="M29 50l-6-18 6-4 6 4z" fill="none" stroke="#1C2B45" stroke-width="2"/><circle cx="29" cy="32" r="2.5" fill="#1C2B45"/></svg></div>
+          <div class="legenda-ponta esquerda"><strong>Agência epistêmica</strong><span>confiar sem delegar</span></div>
+        </div>
+
+        <!-- Ponta 5 · objeto de fronteira -->
+        <div class="ponta fragment" data-fragment-index="5" style="left: 263px; top: 247px">
+          <div class="icone-ponta"><svg viewBox="0 0 58 64" aria-hidden="true"><circle cx="10" cy="22" r="6" fill="none" stroke="#1C2B45" stroke-width="2.4"/><path d="M2 44c0-8 4-12 8-12s8 4 8 12" fill="none" stroke="#1C2B45" stroke-width="2.4"/><circle cx="48" cy="22" r="6" fill="none" stroke="#1C2B45" stroke-width="2.4"/><path d="M40 44c0-8 4-12 8-12s8 4 8 12" fill="none" stroke="#1C2B45" stroke-width="2.4"/><path d="M22 24h11l5 5v19H22z" fill="#fff" stroke="#B3893A" stroke-width="2.4"/><line x1="26" y1="34" x2="34" y2="34" stroke="#B3893A" stroke-width="2"/><line x1="26" y1="40" x2="34" y2="40" stroke="#B3893A" stroke-width="2"/></svg></div>
+          <div class="legenda-ponta esquerda"><strong>Objeto de fronteira</strong><span>a ponte com o orientador</span></div>
+        </div>
+      </div>
+
+      <div class="dialogo fragment" data-fragment-index="6">
+        <p class="rotulo-res">Diálogo com o estado da arte</p>
+        <h3>Convergências</h3>
+        <p>Sentido acadêmico estruturado de forma transparente para iniciantes</p>
+        <div class="sistemas"><i>Papers101</i><i>AwesomeLit</i></div>
+        <p>Bases abertas a serviço da democratização bibliométrica</p>
+        <div class="sistemas"><i>pyBiblioNet</i><i>openalexR</i></div>
+        <p>IA ancorada em evidências da literatura</p>
+        <div class="sistemas"><i>IdeaSynth</i><i>IRIS</i></div>
+        <h3 class="tensao">Tensões</h3>
+        <p>Diante da aceleração e da delegação, a fricção deliberada</p>
+        <div class="sistemas"><i>SciDaSynth</i><i>CRUISE-Screening</i><i>AutoSurveyGPT</i><i>ResearchAgent</i></div>
+        <p>A tensão da amplitude na representação do conhecimento</p>
+        <div class="sistemas"><i>vitaLITy 2</i><i>Ontoverse</i></div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [2:30] Os cinco construtos da tese, um por clique.
+    Clique 1. Fricção produtiva. Clicar na miniatura do centro: é a seleção
+    do vídeo 2. "Vocês viram isso acontecer há pouco."
+    Clique 2. Andaime metacognitivo: da ansiedade do pré-foco à delimitação.
+    Clique 3. Engajamento absorto: 34,1% subestimaram o tempo de uso.
+    Clique 4. Agência epistêmica: confiam, mas não delegam (F2.17 e F2.18).
+    Clique 5. Objeto de fronteira: "criou uma casca".
+    Clique 6. A síntese, e o diálogo com o estado da arte.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · CONSIDERAÇÕES À QUESTÃO DE PESQUISA (cap. 8)
+     Clique 1: a pergunta e a resposta. Clique 2: as três vias.
+     Clique 3: os objetivos alcançados.
+     ===================================================================== -->
+<section class="resposta" data-secao="Considerações finais">
+  <div class="quadro">
+
+    <div class="rotulo">Considerações à questão de pesquisa</div>
+
+    <div class="fragment" data-fragment-index="1">
+      <p class="pergunta-eco"><span>A pergunta</span>De que maneira a avaliação automatizada das definições preliminares de um projeto afeta a autoeficácia dos estudantes no delineamento de suas propostas de investigação?</p>
+      <blockquote>Atuando como um <b>andaime metacognitivo</b> dinâmico, que converte a opacidade da busca exploratória em um processo visual, inteligível e epistemologicamente gerenciável.</blockquote>
+    </div>
+
+    <div class="mecanismos fragment" data-fragment-index="2">
+      <p>Sem automatizar o pensamento, por três vias</p>
+      <div class="mecanismo">uma carga cognitiva adequada, em vez da delegação do esforço intelectual</div>
+      <div class="mecanismo">experiências de domínio e persuasão formativa, as fontes de Bandura</div>
+      <div class="mecanismo">o confronto das intuições com o mapa do campo e com o feedback da IA</div>
+    </div>
+
+    <div class="alcance fragment" data-fragment-index="3">
+      <span>Objetivos específicos alcançados</span>
+      <i><b>a</b>propor</i><i><b>b</b>implementar</i><i><b>c</b>avaliar</i><i><b>d</b>comparar</i><i><b>e</b>analisar</i>
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [1:15] Retomar a pergunta lida na introdução.
+    Clique 1. Ler a resposta, que é literal do capítulo 8.
+    Clique 2. O Delinéia não aumentou a confiança facilitando o trabalho, e
+    sim impondo a carga certa, oferecendo experiências de domínio e
+    confrontando as intuições do estudante.
+    Clique 3. Os cinco objetivos, alcançados como mostrado nos resultados.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · CONTRIBUIÇÃO DA TESE (cap. 9)
+     Cliques 1 a 3: Informática, Educação e Ciência da Informação.
+     Clique 4: o que a tese entrega.
+     ===================================================================== -->
+<section class="contribuicao" data-secao="Considerações finais">
+  <div class="quadro">
+
+    <h2 class="afirmacao">A tese une Informática na Educação e Ciência da Informação em um artefato aberto e validado</h2>
+
+    <div class="evidencia">
+
+      <div class="areas">
+        <span class="fragment" data-fragment-index="1"><b>Informática na Educação</b></span>
+        <span class="fragment" data-fragment-index="3"><b>Ciência da Informação</b></span>
+      </div>
+
+      <div class="colunas-c">
+        <div class="coluna-c fragment" data-fragment-index="1">
+          <header><svg><use href="#icone-llm"></use></svg><h3>Informática</h3></header>
+          <p>Um pipeline em sete etapas, do OpenAlex à rede de coocorrência e à mediação por LLM</p>
+          <p>Uma interface calibrada pelo limite da memória de trabalho</p>
+          <p>Integração por API, grafos abertos e relatórios em PDF</p>
+          <p class="ref-c">Miller, 1956; Aria et al., 2024; Lai et al., 2025</p>
+        </div>
+        <div class="coluna-c fragment" data-fragment-index="2">
+          <header><svg viewBox="0 0 58 64" aria-hidden="true"><line x1="14" y1="6" x2="14" y2="58" stroke="#1C2B45" stroke-width="2.6"/><line x1="44" y1="6" x2="44" y2="58" stroke="#1C2B45" stroke-width="2.6"/><line x1="10" y1="12" x2="48" y2="12" stroke="#B3893A" stroke-width="3.4"/><line x1="10" y1="30" x2="48" y2="30" stroke="#1C2B45" stroke-width="2.6"/><line x1="10" y1="48" x2="48" y2="48" stroke="#1C2B45" stroke-width="2.6"/><line x1="14" y1="30" x2="44" y2="48" stroke="#9AA3B0" stroke-width="2"/><line x1="14" y1="12" x2="44" y2="30" stroke="#9AA3B0" stroke-width="2"/></svg><h3>Educação</h3></header>
+          <p>Uma trilha de aprendizagem que atua como andaime metacognitivo</p>
+          <p>Experiências de domínio nas decisões de recorte e seleção</p>
+          <p>O feedback da IA como persuasão verbal estruturada</p>
+          <p class="ref-c">Bandura, 1986; 1997</p>
+        </div>
+        <div class="coluna-c fragment" data-fragment-index="3">
+          <header><svg><use href="#icone-coocorrencia"></use></svg><h3>Ciência da Informação</h3></header>
+          <p>A bibliometria levada ao microcontexto do pesquisador iniciante</p>
+          <p>A coocorrência e o conteúdo semântico, onde a RSL encontrou a lacuna</p>
+          <p>Kuhlthau e Wilson relidos na era da IA generativa, com a ilusão da ferramenta</p>
+          <p class="ref-c">Callon et al., 1983; Kuhlthau, 1991; Wilson, 2000</p>
+        </div>
+      </div>
+
+      <div class="entrega fragment" data-fragment-index="4">
+        <span>O que a tese entrega</span>
+        <p>Um <b>artefato aberto</b> e validado empiricamente, com um arcabouço teórico-prático para que o estudante transite da incerteza exploratória à construção <b>autônoma</b> do saber científico.</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [1:15] A tese na intersecção de duas áreas.
+    Clique 1. Informática: o artefato e o seu pipeline.
+    Clique 2. Educação: a trilha como andaime, com as fontes de Bandura.
+    Clique 3. Ciência da Informação: a bibliometria a serviço do iniciante,
+    a lacuna da RSL e a ilusão da ferramenta.
+    Clique 4. O que a tese entrega.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · AGENDA DE PESQUISA FUTURA (cap. 10)
+     Seis cliques: a cada um, uma direção de pesquisa à esquerda e, à
+     direita, o cartão com o que ela permitiria avançar.
+     ===================================================================== -->
+<section class="futuro" data-secao="Considerações finais">
+  <div class="quadro">
+
+    <h2 class="afirmacao">A tese abre seis caminhos para a investigação futura</h2>
+
+    <div class="evidencia">
+
+      <div>
+        <div class="cab-fut">Pesquisa futura</div>
+
+        <div class="linha-fut fragment" data-fragment-index="1">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 10h36v22H20l-9 8v-8H6z" fill="none" stroke="#1C2B45" stroke-width="2.4" stroke-linejoin="round"/><line x1="12" y1="18" x2="36" y2="18" stroke="#B3893A" stroke-width="2.4"/><line x1="12" y1="25" x2="28" y2="25" stroke="#1C2B45" stroke-width="2.2"/></svg>
+          <div><strong>Observar a interação em ato</strong><span>protocolos síncronos, como think aloud e grupos focais</span></div>
+        </div>
+
+        <div class="linha-fut fragment" data-fragment-index="2">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="12" cy="16" r="5" fill="none" stroke="#1C2B45" stroke-width="2.2"/><circle cx="24" cy="14" r="5" fill="#B3893A"/><circle cx="36" cy="16" r="5" fill="none" stroke="#1C2B45" stroke-width="2.2"/><path d="M4 38c0-7 4-11 8-11s8 4 8 11M16 36c0-7 4-11 8-11s8 4 8 11M28 38c0-7 4-11 8-11s8 4 8 11" fill="none" stroke="#1C2B45" stroke-width="2.2"/></svg>
+          <div><strong>Ampliar e estratificar a amostra</strong><span>outras áreas do conhecimento e a pós-graduação avançada</span></div>
+        </div>
+
+        <div class="linha-fut fragment" data-fragment-index="3">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="20" width="12" height="20" fill="none" stroke="#1C2B45" stroke-width="2.4"/><rect x="28" y="10" width="12" height="30" fill="#B3893A"/><line x1="2" y1="42" x2="46" y2="42" stroke="#1C2B45" stroke-width="2.4"/><text x="12" y="16" font-size="9" text-anchor="middle" fill="#1C2B45" font-family="sans-serif">A</text><text x="34" y="7" font-size="9" text-anchor="middle" fill="#1C2B45" font-family="sans-serif">B</text></svg>
+          <div><strong>Comparar com grupos de controle</strong><span>desenhos quase-experimentais</span></div>
+        </div>
+
+        <div class="linha-fut fragment" data-fragment-index="4">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 34a18 18 0 0 1 36 0" fill="none" stroke="#1C2B45" stroke-width="2.4"/><line x1="24" y1="34" x2="34" y2="20" stroke="#B3893A" stroke-width="3"/><circle cx="24" cy="34" r="3" fill="#1C2B45"/><line x1="6" y1="40" x2="42" y2="40" stroke="#1C2B45" stroke-width="2.2"/></svg>
+          <div><strong>Medir o desempenho de forma independente</strong><span>pares especialistas, efetividade das chaves e projetos finais</span></div>
+        </div>
+
+        <div class="linha-fut fragment" data-fragment-index="5">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M14 36h22a8 8 0 0 0 0-16a11 11 0 0 0-21-3a9 9 0 0 0-1 19z" fill="none" stroke="#1C2B45" stroke-width="2.4" stroke-linejoin="round"/><circle cx="26" cy="28" r="5" fill="#B3893A"/></svg>
+          <div><strong>Adotar modelos de linguagem abertos</strong><span>execução local, sem depender de uma API proprietária</span></div>
+        </div>
+
+        <div class="linha-fut fragment" data-fragment-index="6">
+          <svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="10" width="36" height="32" rx="2" fill="none" stroke="#1C2B45" stroke-width="2.4"/><line x1="6" y1="18" x2="42" y2="18" stroke="#1C2B45" stroke-width="2.2"/><line x1="15" y1="6" x2="15" y2="13" stroke="#1C2B45" stroke-width="2.4"/><line x1="33" y1="6" x2="33" y2="13" stroke="#1C2B45" stroke-width="2.4"/><path d="M14 30l6 5 12-11" fill="none" stroke="#B3893A" stroke-width="2.6"/></svg>
+          <div><strong>Acompanhar os projetos ao longo do tempo</strong><span>estudos longitudinais, em outras instituições</span></div>
+        </div>
+      </div>
+
+      <div class="avancos">
+        <div class="avanco fragment fade-in-then-out" data-fragment-index="1">
+          <p class="n-fut">O que permitiria avançar · 1 de 6</p>
+          <p>Ver a <b>fricção produtiva</b> acontecer: como o estudante hesita, decide e reformula diante do grafo.</p>
+        </div>
+        <div class="avanco fragment fade-in-then-out" data-fragment-index="2">
+          <p class="n-fut">O que permitiria avançar · 2 de 6</p>
+          <p>Saber se o andaime serve também a quem já domina o <b>vocabulário da própria área</b>.</p>
+        </div>
+        <div class="avanco fragment fade-in-then-out" data-fragment-index="3">
+          <p class="n-fut">O que permitiria avançar · 3 de 6</p>
+          <p>Isolar o efeito do <b>feedback automatizado</b> e distingui-lo da própria reflexão do estudante.</p>
+        </div>
+        <div class="avanco fragment fade-in-then-out" data-fragment-index="4">
+          <p class="n-fut">O que permitiria avançar · 4 de 6</p>
+          <p>Confrontar a segurança declarada com a <b>qualidade real</b> das chaves e dos projetos.</p>
+        </div>
+        <div class="avanco fragment fade-in-then-out" data-fragment-index="5">
+          <p class="n-fut">O que permitiria avançar · 5 de 6</p>
+          <p>Tornar o Delinéia <b>gratuito, auditável e reprodutível</b> em qualquer instituição.</p>
+        </div>
+        <div class="avanco fragment fade-in-then-out" data-fragment-index="6">
+          <p class="n-fut">O que permitiria avançar · 6 de 6</p>
+          <p>Verificar se o escopo delineado <b>sobrevive à escrita</b> do projeto e se a autoeficácia se mantém.</p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <aside class="notes">
+    [1:30] Seis caminhos que a tese abre, cada um com o que permitiria saber.
+    1. Ver a fricção produtiva acontecer em ato.
+    2. Testar o andaime com quem já domina o vocabulário da área.
+    3. Isolar o efeito do feedback automatizado.
+    4. Confrontar a segurança declarada com a qualidade real.
+    5. Um Delinéia gratuito, auditável e reprodutível.
+    6. O escopo que sobrevive à escrita do projeto.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · CONSIDERAÇÕES FINAIS (cap. 11)
+     Clique 1: a aposta da tese. Clique 2: a travessia de 1552.
+     Clique 3: ciência aberta. Clique 4: a última frase da tese.
+     ===================================================================== -->
+<section class="consideracoes" data-secao="Considerações finais">
+  <div class="quadro">
+
+    <div class="rotulo">Considerações finais</div>
+
+    <div class="corpo-fim">
+
+      <div>
+        <div class="fragment" data-fragment-index="1">
+          <blockquote>A melhor tecnologia educacional não é aquela que reduz ao máximo o esforço cognitivo, mas a que <b>dosa a fricção exata</b> para que a aprendizagem aconteça.</blockquote>
+          <p class="fonte-fim">Capítulo 11</p>
+        </div>
+
+        <div class="travessia fragment" data-fragment-index="2">
+          <svg viewBox="0 0 210 150" aria-hidden="true">
+            <path d="M30 98 L180 98 L160 122 L52 122 Z"/>
+            <line x1="104" y1="98" x2="104" y2="18"/>
+            <path d="M104 24 C130 34 136 58 104 74"/>
+            <path d="M104 40 C80 50 76 72 104 84"/>
+            <line x1="104" y1="18" x2="122" y2="22"/>
+            <path class="onda" d="M10 134 C30 128 50 140 70 134 S110 128 130 134 S170 140 200 134"/>
+          </svg>
+          <p><span>Em 1552</span>o delineamento era o esboço para reparar um navio e prepará-lo para a travessia. Nesta tese, tornou-se o esboço para reparar a confiança do estudante-pesquisador.</p>
+        </div>
+      </div>
+
+      <div class="aberta fragment" data-fragment-index="3">
+        <p>Ciência aberta</p>
+        <div class="item-aberto"><strong>O sistema</strong><span>em uso, aberto a qualquer estudante<br><em>https://rafaelantunes123-delineia.hf.space</em></span></div>
+        <div class="item-aberto"><strong>O código</strong><span>aberto, com os prompts documentados<br><em>https://github.com/rderafa-rgb/Delineia</em></span></div>
+        <div class="item-aberto"><strong>Os dados</strong><span>em processo de depósito no <em>DepositaDados</em>, do Ibict</span></div>
+      </div>
+
+    </div>
+
+    <p class="encerramento fragment" data-fragment-index="4">“É com esse convite à travessia, e não com a pretensão de tê-la concluído, que se encerra este trabalho.”</p>
+
+  </div>
+
+  <aside class="notes">
+    [1:15] O fecho, na voz do capítulo 11.
+    Clique 1. A aposta: dosar a fricção, e não eliminar o esforço.
+    Clique 2. Voltar ao prólogo: o delineamento de 1552, o esboço para
+    reparar um navio. Aqui, para reparar a confiança.
+    Clique 3. Tudo aberto: o sistema, o código e, em breve, os dados
+    no DepositaDados.
+    Clique 4. Ler a última frase da tese, devagar.
+  </aside>
+</section>
+
+<!-- =====================================================================
+     SLIDE · AGRADECIMENTOS E CRÉDITO FINAL
+     Tudo visível na entrada. Um único clique toca o vídeo de crédito,
+     em repetição, durante a passagem da palavra à banca.
+     Arquivo do vídeo: midia/videos/05-creditos.mp4
+     ===================================================================== -->
+<section class="agradecimentos" data-background-color="#E9EDF2" data-rodape="nao">
+  <div class="quadro">
+
+    <h2 class="obrigado">Obrigado</h2>
+
+    <ul class="lista-agr">
+      <li><strong>Ao Prof. Dr. Eliseo Berni Reategui</strong><span>pela orientação</span></li>
+      <li><strong>À banca</strong><span>pela leitura atenta</span></li>
+      <li><strong>Ao GTech.Edu/UFRGS</strong><span>aprendi a ter responsabilidade</span></li>
+      <li><strong>Aos colegas e professores do PPGIE</strong><span>aprendi a aprender</span></li>
+      <li><strong>À minha família</strong><span>aprendi a sentir saudade</span></li>
+      <li><strong>À CAPES, pela bolsa</strong><span>aprendi a estudar e ser pago para isto</span></li>
+    </ul>
+
+    <div class="janela-video">
+      <video src="midia/videos/05-creditos.mp4" poster="midia/imagens/poster-delineia.jpg"
+             preload="auto" muted playsinline loop></video>
+    </div>
+    <p class="creditos-video fragment" data-fragment-index="1">Delinéia · Interação, Histórico e Painel</p>
+
+    <div class="institucional">
+      <div class="logos">
+        <img src="midia/logos/ufrgs.png" alt="UFRGS" style="height: 66px">
+        <img src="midia/logos/cinted.png" alt="CINTED" style="height: 52px">
+        <img src="midia/logos/ppgie.png" alt="PPGIE" style="height: 56px">
+      </div>
+      <p class="capes">O presente trabalho foi realizado com apoio da Coordenação de Aperfeiçoamento de Pessoal de Nível Superior - Brasil (CAPES) – Código de Financiamento 001.</p>
+    </div>
+
+    <!-- Gatilho invisível: o clique toca o vídeo, em repetição -->
+    <span class="gatilho fragment" data-fragment-index="1" data-video-acao="tocar"></span>
+
+  </div>
+
+  <aside class="notes">
+    Agradecer e passar a palavra ao Prof. Eliseo.
+    Um clique: o vídeo de crédito começa e fica em repetição.
+  </aside>
+</section>
+
+</div>
+</div>
+
+<script src="lib/reveal/reveal.js"></script>
+<script src="lib/reveal/plugin/notes/notes.js"></script>
+<dialog id="ampliacao">
+  <figure style="margin:0">
+    <img id="ampliacao-img" alt="">
+    <figcaption><strong id="ampliacao-nome"></strong><span id="ampliacao-ref"></span></figcaption>
+  </figure>
+</dialog>
+
+<script src="js/estado-da-arte.js"></script>
+<script src="js/apresentacao.js"></script>
+</body>
+</html>

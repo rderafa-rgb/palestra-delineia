@@ -1,0 +1,1856 @@
+/* =====================================================================
+   TEMA DA DEFESA — Delinéia
+   Este arquivo controla a APARÊNCIA. O conteúdo fica no index.html.
+
+   Como ler este arquivo:
+   1. Fontes (carregadas da pasta /fontes, sem internet)
+   2. Variáveis de cor e tamanho (mude aqui e tudo se atualiza)
+   3. Estrutura geral de um slide
+   4. Componentes reutilizáveis (afirmação, referências, marcadores, rodapé)
+   5. Estilos específicos de cada slide
+   6. Vídeo e janela expandida
+   ===================================================================== */
+
+
+/* ---------- 1. FONTES ---------------------------------------------- */
+/* Source Serif 4 para títulos e Source Sans 3 para o texto de apoio.
+   Os arquivos .woff2 estão em /fontes; nada é baixado da internet. */
+
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("../fontes/source-serif-4-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("../fontes/source-serif-4-latin-400-italic.woff2") format("woff2");
+  font-weight: 400; font-style: italic; font-display: block;
+}
+@font-face {
+  font-family: "Source Serif 4";
+  src: url("../fontes/source-serif-4-latin-600-normal.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("../fontes/source-sans-3-latin-400-normal.woff2") format("woff2");
+  font-weight: 400; font-style: normal; font-display: block;
+}
+@font-face {
+  font-family: "Source Sans 3";
+  src: url("../fontes/source-sans-3-latin-600-normal.woff2") format("woff2");
+  font-weight: 600; font-style: normal; font-display: block;
+}
+
+
+/* ---------- 2. VARIÁVEIS ------------------------------------------- */
+/* Paleta contida: poucas cores, cada uma com uma função fixa. */
+
+:root {
+  --noite:   #13203A;  /* fundo dos slides escuros (abertura) */
+  --tinta:   #1C2B45;  /* texto principal e formas nos slides claros */
+  --papel:   #F7F7F4;  /* fundo dos slides claros */
+  --grafite: #56606E;  /* texto secundário: legendas, referências */
+  --nevoa:   #D5DAE1;  /* linhas finas e elementos inativos */
+  --ouro:    #B3893A;  /* destaque: só para o que merece atenção */
+  --ouro-claro: #C9A45C; /* destaque sobre fundo escuro */
+
+  --serifa: "Source Serif 4", "Georgia", "Times New Roman", serif;
+  --sem-serifa: "Source Sans 3", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+
+  --margem: 120px;     /* margem lateral de todos os slides */
+}
+
+
+/* ---------- 3. ESTRUTURA GERAL ------------------------------------- */
+
+.reveal-viewport { background: var(--papel); }
+
+.reveal {
+  font-family: var(--sem-serifa);
+  color: var(--tinta);
+  font-size: 34px;
+}
+
+/* O reveal.js posiciona as <section>. O nosso ".quadro" é a folha
+   de 1920 x 1080 dentro da qual organizamos cada slide. */
+.reveal .slides > section {
+  padding: 0;
+  text-align: left;
+}
+
+.quadro {
+  position: relative;
+  width: 1920px;
+  height: 1080px;
+  box-sizing: border-box;
+  padding: 104px var(--margem) 0;
+  display: grid;
+  grid-template-rows: auto 1fr 170px;  /* afirmação | evidência | zona do rodapé */
+}
+
+.escuro .quadro { color: var(--papel); }
+
+
+/* ---------- 4. COMPONENTES ----------------------------------------- */
+
+/* 4a. Afirmação (título do modelo assertion-evidence) */
+.afirmacao {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 58px;
+  line-height: 1.16;
+  letter-spacing: -0.005em;
+  max-width: 1640px;
+  margin: 0;
+  color: var(--tinta);
+  text-wrap: balance;
+}
+
+/* 4b. Área de evidência */
+.evidencia {
+  position: relative;
+  padding-top: 56px;
+}
+
+/* 4c. Referências que aparecem e somem durante a fala */
+.referencias {
+  position: absolute;
+  right: var(--margem);
+  bottom: 118px;
+  height: 44px;
+  width: 1100px;
+}
+.referencias .ref {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  white-space: nowrap;
+  font-family: var(--serifa);
+  font-style: italic;
+  font-size: 28px;
+  color: var(--grafite);
+  padding-left: 22px;
+  border-left: 3px solid var(--ouro);
+}
+
+/* 4d. Marcadores recorrentes (coocorrência e LLM), canto superior direito */
+.marcadores {
+  position: absolute;
+  top: 58px;
+  right: var(--margem);
+  display: flex;
+  gap: 28px;
+}
+.marcador {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 24px;
+  color: var(--grafite);
+}
+.marcador svg { width: 46px; height: 46px; }
+.marcador.fragment.visible { animation: chegada 520ms ease-out; }
+@keyframes chegada {
+  from { transform: translateY(-6px); }
+  to   { transform: translateY(0); }
+}
+
+/* Ícones: desenhados uma vez aqui e reutilizados pela classe */
+.icone-traco { stroke: var(--tinta); stroke-width: 2.4; fill: none; }
+.icone-no    { fill: var(--papel); stroke: var(--tinta); stroke-width: 2.4; }
+.icone-no.principal { fill: var(--ouro); stroke: var(--ouro); }
+
+/* 4e. Rodapé com indicador de seção (inserido pelo apresentacao.js) */
+.rodape {
+  position: absolute;
+  left: var(--margem);
+  right: var(--margem);
+  bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 22px;
+  color: var(--grafite);
+}
+.rodape-secao { display: flex; align-items: center; gap: 22px; }
+.rodape-trilha { display: flex; gap: 8px; }
+.rodape-trilha span {
+  width: 34px; height: 4px;
+  background: var(--nevoa);
+}
+.rodape-trilha span.passada { background: #9AA3B0; }
+.rodape-trilha span.atual   { background: var(--ouro); width: 58px; }
+.rodape-numero { font-variant-numeric: tabular-nums; }
+
+.escuro .rodape { color: rgba(247, 247, 244, 0.6); }
+.escuro .rodape-trilha span { background: rgba(247, 247, 244, 0.18); }
+.escuro .rodape-trilha span.passada { background: rgba(247, 247, 244, 0.45); }
+.escuro .rodape-trilha span.atual { background: var(--ouro-claro); }
+
+/* 4f. Texto de apoio em coluna */
+.apoio {
+  font-size: 36px;
+  line-height: 1.38;
+  max-width: 760px;
+  margin: 0 0 44px;
+}
+.apoio.com-icone {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  column-gap: 26px;
+  align-items: start;
+}
+.apoio.com-icone svg { width: 58px; height: 58px; margin-top: 2px; }
+
+.legenda {
+  font-size: 26px;
+  color: var(--grafite);
+  margin-top: 26px;
+}
+
+
+/* ---------- 5. SLIDES ESPECÍFICOS ---------------------------------- */
+
+/* 5a. Abertura: fundo tênue, derivado da tinta */
+.abertura .quadro { display: block; padding-top: 96px; }
+.abertura .instituicao {
+  font-size: 21px;
+  line-height: 1.6;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--grafite);
+}
+.abertura .nome-sistema {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 168px;
+  line-height: 1;
+  letter-spacing: -0.012em;
+  margin: 72px 0 34px;
+  color: var(--tinta);
+}
+.abertura .subtitulo {
+  font-family: var(--serifa);
+  font-size: 40px;
+  line-height: 1.32;
+  max-width: 860px;
+  color: var(--tinta);
+  margin: 0;
+}
+.abertura .autoria {
+  position: absolute;
+  left: var(--margem);
+  bottom: 96px;
+  font-size: 28px;
+  line-height: 1.5;
+  color: var(--grafite);
+}
+.abertura .autoria strong { font-weight: 600; color: var(--tinta); }
+
+/* Logotipos institucionais, discretos, acima dos nomes */
+.abertura .logos {
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  margin-bottom: 26px;
+}
+.abertura .logos img {
+  height: 72px;
+  width: auto;
+  opacity: 0.85;
+}
+
+.mapa-abertura {
+  position: absolute;
+  left: 1000px;
+  top: 130px;
+  width: 860px;
+  height: 900px;
+}
+.mapa-abertura .aresta { stroke: rgba(28, 43, 69, 0.22); stroke-width: 2; }
+.mapa-abertura .no { fill: #E9EDF2; stroke: rgba(28, 43, 69, 0.6); stroke-width: 2.5; }
+.mapa-abertura .no.central { fill: var(--ouro); stroke: var(--ouro); }
+.mapa-abertura text {
+  font-family: var(--sem-serifa);
+  font-size: 24px;
+  fill: var(--grafite);
+}
+.mapa-abertura text.central { fill: var(--ouro); font-size: 28px; font-weight: 600; }
+
+/* O único momento "orquestrado" da apresentação: as arestas se desenham
+   quando a abertura entra em cena. */
+.abertura.present .mapa-abertura .aresta {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: desenhar 1600ms ease-out forwards;
+}
+.abertura.present .mapa-abertura .aresta:nth-of-type(2n) { animation-delay: 250ms; }
+.abertura.present .mapa-abertura .aresta:nth-of-type(3n) { animation-delay: 500ms; }
+@keyframes desenhar { to { stroke-dashoffset: 0; } }
+
+/* 5b. Tema: três buscas */
+.tres-buscas {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: end;
+}
+.busca { text-align: center; }
+.busca svg { width: 460px; height: 460px; display: block; margin: 0 auto; }
+.busca .recuperado { fill: rgba(28, 43, 69, 0.09); stroke: var(--tinta); stroke-width: 3; }
+.busca .relevante  { fill: none; stroke: var(--ouro); stroke-width: 4; stroke-dasharray: 14 10; }
+.busca h3 {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 36px;
+  margin: 10px 0 4px;
+}
+.busca p { font-size: 28px; color: var(--grafite); margin: 0; }
+
+.chave-leitura {
+  position: absolute;
+  top: 34px;
+  right: 0;
+  display: flex;
+  gap: 40px;
+  font-size: 24px;
+  color: var(--grafite);
+}
+.chave-leitura span { display: inline-flex; align-items: center; gap: 12px; }
+.chave-leitura svg { width: 34px; height: 34px; }
+
+/* 5c. Contexto: cadeia de causa em três elos */
+.duas-colunas {
+  display: grid;
+  grid-template-columns: 820px 1fr;
+  column-gap: 120px;
+  align-items: end;
+  padding-bottom: 10px;
+}
+.cadeia {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr 80px 1.15fr;
+  column-gap: 28px;
+  align-items: start;
+  padding-top: 80px;
+}
+.elo .pictograma { width: 100%; height: auto; display: block; }
+.elo h3 {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 38px;
+  margin: 28px 0 6px;
+}
+.elo p { font-size: 29px; color: var(--grafite); margin: 0; line-height: 1.35; }
+.cadeia .seta { width: 80px; height: 40px; margin-top: 110px; }
+.cadeia .seta line, .cadeia .seta polyline {
+  fill: none; stroke: var(--grafite); stroke-width: 3;
+}
+.elo.respostas { padding-top: 24px; }
+.elo.respostas .apoio {
+  font-size: 32px;
+  color: var(--tinta);
+  margin-bottom: 48px;
+}
+
+/* 5d. Justificativa: documentos recuperados por buscas diferentes */
+.sobreposicao svg { width: 820px; height: 428px; display: block; }
+.sobreposicao .doc { fill: var(--tinta); }
+.sobreposicao .doc.vazio { fill: none; stroke: var(--nevoa); stroke-width: 2.5; }
+.sobreposicao .doc.ouro { fill: var(--ouro); }
+.sobreposicao .faixa { fill: rgba(179, 137, 58, 0.14); }
+.sobreposicao text { font-family: var(--sem-serifa); font-size: 28px; fill: var(--grafite); }
+.sobreposicao .legenda { max-width: 780px; line-height: 1.4; }
+
+/* 5e. Slide de leitura (questão de pesquisa) */
+.leitura .quadro { display: block; padding-top: 0; }
+.leitura .rotulo {
+  position: absolute;
+  top: 214px;
+  left: var(--margem);
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 46px;
+  line-height: 1.1;
+  color: var(--tinta);
+}
+.leitura blockquote {
+  position: absolute;
+  top: 322px;
+  left: var(--margem);
+  margin: 0;
+  padding-left: 48px;
+  border-left: 6px solid var(--ouro);
+  max-width: 1540px;
+  font-family: var(--serifa);
+  font-size: 64px;
+  line-height: 1.24;
+  color: var(--tinta);
+}
+
+/* ---------- 6. VÍDEO ---------------------------------------------- */
+
+.janela-video {
+  position: absolute;
+  left: var(--margem);
+  top: 300px;
+  width: 1040px;
+  height: 585px;
+  background: var(--noite);
+  z-index: 20;
+  transition: left 480ms ease, top 480ms ease, width 480ms ease, height 480ms ease;
+}
+.janela-video video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+}
+.janela-video.expandida {
+  left: 60px;
+  top: 34px;
+  width: 1800px;
+  height: 1012px;
+  box-shadow: 0 30px 80px rgba(19, 32, 58, 0.35);
+}
+
+.veu {
+  position: absolute;
+  inset: 0;
+  background: rgba(19, 32, 58, 0.55);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 480ms ease;
+  z-index: 10;
+}
+.veu.ativo { opacity: 1; }
+
+/* Gatilhos invisíveis: contam como "passos" do slide mas não aparecem */
+.gatilho { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.instrucoes-teste {
+  position: absolute;
+  left: 1260px;
+  top: 300px;
+  width: 540px;
+  font-size: 30px;
+  line-height: 1.45;
+  color: var(--grafite);
+}
+.instrucoes-teste p { margin: 0 0 22px; }
+.instrucoes-teste kbd {
+  font-family: var(--sem-serifa);
+  font-weight: 600;
+  color: var(--tinta);
+  border: 2px solid var(--nevoa);
+  padding: 0 10px;
+}
+
+
+/* ---------- Acessibilidade: movimento reduzido --------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .abertura.present .mapa-abertura .aresta,
+  .marcador.fragment.visible { animation: none; stroke-dashoffset: 0; }
+  .janela-video, .veu { transition: none; }
+}
+
+/* ---------- 5f. O problema: sobrecarga e ilusão da ferramenta ------ */
+.problema .evidencia {
+  display: grid;
+  grid-template-columns: 720px 1fr;
+  column-gap: 90px;
+  align-items: start;
+  padding-top: 44px;
+}
+.problema .figura {
+  width: 720px;
+  height: 432px;
+  border: 1px solid var(--nevoa);
+  background:
+    repeating-linear-gradient(135deg, transparent 0 9px, rgba(28, 43, 69, .07) 9px 10px),
+    #EDEEEA;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+.problema .figura img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.problema .figura.com-imagem { background: #fff; }
+.problema .figura .espera { font-size: 26px; color: var(--grafite); text-align: center; padding: 0 40px; }
+.problema .legenda-figura { margin-top: 16px; font-size: 24px; color: var(--grafite); max-width: 720px; }
+
+.problema .bloco { margin-bottom: 42px; }
+.problema .bloco h3 {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 34px;
+  margin: 0 0 14px;
+  color: var(--tinta);
+}
+.problema .consulta {
+  border-left: 5px solid var(--nevoa);
+  background: rgba(28, 43, 69, .04);
+  padding: 16px 22px;
+  font-size: 27px;
+  line-height: 1.3;
+  color: var(--tinta);
+}
+.problema .bloco.paradoxo .consulta { border-left-color: var(--ouro); }
+.problema .bloco p { margin: 12px 0 0; font-size: 26px; line-height: 1.35; color: var(--grafite); }
+.problema .fecho {
+  font-family: var(--serifa);
+  font-size: 32px;
+  line-height: 1.3;
+  color: var(--tinta);
+  border-top: 1px solid var(--nevoa);
+  padding-top: 22px;
+  margin: 0;
+}
+
+/* ---------- 5g. Objetivos ------------------------------------------ */
+.objetivos .quadro { display: block; padding-top: 72px; }
+.objetivos .rotulo {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 58px;
+  line-height: 1.1;
+  color: var(--tinta);
+  margin-bottom: 26px;
+}
+
+.objetivos .geral {
+  display: grid;
+  grid-template-columns: 132px 1fr;
+  column-gap: 26px;
+  align-items: baseline;
+  margin: 0 0 34px;
+  padding-bottom: 26px;
+  border-bottom: 1px solid var(--nevoa);
+  max-width: 1640px;
+}
+.objetivos .geral .etiqueta { font-size: 24px; color: var(--grafite); }
+.objetivos .geral p {
+  margin: 0;
+  font-family: var(--serifa);
+  font-size: 33px;
+  line-height: 1.3;
+  color: var(--grafite);
+}
+
+.objetivos .especificos { list-style: none; margin: 0; padding: 0; max-width: 1680px; }
+.objetivos .especificos li {
+  display: grid;
+  grid-template-columns: 52px 1fr 300px;
+  column-gap: 26px;
+  align-items: baseline;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(213, 218, 225, .6);
+}
+.objetivos .especificos li:last-child { border-bottom: none; }
+.objetivos .letra {
+  font-family: var(--serifa);
+  font-size: 31px;
+  font-weight: 600;
+  color: var(--ouro);
+}
+.objetivos .texto-objetivo {
+  font-size: 27px;
+  line-height: 1.3;
+  color: var(--tinta);
+}
+.objetivos .texto-objetivo strong { font-weight: 600; }
+.objetivos .onde {
+  font-size: 22px;
+  line-height: 1.25;
+  color: var(--grafite);
+  text-align: right;
+}
+
+/* ---------- 5h. Plano de trabalho ---------------------------------- */
+.plano .quadro { display: block; padding-top: 72px; }
+.plano .rotulo {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 58px;
+  line-height: 1.1;
+  color: var(--tinta);
+  margin-bottom: 10px;
+}
+.plano .subtitulo-plano { font-size: 26px; color: var(--grafite); margin: 0 0 26px; }
+
+.plano .diagrama { position: relative; height: 700px; margin-top: 34px; }
+.plano .trilho {
+  position: absolute;
+  top: 350px;
+  left: 0; right: 40px;
+  height: 3px;
+  background: var(--nevoa);
+}
+.plano .ponta {
+  position: absolute;
+  top: 338px;
+  right: 0;
+  width: 26px;
+  height: 26px;
+}
+
+.plano .parada { position: absolute; width: 340px; }
+.plano .parada.acima {
+  top: 0;
+  height: 350px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.plano .parada.abaixo { top: 353px; height: 347px; }
+
+.plano .trecho {
+  position: absolute;
+  top: 350px;
+  right: 50%;
+  height: 3px;
+  background: var(--ouro);
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 620ms cubic-bezier(.2,.7,.2,1);
+}
+.plano .parada.abaixo .trecho { top: -3px; }
+.plano .parada.visible .trecho { transform: scaleX(1); }
+
+.plano .ponto {
+  position: absolute;
+  top: 342px;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  margin-left: -9px;
+  border-radius: 50%;
+  background: var(--ouro);
+}
+.plano .parada.abaixo .ponto { top: -11px; }
+
+.plano .icone { width: 76px; height: 76px; display: block; margin: 0 auto 26px; }
+.plano .parada.abaixo .icone { margin: 34px auto 20px; }
+.plano .parada h3 {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 31px;
+  line-height: 1.15;
+  color: var(--tinta);
+  margin: 0 0 12px;
+  text-align: center;
+}
+.plano .parada p {
+  font-size: 24px;
+  line-height: 1.32;
+  color: var(--grafite);
+  margin: 0;
+  text-align: center;
+}
+.plano .numero {
+  display: block;
+  font-size: 22px;
+  color: var(--ouro);
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+/* ---------- 5i. Definição operacional de termos -------------------- */
+.termos .quadro { display: block; padding-top: 72px; }
+.termos .rotulo {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 58px;
+  line-height: 1.1;
+  color: var(--tinta);
+  margin-bottom: 10px;
+}
+.termos .subtitulo-termos { font-size: 26px; color: var(--grafite); margin: 0; max-width: 1400px; }
+.termos .nuvem { display: block; width: 1680px; height: 700px; margin-top: 20px; }
+.termos .nuvem text {
+  font-family: var(--serifa);
+  font-weight: 600;
+  fill: var(--tinta);
+  text-anchor: middle;
+  paint-order: stroke;
+  stroke: var(--papel);
+  stroke-width: 14px;
+  stroke-linejoin: round;
+}
+.termos .nuvem text.destaque { fill: var(--ouro); }
+.termos .nuvem text.grupo {
+  font-family: var(--sem-serifa);
+  font-weight: 400;
+  font-size: 23px;
+  fill: var(--grafite);
+  stroke-width: 0;
+}
+.termos .nuvem line { stroke: var(--nevoa); stroke-width: 2.4; }
+.termos .nuvem line.ponte { stroke-dasharray: 6 7; }
+
+
+/* ---------- 5j. Abertura da revisão de literatura ------------------ */
+.abertura-capitulo .quadro { display: block; padding-top: 150px; }
+.abertura-capitulo .rotulo {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 58px;
+  line-height: 1.1;
+  color: var(--tinta);
+  margin: 0 0 56px;
+}
+.abertura-capitulo blockquote {
+  margin: 0;
+  max-width: 860px;
+  padding-left: 36px;
+  border-left: 5px solid var(--ouro);
+  font-family: var(--serifa);
+  font-size: 40px;
+  line-height: 1.36;
+  color: var(--tinta);
+}
+.abertura-capitulo .fonte-citacao { margin: 22px 0 0 41px; font-size: 22px; color: var(--grafite); }
+
+.abertura-capitulo .orbita {
+  position: absolute;
+  left: 1080px;
+  top: 150px;
+  width: 760px;
+  height: 760px;
+}
+.abertura-capitulo .orbita .anel { fill: none; stroke: var(--nevoa); stroke-width: 2; stroke-dasharray: 5 8; }
+.abertura-capitulo .orbita .raio { stroke: var(--nevoa); stroke-width: 2.4; }
+.abertura-capitulo .orbita .no { fill: var(--papel); stroke: var(--tinta); stroke-width: 2.6; }
+.abertura-capitulo .orbita .no.externo { stroke: var(--grafite); }
+.abertura-capitulo .orbita .centro { fill: var(--ouro); }
+.abertura-capitulo .orbita text {
+  font-family: var(--sem-serifa);
+  font-size: 23px;
+  fill: var(--tinta);
+  text-anchor: middle;
+  paint-order: stroke;
+  stroke: var(--papel);
+  stroke-width: 10px;
+  stroke-linejoin: round;
+}
+.abertura-capitulo .orbita text.externo { fill: var(--grafite); font-size: 21px; }
+.abertura-capitulo .orbita text.nucleo {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 27px;
+  fill: var(--tinta);
+}
+
+/* ---------- 5k. Modelos teóricos (R2) ------------------------------ */
+.modelos .colunas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 44px;
+  padding-top: 54px;
+}
+.modelos .miniaturas {
+  height: 280px;
+  border: 1px solid var(--nevoa);
+  background: #fff;
+  overflow: hidden;
+}
+.modelos .miniaturas.duas {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--nevoa);
+}
+.modelos img.ampliavel {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  box-sizing: border-box;
+  padding: 12px;
+  background: #fff;
+  display: block;
+  cursor: zoom-in;
+}
+.modelos .cartao {
+  height: 280px;
+  box-sizing: border-box;
+  background: var(--noite);
+  border-top: 5px solid var(--ouro-claro);
+  padding: 32px 30px;
+  font-family: var(--serifa);
+  font-size: 29px;
+  line-height: 1.36;
+  color: var(--papel);
+}
+.modelos h3 {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 1.15;
+  color: var(--tinta);
+  margin: 26px 0 6px;
+  min-height: 74px;
+  display: flex;
+  align-items: flex-end;
+}
+.modelos .ref-modelo { font-size: 21px; color: var(--grafite); margin: 0; }
+.modelos .contato {
+  font-size: 26px;
+  line-height: 1.36;
+  color: var(--tinta);
+  margin: 18px 0 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--nevoa);
+}
+
+/* ---------- 5l. Bases tecnológicas (R3) ---------------------------- */
+.bases .quadrantes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  grid-template-areas:
+    "llm          interacao"
+    "coocorrencia aceitacao";
+  column-gap: 80px;
+  row-gap: 44px;
+  padding-top: 50px;
+}
+.bases .base-item {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  column-gap: 28px;
+  padding-top: 26px;
+  border-top: 1px solid var(--nevoa);
+}
+.bases .base-item svg { width: 72px; height: 72px; }
+.bases .secao-num { font-size: 22px; color: var(--ouro); margin: 0 0 4px; }
+.bases h3 {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 1.15;
+  color: var(--tinta);
+  margin: 0 0 12px;
+}
+.bases .frase { font-size: 27px; line-height: 1.38; color: var(--tinta); margin: 0; }
+.bases .frase em { font-style: normal; color: var(--ouro); font-weight: 600; }
+.bases .ref-base { font-size: 21px; color: var(--grafite); margin: 12px 0 0; }
+
+/* ---------- 5m. Revisão sistemática de literatura ------------------ */
+.rsl .evidencia {
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  column-gap: 90px;
+  padding-top: 48px;
+}
+
+/* Camadas em escala real */
+.rsl .camadas-titulo, .rsl .fluxo-titulo, .rsl .pontos-titulo {
+  font-size: 22px; color: var(--grafite); margin: 0 0 18px;
+}
+.rsl .camada { margin-bottom: 22px; }
+.rsl .camada-rotulo { font-size: 24px; color: var(--tinta); margin-bottom: 8px; }
+.rsl .camada-rotulo span { color: var(--grafite); }
+.rsl .camada-linha { display: flex; align-items: center; gap: 18px; }
+.rsl .barra-rsl {
+  height: 30px;
+  background: var(--tinta);
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 900ms cubic-bezier(.2,.7,.2,1);
+}
+.rsl .camada:nth-child(3) .barra-rsl { background: #8E98A6; }
+.rsl .camada:nth-child(4) .barra-rsl { background: var(--ouro); min-width: 4px; }
+.rsl .camadas.visible .barra-rsl { transform: scaleX(1); }
+.rsl .camadas.visible .camada:nth-child(3) .barra-rsl { transition-delay: 200ms; }
+.rsl .camadas.visible .camada:nth-child(4) .barra-rsl { transition-delay: 400ms; }
+.rsl .camada-valor { font-family: var(--serifa); font-size: 32px; font-weight: 600; color: var(--tinta); white-space: nowrap; }
+.rsl .proporcao { color: var(--ouro); margin-left: 10px; }
+
+/* Os 13 estudos */
+.rsl .pontos { margin-top: 36px; padding-top: 26px; border-top: 1px solid var(--nevoa); }
+.rsl .fila { display: flex; gap: 14px; margin-bottom: 18px; }
+.rsl .fila span { width: 30px; height: 30px; border-radius: 50%; border: 3px solid #B7BFCA; box-sizing: border-box; }
+.rsl .fila span.central { background: var(--ouro); border-color: var(--ouro); }
+.rsl .pontos p { font-size: 24px; line-height: 1.4; color: var(--tinta); margin: 0; }
+.rsl .pontos p strong { font-weight: 600; }
+.rsl .pontos .ouro { color: var(--ouro); font-weight: 600; }
+
+/* Fluxo PRISMA resumido */
+.rsl .fluxo { display: grid; grid-template-columns: 1fr 150px; column-gap: 30px; align-items: start; }
+.rsl .etapa { border-left: 4px solid var(--nevoa); padding: 4px 0 4px 18px; margin-bottom: 8px; }
+.rsl .etapa .n { font-family: var(--serifa); font-size: 40px; font-weight: 600; color: var(--tinta); line-height: 1.1; }
+.rsl .etapa .d { font-size: 21px; color: var(--grafite); }
+.rsl .etapa.final { border-left-color: var(--ouro); }
+.rsl .etapa.final .n { color: var(--ouro); }
+.rsl .corte { font-size: 19px; color: #9A5A4A; margin: 0 0 8px 22px; }
+.rsl .miniatura-rsl { width: 150px; }
+.rsl .miniatura-rsl img {
+  width: 150px; height: 196px; object-fit: cover; object-position: top;
+  border: 1px solid var(--nevoa); display: block; cursor: zoom-in; background: #fff;
+}
+.rsl .miniatura-rsl p { font-size: 17px; color: var(--grafite); margin: 8px 0 0; line-height: 1.3; }
+
+/* ---------- 5n. Sumário -------------------------------------------- */
+.sumario .quadro { display: block; padding-top: 72px; }
+.sumario .rotulo {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 58px;
+  line-height: 1.1;
+  color: var(--tinta);
+  margin-bottom: 44px;
+}
+.sumario .corpo { display: grid; grid-template-columns: 760px 1fr; column-gap: 90px; }
+
+/* A lista é sempre visível. Os estados acompanham a trilha do rodapé:
+   à frente em cinza, a atual em dourado, as já percorridas em grafite. */
+.sumario ol { list-style: none; margin: 0; padding: 0; }
+.reveal .slides section .sumario-item.fragment {
+  opacity: 1;
+  visibility: inherit;
+}
+.sumario-item {
+  display: grid;
+  grid-template-columns: 58px 60px 1fr;
+  align-items: center;
+  column-gap: 20px;
+  height: 72px;
+  border-bottom: 1px solid rgba(213, 218, 225, .7);
+}
+.sumario-item .traco {
+  height: 5px;
+  width: 44px;
+  background: var(--nevoa);
+  transition: width 420ms ease, background 420ms ease;
+}
+.sumario-item .num { font-size: 22px; color: var(--grafite); }
+.sumario-item .nome {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 32px;
+  color: #9AA3B0;
+  transition: color 420ms ease;
+}
+.sumario-item.visible .traco { background: #9AA3B0; }
+.sumario-item.visible .nome { color: var(--grafite); }
+.sumario-item.current-fragment .traco { background: var(--ouro); width: 58px; }
+.sumario-item.current-fragment .nome { color: var(--tinta); }
+.sumario-item.current-fragment .num { color: var(--ouro); }
+
+/* Painel de detalhes: todos no mesmo lugar, um de cada vez */
+.sumario .painel { position: relative; }
+.sumario .detalhe {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  border-left: 5px solid var(--ouro);
+  padding: 8px 0 8px 40px;
+}
+.sumario .detalhe.abertura-sumario { border-left-color: var(--nevoa); }
+.sumario .detalhe h3 {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 40px;
+  line-height: 1.15;
+  color: var(--tinta);
+  margin: 0 0 26px;
+}
+.sumario .detalhe ul { list-style: none; margin: 0; padding: 0; }
+.sumario .detalhe li {
+  font-size: 29px;
+  line-height: 1.35;
+  color: var(--tinta);
+  padding: 14px 0;
+  border-top: 1px solid rgba(213, 218, 225, .7);
+}
+.sumario .detalhe li:first-child { border-top: none; padding-top: 0; }
+.sumario .detalhe p { font-size: 29px; line-height: 1.45; color: var(--grafite); margin: 0; }
+
+/* ---------- 5o. Metodologia · desenho do estudo (M1) --------------- */
+.dsr .momentos {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 36px;
+  padding-top: 44px;
+}
+/* Os cartões ficam sempre visíveis e mudam de estado a cada clique */
+.reveal .slides section .momento.fragment { opacity: 1; visibility: inherit; }
+.momento {
+  border-top: 5px solid var(--nevoa);
+  padding: 18px 4px 0;
+  transition: border-color 420ms ease;
+}
+.momento .etapa-dsr { font-size: 22px; color: var(--grafite); margin: 0 0 4px; }
+.momento h3 {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 1.15;
+  color: #9AA3B0;
+  margin: 0 0 10px;
+  transition: color 420ms ease;
+}
+.momento .n-dsr {
+  font-family: var(--serifa);
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 1;
+  color: #9AA3B0;
+  transition: color 420ms ease;
+}
+.momento .n-dsr small { font-family: var(--sem-serifa); font-weight: 400; font-size: 22px; color: var(--grafite); margin-left: 8px; }
+.momento .mediacao { font-size: 22px; color: var(--grafite); margin: 10px 0 0; }
+.momento.visible { border-top-color: #9AA3B0; }
+.momento.visible h3, .momento.visible .n-dsr { color: var(--grafite); }
+.momento.current-fragment { border-top-color: var(--ouro); }
+.momento.current-fragment h3 { color: var(--tinta); }
+.momento.current-fragment .n-dsr { color: var(--ouro); }
+
+/* Eixo da autonomia, revelado na síntese */
+.dsr .eixo-autonomia { margin-top: 26px; }
+.dsr .eixo-autonomia .linha {
+  height: 4px;
+  background: linear-gradient(to right, var(--nevoa), var(--tinta) 55%, var(--ouro));
+}
+.dsr .eixo-autonomia .pontas { display: flex; justify-content: space-between; font-size: 21px; color: var(--grafite); margin-top: 8px; }
+
+/* Detalhes de cada momento, no mesmo lugar, um de cada vez */
+.dsr .painel-dsr { position: relative; margin-top: 30px; height: 300px; }
+.dsr .detalhe-dsr {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  column-gap: 48px;
+  align-items: start;
+}
+.dsr .detalhe-dsr .capa-estudo {
+  width: 300px;
+  height: 250px;
+  border: 1px solid var(--nevoa);
+  background: #fff;
+}
+.dsr .detalhe-dsr .capa-estudo img {
+  width: 100%; height: 100%; object-fit: contain; display: block; cursor: zoom-in; box-sizing: border-box; padding: 8px;
+}
+.dsr .detalhe-dsr .logo-delineia {
+  width: 300px; height: 250px;
+  display: grid; place-items: center;
+}
+.dsr .detalhe-dsr .logo-delineia img { height: 250px; width: auto; display: block; }
+.dsr .detalhe-dsr dl { margin: 0; display: grid; grid-template-columns: 190px 1fr; row-gap: 16px; column-gap: 24px; }
+.dsr .detalhe-dsr dt { font-size: 22px; color: var(--grafite); padding-top: 3px; }
+.dsr .detalhe-dsr dd { margin: 0; font-size: 26px; line-height: 1.36; color: var(--tinta); }
+.dsr .detalhe-dsr dd.limite { color: var(--ouro); }
+.dsr:has(.sintese-dsr.visible) .momento h3,
+.dsr:has(.sintese-dsr.visible) .momento .n-dsr { color: var(--tinta); }
+.dsr:has(.sintese-dsr.visible) .momento { border-top-color: var(--tinta); }
+.dsr .sintese-dsr p {
+  font-family: var(--serifa);
+  font-size: 36px;
+  line-height: 1.35;
+  color: var(--tinta);
+  margin: 0;
+  max-width: 1400px;
+  padding-left: 36px;
+  border-left: 5px solid var(--ouro);
+}
+
+/* ---------- 5p. Mapa recorrente do DSR (M2 em diante) -------------- */
+.mapa-dsr {
+  position: absolute;
+  top: 50px;
+  left: var(--margem);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 20px;
+  color: #9AA3B0;
+}
+.mapa-dsr span { display: inline-flex; align-items: center; gap: 10px; }
+.mapa-dsr span::before {
+  content: "";
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 2px solid #B7BFCA; box-sizing: border-box;
+}
+.mapa-dsr i { width: 40px; height: 2px; background: var(--nevoa); }
+.mapa-dsr .passado { color: var(--grafite); }
+.mapa-dsr .passado::before { background: #9AA3B0; border-color: #9AA3B0; }
+.mapa-dsr .atual { color: var(--tinta); font-weight: 600; }
+.mapa-dsr .atual::before { background: var(--ouro); border-color: var(--ouro); }
+
+/* ---------- 5q. Metodologia · arquitetura (M2) --------------------- */
+.arquitetura .camadas-arq { padding-top: 52px; }
+.arquitetura .rotulo-camada { font-size: 20px; color: var(--grafite); margin: 0 0 10px; }
+.arquitetura .linha-arq {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  column-gap: 26px;
+}
+/* Trilha de aprendizagem */
+.arquitetura .etapa-arq {
+  border-top: 4px solid var(--tinta);
+  padding-top: 12px;
+  position: relative;
+}
+.arquitetura .etapa-arq .n-arq { font-size: 20px; color: var(--ouro); }
+.arquitetura .etapa-arq h3 {
+  font-family: var(--serifa); font-weight: 600; font-size: 29px; line-height: 1.15;
+  color: var(--tinta); margin: 4px 0 8px;
+}
+.arquitetura .etapa-arq .distintivo { font-size: 21px; color: var(--grafite); }
+.arquitetura .etapa-arq .distintivo b { color: var(--ouro); font-weight: 600; }
+.arquitetura .etapa-arq:not(:last-child)::after {
+  content: "›";
+  position: absolute; right: -20px; top: 30px;
+  font-size: 34px; color: #9AA3B0;
+}
+/* Conectores verticais entre a trilha e o motor */
+.arquitetura .conectores { height: 84px; margin-top: 14px; }
+.arquitetura .conector {
+  width: 2px; height: 84px; margin: 0 auto;
+  background: repeating-linear-gradient(to bottom, var(--ouro) 0 6px, transparent 6px 11px);
+}
+/* Motor: bastidores em azul-noite */
+.arquitetura .motor-arq {
+  background: var(--noite);
+  color: var(--papel);
+  padding: 18px 20px 20px;
+  min-height: 262px;
+  box-sizing: border-box;
+  position: relative;
+}
+.arquitetura .motor-arq h3 {
+  font-family: var(--serifa); font-weight: 600; font-size: 28px; line-height: 1.15;
+  margin: 0 0 12px; color: var(--papel);
+}
+.arquitetura .motor-arq ul { list-style: none; margin: 0; padding: 0; }
+.arquitetura .motor-arq li {
+  font-size: 21px; line-height: 1.35; color: rgba(247, 247, 244, .85);
+  padding: 6px 0; border-top: 1px solid rgba(247, 247, 244, .16);
+}
+.arquitetura .motor-arq li:first-child { border-top: none; padding-top: 0; }
+.arquitetura .motor-arq li b { color: var(--ouro-claro); font-weight: 600; }
+.arquitetura .motor-arq.encadeado::after {
+  content: "›";
+  position: absolute; right: -20px; top: 90px;
+  font-size: 34px; color: var(--ouro);
+}
+.arquitetura .infra { font-size: 21px; color: var(--grafite); margin: 16px 0 0; }
+
+/* Diagramas da tese, sempre disponíveis para ampliar */
+.arquitetura .diagramas p { font-size: 19px; color: var(--grafite); margin: 0 0 10px; }
+.arquitetura .diagramas .miniaturas-arq { display: flex; gap: 12px; }
+.arquitetura .diagramas img {
+  width: 96px; height: 150px; object-fit: cover; object-position: top;
+  border: 1px solid var(--nevoa); background: #fff; cursor: zoom-in; display: block;
+}
+
+/* ---------- 5r. Metodologia · percurso do participante (M3) -------- */
+.percurso .jornada {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 34px;
+  padding-top: 76px;
+}
+.percurso .passo {
+  border-top: 4px solid var(--tinta);
+  padding-top: 14px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.percurso .passo:not(:last-child)::after {
+  content: "›";
+  position: absolute; right: -24px; top: 34px;
+  font-size: 36px; color: #9AA3B0;
+}
+.percurso .passo .n-passo { font-size: 20px; color: var(--ouro); }
+.percurso .passo h3 {
+  font-family: var(--serifa); font-weight: 600; font-size: 30px; line-height: 1.15;
+  color: var(--tinta); margin: 4px 0 14px;
+}
+.percurso .passo ul { list-style: none; margin: 0; padding: 0; flex: 1; display: flex; flex-direction: column; }
+.percurso .passo li {
+  font-size: 22px; line-height: 1.35; color: var(--tinta);
+  padding: 8px 0; border-top: 1px solid rgba(213, 218, 225, .7);
+}
+.percurso .passo li:first-child { border-top: none; padding-top: 0; }
+.percurso .passo li.medida { color: var(--ouro); font-weight: 600; margin-top: auto; border-top: 2px solid var(--ouro); padding-top: 10px; }
+.percurso .passo li .cod { font-weight: 400; color: var(--grafite); margin-right: 6px; }
+.percurso .miniatura-f1 { position: absolute; top: 18px; right: 0; }
+.percurso .passo.com-miniatura h3,
+.percurso .passo.com-miniatura li:first-child { padding-right: 80px; }
+.percurso .miniatura-f1 img {
+  width: 64px; height: 84px; object-fit: cover; object-position: top;
+  border: 1px solid var(--nevoa); background: #fff; cursor: zoom-in; display: block;
+}
+
+/* O arco que liga a segurança antes e depois */
+.percurso .arco { position: relative; height: 150px; margin-top: 6px; }
+.percurso .arco svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.percurso .arco path { fill: none; stroke: var(--ouro); stroke-width: 3; }
+.percurso .arco circle { fill: var(--ouro); }
+.percurso .arco .rotulo-arco {
+  position: absolute;
+  left: 50%; top: 86px;
+  transform: translateX(-12%);
+  width: 820px;
+  font-family: var(--serifa);
+  font-size: 30px;
+  line-height: 1.3;
+  color: var(--tinta);
+}
+.percurso .arco .rotulo-arco b { color: var(--ouro); font-weight: 600; }
+
+/* ---------- 5s. Metodologia · instrumentos e análise (M4) ---------- */
+.analise .matriz { padding-top: 44px; }
+.analise .linha-matriz {
+  display: grid;
+  grid-template-columns: 470px 1fr 250px;
+  column-gap: 44px;
+  align-items: start;
+  padding: 18px 0;
+  border-top: 1px solid var(--nevoa);
+}
+.analise .cabecalho-matriz {
+  border-top: none;
+  padding: 0 0 8px;
+  font-size: 20px;
+  color: var(--grafite);
+}
+.analise .dados h3 {
+  font-family: var(--serifa); font-weight: 600; font-size: 29px; line-height: 1.15;
+  color: var(--tinta); margin: 0 0 6px;
+}
+.analise .dados p { font-size: 21px; color: var(--grafite); margin: 0; }
+.analise .tratamento p { font-size: 24px; line-height: 1.38; color: var(--tinta); margin: 0; }
+.analise .tratamento .ref-trat { font-size: 19px; color: var(--grafite); margin-top: 6px; }
+.analise .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+.analise .chips span {
+  font-size: 18px; color: var(--tinta);
+  border: 1px solid var(--nevoa); background: #fff;
+  padding: 4px 10px;
+}
+.analise .chips span b { color: var(--grafite); font-weight: 400; margin-left: 4px; }
+.analise .objetivo {
+  font-size: 22px; color: var(--ouro); font-weight: 600;
+  border-left: 3px solid var(--ouro); padding-left: 14px;
+}
+.analise .objetivo small { display: block; font-weight: 400; color: var(--grafite); font-size: 19px; margin-top: 2px; }
+
+/* ---------- 5t. Delinéia · vídeos de demonstração ------------------ */
+.demo .janela-video { top: 290px; width: 1120px; height: 630px; background: #E9EDF2; }
+.demo .janela-video.expandida { left: 60px; top: 34px; width: 1800px; height: 1012px; }
+.demo .legenda-video {
+  position: absolute;
+  left: 0; bottom: 0;
+  padding: 10px 22px;
+  background: rgba(19, 32, 58, 0.78);
+  color: var(--papel);
+  font-size: 22px;
+}
+.demo .legenda-video:empty { display: none; }
+
+/* Roteiro do vídeo, que acende sozinho conforme o tempo */
+.demo .capitulos {
+  position: absolute;
+  left: 1290px;
+  top: 290px;
+  width: 510px;
+}
+.demo .capitulos p { font-size: 21px; color: var(--grafite); margin: 0 0 14px; }
+.demo .capitulos ol { list-style: none; margin: 0; padding: 0; }
+.demo .capitulos li {
+  border-left: 4px solid var(--nevoa);
+  padding: 10px 0 12px 22px;
+  margin-bottom: 6px;
+  transition: border-color 400ms ease;
+}
+.demo .capitulos li strong {
+  display: block;
+  font-family: var(--serifa); font-weight: 600; font-size: 28px; line-height: 1.15;
+  color: #9AA3B0; transition: color 400ms ease;
+}
+.demo .capitulos li span { font-size: 21px; line-height: 1.35; color: #9AA3B0; transition: color 400ms ease; }
+.demo .capitulos li.feito { border-left-color: #9AA3B0; }
+.demo .capitulos li.feito strong, .demo .capitulos li.feito span { color: var(--grafite); }
+.demo .capitulos li.ativo { border-left-color: var(--ouro); }
+.demo .capitulos li.ativo strong { color: var(--tinta); }
+.demo .capitulos li.ativo span { color: var(--tinta); }
+
+/* ---------- 5u. Delinéia · estrutura do relatório ----------------- */
+.relatorio .evidencia {
+  display: grid;
+  grid-template-columns: 520px 1fr;
+  column-gap: 80px;
+  align-items: start;
+  padding-top: 40px;
+}
+.relatorio .figura-relatorio img {
+  width: 520px; height: 644px;
+  object-fit: contain;
+  border: 1px solid var(--nevoa);
+  background: #fff;
+  display: block;
+  cursor: zoom-in;
+}
+.relatorio .figura-relatorio p { font-size: 19px; color: var(--grafite); margin: 10px 0 0; }
+
+.relatorio .grupo-rel { margin-bottom: 22px; }
+.relatorio .grupo-rel > p {
+  font-size: 20px; color: var(--grafite); margin: 0 0 6px;
+  padding-bottom: 6px; border-bottom: 1px solid var(--nevoa);
+}
+.relatorio .parte {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  column-gap: 18px;
+  align-items: center;
+  padding: 7px 0;
+}
+.relatorio .parte .letra-rel {
+  width: 42px; height: 42px; border-radius: 50%;
+  background: var(--tinta); color: var(--papel);
+  font-family: var(--serifa); font-weight: 600; font-size: 24px;
+  display: grid; place-items: center;
+}
+.relatorio .grupo-rel.autonomia .letra-rel { background: var(--ouro); }
+.relatorio .parte strong {
+  display: block;
+  font-family: var(--serifa); font-weight: 600; font-size: 27px; line-height: 1.15; color: var(--tinta);
+}
+.relatorio .parte span { font-size: 21px; line-height: 1.3; color: var(--grafite); }
+
+/* ---------- 6a. Resultados · perfil e comportamento informacional -- */
+.perfil .paineis {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 56px;
+  padding-top: 50px;
+  align-items: start;
+}
+.perfil .painel-res > p.rotulo-res {
+  font-size: 20px; color: var(--grafite); margin: 0 0 14px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--nevoa);
+}
+.perfil .numero-grande {
+  font-family: var(--serifa); font-weight: 600; font-size: 76px; line-height: 1;
+  color: var(--tinta);
+}
+.perfil .numero-grande small { font-size: 34px; color: var(--grafite); font-weight: 400; }
+.perfil .legenda-num { font-size: 23px; line-height: 1.35; color: var(--tinta); margin: 8px 0 18px; }
+
+/* 86 pontos: os 4 com experiência em dourado */
+.perfil .pontos86 { display: grid; grid-template-columns: repeat(15, 18px); gap: 7px; margin-bottom: 8px; }
+.perfil .nota-pontos { margin: 0 0 24px; }
+.perfil .pontos86 span { width: 18px; height: 18px; border-radius: 50%; background: #B7BFCA; }
+.perfil .pontos86 span.exp { background: var(--ouro); }
+
+.perfil .barras-res { list-style: none; margin: 0; padding: 0; }
+.perfil .barras-res li {
+  display: grid; grid-template-columns: 1fr 52px; align-items: center; column-gap: 12px;
+  margin-bottom: 12px;
+}
+.perfil .barras-res .nome-barra { font-size: 21px; color: var(--tinta); margin-bottom: 5px; display: block; }
+.perfil .barras-res .trilho-barra { height: 14px; background: #E6E8E5; }
+.perfil .barras-res .trilho-barra i { display: block; height: 100%; background: var(--tinta); }
+.perfil .barras-res .valor { font-family: var(--serifa); font-weight: 600; font-size: 26px; color: var(--tinta); text-align: right; align-self: end; }
+.perfil .nota-res { font-size: 20px; color: var(--grafite); margin: 6px 0 0; }
+
+/* O achado: a ilusão da ferramenta */
+.perfil .achado {
+  background: var(--noite);
+  color: var(--papel);
+  border-top: 5px solid #C9A45C;
+  padding: 28px 30px 30px;
+}
+.perfil .achado .rotulo-res { color: rgba(247,247,244,.7) !important; border-bottom-color: rgba(247,247,244,.2) !important; }
+.perfil .achado .numero-grande { color: #C9A45C; }
+.perfil .achado .legenda-num { color: var(--papel); }
+.perfil .achado p.destaque { font-family: var(--serifa); font-size: 27px; line-height: 1.4; color: var(--papel); margin: 18px 0 0; }
+.perfil .achado p.destaque b { color: #C9A45C; font-weight: 600; }
+
+/* ---------- 6b. Resultados · autoeficácia (6.2) --------------------- */
+.autoeficacia .evidencia {
+  display: grid;
+  grid-template-columns: 1fr 560px;
+  column-gap: 70px;
+  padding-top: 46px;
+  align-items: start;
+}
+.autoeficacia .rotulo-res {
+  font-size: 20px; color: var(--grafite); margin: 0 0 14px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--nevoa);
+}
+/* Barras empilhadas, antes e depois */
+.autoeficacia .linha-barra { display: grid; grid-template-columns: 110px 1fr; column-gap: 18px; align-items: center; margin-bottom: 14px; }
+.autoeficacia .linha-barra > span { font-size: 22px; color: var(--grafite); text-align: right; }
+.autoeficacia .pilha { display: flex; height: 68px; }
+.autoeficacia .pilha i {
+  display: flex; align-items: center; justify-content: center;
+  font-style: normal; font-family: var(--serifa); font-weight: 600; font-size: 26px;
+}
+.autoeficacia .n1 { background: #E2E5EA; color: var(--tinta); }
+.autoeficacia .n2 { background: #C3C9D2; color: var(--tinta); }
+.autoeficacia .n3 { background: #9AA3B0; color: var(--tinta); }
+.autoeficacia .n4 { background: #4A5870; color: var(--papel); }
+.autoeficacia .n5 { background: var(--tinta); color: var(--papel); }
+.autoeficacia .chave-niveis { display: flex; flex-wrap: wrap; gap: 6px 20px; margin: 4px 0 0 128px; font-size: 18px; color: var(--grafite); }
+.autoeficacia .chave-niveis b { display: inline-block; width: 14px; height: 14px; margin-right: 6px; vertical-align: -1px; }
+
+/* Três números */
+.autoeficacia .tres { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 30px; margin-top: 50px; }
+.autoeficacia .tres div { border-top: 4px solid var(--tinta); padding-top: 10px; }
+.autoeficacia .tres div.recuo { border-top-color: var(--ouro); }
+.autoeficacia .tres strong { display: block; font-family: var(--serifa); font-weight: 600; font-size: 66px; line-height: 1.05; color: var(--tinta); }
+.autoeficacia .tres div.recuo strong { color: var(--ouro); }
+.autoeficacia .tres span { font-size: 22px; color: var(--grafite); }
+
+/* Cartão da calibração */
+.autoeficacia .calibracao {
+  background: var(--noite); color: var(--papel);
+  border-top: 5px solid #C9A45C;
+  padding: 26px 30px 28px;
+}
+.autoeficacia .calibracao .rotulo-res { color: rgba(247,247,244,.7); border-bottom-color: rgba(247,247,244,.2); }
+.autoeficacia .calibracao ul { list-style: none; margin: 0 0 16px; padding: 0; }
+.autoeficacia .calibracao li { font-size: 22px; line-height: 1.35; padding: 6px 0; border-bottom: 1px solid rgba(247,247,244,.12); }
+.autoeficacia .calibracao li b { font-family: var(--serifa); font-size: 26px; color: #C9A45C; margin-right: 8px; }
+.autoeficacia .calibracao p { font-family: var(--serifa); font-size: 25px; line-height: 1.4; margin: 0; }
+.autoeficacia .calibracao p em { font-style: normal; color: #C9A45C; }
+.autoeficacia .calibracao p.rotulo-res { font-family: var(--sem-serifa); font-size: 20px; line-height: 1.3; margin: 0 0 14px; }
+.autoeficacia .figuras-res { display: flex; gap: 14px; margin-top: 18px; align-items: center; }
+.autoeficacia .figuras-res img {
+  height: 110px; width: auto; max-width: 200px; object-fit: contain;
+  border: 1px solid var(--nevoa); background: #fff; cursor: zoom-in; display: block;
+}
+.autoeficacia .figuras-res span { font-size: 18px; color: var(--grafite); }
+
+/* Microminiaturas, uma por coluna, centralizadas abaixo de cada painel */
+.perfil .micro-fig { text-align: center; margin-top: 16px; }
+.perfil .micro-fig img {
+  width: 46px; height: 26px;
+  object-fit: cover; object-position: top left;
+  border: 1px solid var(--nevoa); background: #fff;
+  cursor: zoom-in; display: inline-block;
+}
+
+/* Figura 22 como microminiatura */
+.autoeficacia .figuras-res.micro img {
+  width: 46px; height: 26px; max-width: none;
+  object-fit: cover; object-position: top left;
+}
+
+/* ---------- 6c. Resultados · avaliação quantitativa (6.3) ----------- */
+.quanti .evidencia {
+  display: grid;
+  grid-template-columns: 1fr 470px;
+  column-gap: 70px;
+  padding-top: 40px;
+  align-items: start;
+}
+.quanti .rotulo-res {
+  font-size: 20px; color: var(--grafite); margin: 0 0 10px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--nevoa);
+}
+/* Faixas de pontos: um ponto por afirmativa, na escala de 50% a 100% */
+.quanti .faixa {
+  display: grid;
+  grid-template-columns: 250px 1fr 56px;
+  column-gap: 20px;
+  align-items: center;
+  height: 66px;
+  border-bottom: 1px solid rgba(213, 218, 225, .6);
+}
+.quanti .faixa .nome-faixa { font-size: 22px; line-height: 1.2; color: var(--tinta); }
+.quanti .faixa .nome-faixa small { display: block; font-size: 17px; color: var(--grafite); }
+.quanti .trilho-faixa { position: relative; height: 66px; }
+.quanti .trilho-faixa::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--nevoa);
+}
+.quanti .ponto {
+  position: absolute; top: 50%;
+  width: 18px; height: 18px; margin: -9px 0 0 -9px;
+  border-radius: 50%; background: var(--tinta);
+}
+.quanti .ponto.baixo { background: var(--ouro); box-shadow: 0 0 0 5px rgba(179, 137, 58, .22); }
+.quanti .rotulo-ponto {
+  position: absolute; top: 50%;
+  transform: translate(-50%, -46px);
+  white-space: nowrap;
+  font-size: 18px; font-weight: 600; color: var(--ouro);
+}
+.quanti .eixo-faixa {
+  display: grid; grid-template-columns: 250px 1fr 56px; column-gap: 20px; margin-top: 8px;
+}
+.quanti .eixo-faixa .marcas { position: relative; height: 24px; font-size: 17px; color: var(--grafite); }
+.quanti .eixo-faixa .marcas span { position: absolute; transform: translateX(-50%); }
+.quanti .micro-fig img {
+  width: 46px; height: 26px; object-fit: cover; object-position: top left;
+  border: 1px solid var(--nevoa); background: #fff; cursor: zoom-in; display: block;
+}
+.quanti .nota-quanti { font-size: 21px; line-height: 1.4; color: var(--tinta); margin: 18px 0 0; }
+.quanti .nota-quanti b { color: var(--ouro); font-weight: 600; }
+
+/* Cartão do NPS */
+.quanti .nps {
+  background: var(--noite); color: var(--papel);
+  border-top: 5px solid #C9A45C;
+  padding: 26px 30px 28px;
+}
+.quanti .nps .rotulo-res { color: rgba(247,247,244,.7); border-bottom-color: rgba(247,247,244,.2); }
+.quanti .nps .valor-nps { font-family: var(--serifa); font-weight: 600; font-size: 104px; line-height: 1; color: #C9A45C; }
+.quanti .nps .escala { font-size: 21px; color: rgba(247,247,244,.8); margin: 6px 0 22px; }
+.quanti .nps .barra-nps { display: flex; height: 26px; margin-bottom: 12px; }
+.quanti .nps .barra-nps i:nth-child(1) { background: #C9A45C; }
+.quanti .nps .barra-nps i:nth-child(2) { background: rgba(247,247,244,.35); }
+.quanti .nps .barra-nps i:nth-child(3) { background: #9A5A4A; }
+.quanti .nps ul { list-style: none; margin: 0; padding: 0; }
+.quanti .nps li { font-size: 21px; line-height: 1.5; color: var(--papel); }
+.quanti .nps li b { font-family: var(--serifa); font-size: 25px; margin-right: 8px; }
+.quanti .nps .micro-fig { margin-top: 16px; }
+
+/* ---------- 6d. Resultados · avaliação qualitativa (6.4) ------------ */
+.quali .evidencia {
+  display: grid;
+  grid-template-columns: 1fr 560px;
+  column-gap: 70px;
+  padding-top: 40px;
+  align-items: start;
+}
+.quali .cabeca-quali {
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 20px; color: var(--grafite);
+  padding-bottom: 8px; border-bottom: 1px solid var(--nevoa); margin: 0 0 16px;
+}
+.quali .cabeca-quali .micro-figs { display: flex; gap: 8px; }
+.quali .micro-figs img {
+  width: 46px; height: 26px; object-fit: cover; object-position: top left;
+  border: 1px solid var(--nevoa); background: #fff; cursor: zoom-in; display: block;
+}
+.quali .grupo-quali { margin-bottom: 14px; }
+.quali .grupo-quali > p { font-size: 19px; color: var(--grafite); margin: 0 0 4px; }
+.quali .cat {
+  display: grid; grid-template-columns: 480px 1fr 70px; column-gap: 16px;
+  align-items: center; height: 50px;
+}
+.quali .cat .nome-cat { font-size: 20px; line-height: 1.2; color: var(--tinta); }
+.quali .cat .nome-cat b { font-weight: 600; color: var(--grafite); margin-right: 6px; }
+.quali .cat .trilho-cat { height: 18px; background: #E6E8E5; }
+.quali .cat .trilho-cat i { display: block; height: 100%; }
+.quali .valor .trilho-cat i { background: var(--tinta); }
+.quali .tensao .trilho-cat i { background: #9AA3B0; }
+.quali .transversal .trilho-cat i { background: var(--ouro); }
+.quali .cat .pct { font-family: var(--serifa); font-weight: 600; font-size: 24px; color: var(--tinta); text-align: right; }
+
+/* Falas dos estudantes, uma por eixo */
+.quali .fala {
+  border-left: 4px solid var(--tinta);
+  padding: 6px 0 6px 24px;
+  margin-bottom: 30px;
+}
+.quali .fala.tensao { border-left-color: #9AA3B0; }
+.quali .fala.transversal { border-left-color: var(--ouro); }
+.quali .fala p {
+  font-family: var(--serifa); font-size: 28px; line-height: 1.35; color: var(--tinta); margin: 0 0 8px;
+}
+.quali .fala span { font-size: 18px; color: var(--grafite); }
+
+/* ---------- 6e. Resultados · Scopus e OpenAlex (6.5) ---------------- */
+.comparacao .evidencia {
+  display: grid;
+  grid-template-columns: 1fr 540px;
+  column-gap: 70px;
+  padding-top: 40px;
+  align-items: start;
+}
+.comparacao .rotulo-res {
+  font-size: 20px; color: var(--grafite); margin: 0 0 6px;
+  padding-bottom: 8px; border-bottom: 1px solid var(--nevoa);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.comparacao .micro-fig img {
+  width: 46px; height: 26px; object-fit: cover; object-position: top left;
+  border: 1px solid var(--nevoa); background: #fff; cursor: zoom-in; display: block;
+}
+/* Indicadores lado a lado */
+.comparacao .ind {
+  display: grid; grid-template-columns: 1fr 270px 250px; column-gap: 20px;
+  align-items: baseline; padding: 8px 0;
+  border-bottom: 1px solid rgba(213, 218, 225, .6);
+}
+.comparacao .ind.cab { padding: 4px 0 8px; }
+.comparacao .ind.cab span { font-size: 20px; color: var(--grafite); }
+.comparacao .ind.cab span b { display: block; font-family: var(--serifa); font-size: 26px; color: var(--tinta); }
+.comparacao .ind .nome-ind { font-size: 22px; color: var(--tinta); }
+.comparacao .ind .v { font-family: var(--serifa); font-weight: 600; font-size: 32px; color: #7A8494; white-space: nowrap; }
+.comparacao .ind .v.termo { font-size: 26px; }
+.comparacao .ind .v.oa { color: var(--tinta); }
+.comparacao .ind .v small { font-family: var(--sem-serifa); font-weight: 400; font-size: 19px; color: var(--grafite); margin-left: 6px; }
+
+/* O exemplo pareado: dois cartões, do jargão às grandes áreas */
+.comparacao .exemplo { margin-top: 54px; }
+.comparacao .exemplo > p.tema-ex {
+  font-size: 20px; color: var(--grafite); margin: 0 0 14px;
+}
+.comparacao .exemplo > p.tema-ex b { font-family: var(--serifa); font-weight: 600; font-size: 24px; color: var(--tinta); margin-left: 6px; }
+.comparacao .pares { display: grid; grid-template-columns: 1fr 44px 1fr; align-items: stretch; }
+.comparacao .cartao-ex {
+  background: #fff;
+  border: 1px solid var(--nevoa);
+  border-top: 4px solid #9AA3B0;
+  padding: 16px 18px 18px;
+  display: flex; flex-direction: column;
+}
+.comparacao .cartao-ex.oa { background: #EEF0F3; border-color: #DCE0E6; border-top-color: var(--tinta); }
+.comparacao .base-ex { font-size: 18px; color: var(--grafite); margin-bottom: 12px; }
+.comparacao .base-ex b { font-weight: 600; color: var(--tinta); }
+.comparacao .etiquetas { display: flex; flex-wrap: wrap; gap: 8px; }
+.comparacao .etiquetas i {
+  font-style: normal; font-size: 18px; padding: 4px 10px;
+  border: 1px solid #B7BFCA; color: #4A5870; background: #fff;
+}
+.comparacao .etiquetas.oa i { background: var(--tinta); border-color: var(--tinta); color: var(--papel); }
+.comparacao .sintese-ex {
+  font-family: var(--serifa); font-size: 23px; line-height: 1.3; color: var(--grafite);
+  margin: auto 0 0; padding-top: 14px;
+}
+.comparacao .cartao-ex.oa .sintese-ex { color: var(--tinta); }
+.comparacao .seta-ex { display: grid; place-items: center; font-size: 34px; color: var(--ouro); }
+
+/* Cartão: o que isso provocou */
+.comparacao .efeito {
+  background: var(--noite); color: var(--papel);
+  border-top: 5px solid #C9A45C;
+  padding: 26px 30px 28px;
+}
+.comparacao .efeito .rotulo-res { color: rgba(247,247,244,.7); border-bottom-color: rgba(247,247,244,.2); margin-bottom: 14px; }
+.comparacao .efeito p.forte { font-family: var(--serifa); font-size: 29px; line-height: 1.38; margin: 0 0 18px; }
+.comparacao .efeito p.forte b { color: #C9A45C; font-weight: 600; }
+.comparacao .efeito ul { list-style: none; margin: 0; padding: 0; }
+.comparacao .efeito li { font-size: 21px; line-height: 1.4; padding: 8px 0; border-top: 1px solid rgba(247,247,244,.14); color: rgba(247,247,244,.9); }
+.comparacao .efeito li b { color: #C9A45C; font-weight: 600; }
+
+/* ---------- 7a. Discussão · os construtos da tese ------------------- */
+.discussao .evidencia {
+  display: grid;
+  grid-template-columns: 1040px 1fr;
+  column-gap: 60px;
+  padding-top: 24px;
+  align-items: start;
+}
+.discussao .estrela { position: relative; width: 1040px; height: 640px; }
+.discussao .estrela svg.linhas { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.discussao .estrela .anel { fill: none; stroke: var(--nevoa); stroke-width: 2; stroke-dasharray: 5 8; }
+.discussao .estrela .aresta { fill: none; stroke: var(--ouro); stroke-width: 2.4; stroke-linejoin: round; }
+
+/* As cinco pontas */
+.discussao .ponta { position: absolute; transform: translate(-50%, -50%); }
+.discussao .ponta .icone-ponta {
+  width: 96px; height: 96px; border-radius: 50%;
+  background: var(--papel); border: 2px solid var(--tinta);
+  display: grid; place-items: center;
+}
+.discussao .ponta .icone-ponta svg { width: 54px; height: 54px; }
+.discussao .ponta .legenda-ponta { position: absolute; width: 240px; }
+.discussao .ponta .legenda-ponta strong {
+  display: block; font-family: var(--serifa); font-weight: 600; font-size: 25px; line-height: 1.15; color: var(--tinta);
+}
+.discussao .ponta .legenda-ponta span { font-size: 18px; line-height: 1.3; color: var(--grafite); }
+.discussao .ponta .legenda-ponta.cima { bottom: 112px; left: 50%; transform: translateX(-50%); text-align: center; }
+.discussao .ponta .legenda-ponta.direita { left: 112px; top: 50%; transform: translateY(-50%); }
+.discussao .ponta .legenda-ponta.esquerda { right: 112px; top: 50%; transform: translateY(-50%); text-align: right; }
+
+/* O centro: uma citação da tese por vez */
+.discussao .centro {
+  position: absolute; left: 520px; top: 330px; transform: translate(-50%, -50%);
+  width: 320px; height: 320px; border-radius: 50%;
+  background: var(--papel);
+  box-shadow: 0 0 0 1px var(--nevoa);
+}
+.discussao .citacao {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; padding: 0 22px;
+}
+.discussao .citacao p { font-family: var(--serifa); font-size: 20px; line-height: 1.34; color: var(--tinta); margin: 0 0 10px; }
+.discussao .citacao span { font-size: 17px; color: var(--grafite); }
+.discussao .citacao img {
+  width: 46px; height: 26px; object-fit: cover; object-position: top left;
+  border: 1px solid var(--nevoa); background: #fff; cursor: zoom-in; margin-top: 10px;
+}
+.discussao .citacao.final p { font-size: 28px; line-height: 1.28; }
+.discussao .citacao.final p b { color: var(--ouro); font-weight: 600; }
+
+/* Segunda coluna: convergências e tensões */
+.discussao .dialogo .rotulo-res {
+  font-size: 20px; color: var(--grafite); margin: 0 0 10px; padding-bottom: 8px; border-bottom: 1px solid var(--nevoa);
+}
+.discussao .dialogo h3 { font-family: var(--serifa); font-weight: 600; font-size: 26px; color: var(--tinta); margin: 18px 0 8px; }
+.discussao .dialogo h3.tensao { color: #7A5446; }
+.discussao .dialogo p { font-size: 20px; line-height: 1.38; color: var(--tinta); margin: 0 0 8px; }
+.discussao .dialogo .sistemas { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+.discussao .dialogo .sistemas i {
+  font-style: normal; font-size: 16px; color: #4A5870; background: #fff; border: 1px solid #B7BFCA; padding: 2px 8px;
+}
+
+/* ---------- 8a. Considerações à questão de pesquisa ----------------- */
+.resposta .quadro { display: block; padding-top: 72px; }
+.resposta .rotulo {
+  font-family: var(--serifa); font-weight: 600; font-size: 58px; line-height: 1.1;
+  color: var(--tinta); margin-bottom: 44px;
+}
+.resposta .pergunta-eco {
+  font-family: var(--serifa); font-size: 28px; line-height: 1.4; color: var(--grafite);
+  max-width: 1500px; margin: 0 0 30px;
+}
+.resposta .pergunta-eco span { font-family: var(--sem-serifa); font-size: 20px; display: block; margin-bottom: 4px; }
+.resposta blockquote {
+  margin: 0; max-width: 1560px;
+  padding-left: 40px; border-left: 6px solid var(--ouro);
+  font-family: var(--serifa); font-size: 48px; line-height: 1.3; color: var(--tinta);
+}
+.resposta blockquote b { font-weight: 600; color: var(--ouro); }
+
+/* Como: os três mecanismos */
+.resposta .mecanismos { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 44px; margin-top: 62px; }
+.resposta .mecanismos > p { grid-column: 1 / -1; font-size: 20px; color: var(--grafite); margin: 0 0 12px; }
+.resposta .mecanismo { border-top: 3px solid var(--tinta); padding-top: 14px; font-size: 27px; line-height: 1.35; color: var(--tinta); }
+
+/* Os cinco objetivos alcançados */
+.resposta .alcance { display: flex; align-items: center; gap: 18px; margin-top: 58px; flex-wrap: wrap; }
+.resposta .alcance > span { font-size: 20px; color: var(--grafite); margin-right: 6px; }
+.resposta .alcance i {
+  font-style: normal; font-size: 24px; color: var(--tinta);
+  border: 1px solid var(--nevoa); background: #fff; padding: 8px 18px;
+}
+.resposta .alcance i b { font-family: var(--serifa); color: var(--ouro); margin-right: 8px; }
+
+/* ---------- 8b. Contribuição da tese (cap. 9) ----------------------- */
+.contribuicao .evidencia { padding-top: 40px; }
+.contribuicao .areas { display: grid; grid-template-columns: 2fr 1fr; column-gap: 34px; margin-bottom: 12px; }
+.contribuicao .areas span {
+  font-size: 20px; color: var(--grafite); padding-bottom: 8px; border-bottom: 2px solid var(--nevoa);
+}
+.contribuicao .areas span b { font-family: var(--serifa); font-size: 24px; color: var(--tinta); margin-right: 8px; }
+.contribuicao .colunas-c { display: grid; grid-template-columns: repeat(3, 1fr); column-gap: 34px; }
+.contribuicao .coluna-c { border-top: 4px solid var(--tinta); padding-top: 16px; }
+.contribuicao .coluna-c header { display: flex; align-items: center; gap: 14px; margin-bottom: 10px; }
+.contribuicao .coluna-c header svg { width: 46px; height: 46px; flex: none; }
+.contribuicao .coluna-c h3 { font-family: var(--serifa); font-weight: 600; font-size: 30px; color: var(--tinta); margin: 0; }
+.contribuicao .coluna-c p {
+  font-size: 23px; line-height: 1.36; color: var(--tinta); margin: 0;
+  padding: 10px 0; border-top: 1px solid rgba(213, 218, 225, .7);
+}
+.contribuicao .coluna-c p:first-of-type { border-top: none; }
+.contribuicao .coluna-c .ref-c { font-size: 18px; color: var(--grafite); border-top: none; padding-top: 6px; }
+.contribuicao .entrega {
+  margin-top: 36px;
+  display: grid; grid-template-columns: 140px 1fr; column-gap: 30px; align-items: center;
+  background: var(--noite); color: var(--papel);
+  border-left: 6px solid #C9A45C;
+  padding: 24px 34px;
+}
+.contribuicao .entrega span { font-size: 20px; color: rgba(247,247,244,.7); }
+.contribuicao .entrega p { font-family: var(--serifa); font-size: 28px; line-height: 1.36; margin: 0; }
+.contribuicao .entrega p b { color: #C9A45C; font-weight: 600; }
+
+/* ---------- 8c. Agenda de pesquisa futura (cap. 10) ----------------- */
+.futuro .evidencia {
+  display: grid;
+  grid-template-columns: 1fr 520px;
+  column-gap: 60px;
+  padding-top: 36px;
+  align-items: start;
+}
+.futuro .cab-fut { font-size: 20px; color: var(--grafite); padding-bottom: 8px; border-bottom: 1px solid var(--nevoa); }
+.futuro .linha-fut {
+  display: grid; grid-template-columns: 56px 1fr; column-gap: 22px; align-items: center;
+  min-height: 104px; border-bottom: 1px solid rgba(213, 218, 225, .7);
+}
+.futuro .linha-fut svg { width: 46px; height: 46px; }
+.futuro .linha-fut strong { display: block; font-family: var(--serifa); font-weight: 600; font-size: 28px; line-height: 1.15; color: var(--tinta); }
+.futuro .linha-fut span { font-size: 21px; line-height: 1.3; color: var(--grafite); }
+
+/* O que cada direção permitiria avançar: um cartão por vez */
+.futuro .avancos { position: relative; height: 420px; margin-top: 40px; }
+.futuro .avanco {
+  position: absolute; inset: 0 0 auto 0;
+  background: var(--noite); color: var(--papel);
+  border-top: 5px solid #C9A45C;
+  padding: 28px 32px 32px;
+}
+.futuro .avanco p { font-family: var(--serifa); font-size: 30px; line-height: 1.38; margin: 0; }
+.futuro .avanco p.n-fut {
+  font-family: var(--sem-serifa); font-size: 19px; line-height: 1.3; color: rgba(247,247,244,.7);
+  margin: 0 0 16px; padding-bottom: 8px; border-bottom: 1px solid rgba(247,247,244,.2);
+}
+.futuro .avanco p b { color: #C9A45C; font-weight: 600; }
+
+/* ---------- 8d. Considerações finais (cap. 11) ---------------------- */
+.consideracoes .quadro { display: block; padding-top: 72px; }
+.consideracoes .rotulo {
+  font-family: var(--serifa); font-weight: 600; font-size: 58px; line-height: 1.1;
+  color: var(--tinta); margin-bottom: 56px;
+}
+.consideracoes .corpo-fim { display: grid; grid-template-columns: 1fr 540px; column-gap: 70px; align-items: start; }
+.consideracoes blockquote {
+  margin: 0; padding-left: 38px; border-left: 6px solid var(--ouro);
+  font-family: var(--serifa); font-size: 46px; line-height: 1.32; color: var(--tinta);
+}
+.consideracoes blockquote b { font-weight: 600; color: var(--ouro); }
+.consideracoes .fonte-fim { font-size: 19px; color: var(--grafite); margin: 12px 0 0 44px; }
+
+/* O esboço do navio: 1552 */
+.consideracoes .travessia { display: grid; grid-template-columns: 250px 1fr; column-gap: 40px; align-items: center; margin-top: 70px; }
+.consideracoes .travessia svg { width: 250px; height: 180px; }
+.consideracoes .travessia svg path, .consideracoes .travessia svg line { fill: none; stroke: var(--ouro); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+.consideracoes .travessia svg .onda { stroke: #B7BFCA; stroke-dasharray: 6 6; }
+.consideracoes .travessia p { font-family: var(--serifa); font-size: 30px; line-height: 1.4; color: var(--tinta); margin: 0; }
+.consideracoes .travessia p span { font-family: var(--sem-serifa); font-size: 19px; color: var(--grafite); display: block; margin-bottom: 6px; }
+
+/* Ciência aberta */
+.consideracoes .aberta {
+  background: var(--noite); color: var(--papel);
+  border-top: 5px solid #C9A45C;
+  padding: 28px 32px 30px;
+}
+.consideracoes .aberta > p { font-size: 20px; color: rgba(247,247,244,.7); margin: 0 0 6px; padding-bottom: 8px; border-bottom: 1px solid rgba(247,247,244,.2); }
+.consideracoes .item-aberto { padding: 20px 0; border-bottom: 1px solid rgba(247,247,244,.14); }
+.consideracoes .item-aberto:last-child { border-bottom: none; padding-bottom: 0; }
+.consideracoes .item-aberto strong { display: block; font-family: var(--serifa); font-weight: 600; font-size: 30px; color: var(--papel); }
+.consideracoes .item-aberto span { font-size: 21px; line-height: 1.35; color: rgba(247,247,244,.82); word-break: break-word; }
+.consideracoes .item-aberto em { font-style: normal; color: #C9A45C; }
+
+.consideracoes .encerramento {
+  margin-top: 70px; font-family: var(--serifa); font-style: italic;
+  font-size: 30px; line-height: 1.4; color: var(--grafite); max-width: 1500px;
+}
+
+/* ---------- 8e. Agradecimentos e crédito final ---------------------- */
+.agradecimentos .quadro { display: block; padding-top: 96px; }
+.agradecimentos .obrigado {
+  font-family: var(--serifa); font-weight: 600; font-size: 150px; line-height: 1;
+  letter-spacing: -0.01em; color: var(--tinta); margin: 0 0 46px;
+}
+.agradecimentos .lista-agr { list-style: none; margin: 0; padding: 0; width: 760px; }
+.agradecimentos .lista-agr li {
+  display: grid; grid-template-columns: 1fr auto; column-gap: 20px; align-items: baseline;
+  padding: 15px 0; border-bottom: 1px solid rgba(86, 96, 110, .18);
+}
+.agradecimentos .lista-agr strong { font-family: var(--serifa); font-weight: 600; font-size: 27px; color: var(--tinta); }
+.agradecimentos .lista-agr span { font-family: var(--serifa); font-style: italic; font-size: 21px; color: var(--grafite); }
+
+/* O vídeo de crédito final, à direita */
+.agradecimentos .janela-video { left: 960px; top: 120px; width: 840px; height: 473px; background: #E9EDF2; box-shadow: 0 0 0 1px rgba(86, 96, 110, .25); }
+.agradecimentos .creditos-video { position: absolute; left: 960px; top: 606px; width: 840px; font-size: 20px; color: var(--grafite); }
+
+/* Rodapé institucional: logotipos e a frase obrigatória da CAPES */
+.agradecimentos .institucional {
+  position: absolute; left: var(--margem); right: var(--margem); bottom: 64px;
+  display: grid; grid-template-columns: auto 1fr; column-gap: 50px; align-items: center;
+  padding-top: 22px; border-top: 1px solid rgba(86, 96, 110, .25);
+}
+.agradecimentos .institucional .logos { display: flex; align-items: center; gap: 36px; }
+.agradecimentos .institucional .logos img { width: auto; opacity: .85; }
+.agradecimentos .capes { font-size: 18px; line-height: 1.4; color: var(--grafite); margin: 0; text-wrap: balance; }
