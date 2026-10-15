@@ -1842,8 +1842,27 @@
 .agradecimentos .lista-agr span { font-family: var(--serifa); font-style: italic; font-size: 21px; color: var(--grafite); }
 
 /* O vídeo de crédito final, à direita */
-.agradecimentos .janela-video { left: 960px; top: 120px; width: 840px; height: 473px; background: #E9EDF2; box-shadow: 0 0 0 1px rgba(86, 96, 110, .25); }
 .agradecimentos .creditos-video { position: absolute; left: 960px; top: 606px; width: 840px; font-size: 20px; color: var(--grafite); }
+
+/* Capa estática do Delinéia, no lugar do antigo vídeo de crédito */
+.agradecimentos .capa-final {
+  position: absolute; left: 960px; top: 120px; width: 840px; height: 473px;
+  margin: 0; background: #E9EDF2;
+  box-shadow: 0 0 0 1px rgba(86, 96, 110, .25);
+}
+.agradecimentos .capa-final img { width: 100%; height: 100%; object-fit: contain; display: block; }
+
+/* Contatos, abaixo da lista */
+.agradecimentos .contatos { margin-top: 44px; }
+.agradecimentos .contatos p {
+  font-size: 20px; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--grafite); margin: 0 0 10px;
+}
+.agradecimentos .contatos a {
+  display: block; font-size: 30px; line-height: 1.5;
+  color: var(--tinta); text-decoration: none;
+}
+.agradecimentos .contatos a::before { content: "→  "; color: var(--ouro); }
 
 /* Rodapé institucional: logotipos e a frase obrigatória da CAPES */
 .agradecimentos .institucional {
@@ -1854,3 +1873,70 @@
 .agradecimentos .institucional .logos { display: flex; align-items: center; gap: 36px; }
 .agradecimentos .institucional .logos img { width: auto; opacity: .85; }
 .agradecimentos .capes { font-size: 18px; line-height: 1.4; color: var(--grafite); margin: 0; text-wrap: balance; }
+
+/* 5x. O bibliotecário como delineador (palestra Lumen) */
+.bibliotecario .corpo-bib {
+  display: grid;
+  grid-template-columns: 640px 1fr;
+  column-gap: 110px;
+  margin-top: 48px;
+}
+.bibliotecario .prologo {
+  border-left: 3px solid var(--ouro);
+  padding-left: 40px;
+}
+.bibliotecario .prologo svg { width: 190px; height: 136px; display: block; }
+.bibliotecario .prologo svg path,
+.bibliotecario .prologo svg line { fill: none; stroke: var(--tinta); stroke-width: 2.4; }
+.bibliotecario .prologo svg .onda { stroke: var(--ouro); }
+.bibliotecario .prologo .ano {
+  font-family: var(--serifa);
+  font-size: 30px;
+  letter-spacing: 0.08em;
+  color: var(--ouro);
+  margin: 14px 0 18px;
+}
+.bibliotecario .prologo blockquote {
+  font-family: var(--serifa);
+  font-style: italic;
+  font-size: 36px;
+  line-height: 1.36;
+  margin: 0 0 22px;
+  color: var(--tinta);
+}
+.bibliotecario .fonte-bib { font-size: 22px; color: var(--grafite); margin: 0; }
+
+.bibliotecario .gestos { list-style: none; margin: 0; padding: 0; counter-reset: gesto; }
+.bibliotecario .gestos li {
+  counter-increment: gesto;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  column-gap: 20px;
+  margin-bottom: 40px;
+}
+.bibliotecario .gestos li::before {
+  content: counter(gesto);
+  grid-row: span 2;
+  font-family: var(--serifa);
+  font-size: 44px;
+  line-height: 1;
+  color: var(--ouro);
+}
+.bibliotecario .gestos strong { font-weight: 600; font-size: 34px; color: var(--tinta); }
+.bibliotecario .gestos span { font-size: 29px; line-height: 1.4; color: var(--grafite); margin-top: 6px; }
+
+.bibliotecario .direita-bib { position: relative; }
+.bibliotecario .pergunta-bib {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  margin: 0;
+  font-family: var(--serifa);
+  font-size: 54px;
+  line-height: 1.3;
+  color: var(--tinta);
+  border-left: 3px solid var(--ouro);
+  padding-left: 40px;
+}
